@@ -15,17 +15,17 @@ function Login() {
 
                     <div className={`w-full h-full flex items-center justify-center`}>
                         {/* Login Card */}
-                        <div className={`max-w-[500px] w-full h-fit border rounded-xl border-greyist py-8 px-10 flex flex-col items-center space-y-10`}>
+                        <div className={`max-w-[500px] w-full h-fit border rounded-xl border-greyist py-8 px-6 lg:px-10 flex flex-col items-center space-y-8 lg:space-y-10`}>
                             <h1 className={`text-xl text-text font-semibold`}>Log In</h1>
 
                             <div className={`w-full flex flex-col space-y-8`}>
-                                <div className={`w-full`}>
-                                    <label className={`text-md text-text font-medium`}>Student ID</label>
-                                    <input type="text" className={`w-full h-10 outline-none border-b-2 border-text text-md`} id="studentID" placeholder="Enter your Student ID"></input>
+                                <div className={`w-full text-md text-text `}>
+                                    <label className={`font-medium`}>Student ID</label>
+                                    <input type="text" className={`w-full h-10 outline-none border-b-2 border-text`} id="studentID" placeholder="Enter your Student ID"></input>
                                 </div>
-                                <div className={`w-full`}>
-                                    <label className={`text-md text-text font-medium`}>Password</label>
-                                    <input type="password" className={`w-full h-10 outline-none border-b-2 border-text text-md`} id="password" placeholder="Enter your password"></input>
+                                <div className={`w-full text-md text-text `}>
+                                    <label className={`font-medium`}>Password</label>
+                                    <input type="password" className={`w-full h-10 outline-none border-b-2 border-text`} id="password" placeholder="Enter your password"></input>
                                 </div>
                                 <button className={`w-full h-fit bg-primary py-2 rounded-md`}>
                                     <span className={`text-white text-lg font-medium`}>Log In</span>
@@ -38,7 +38,7 @@ function Login() {
                         </div>
                     </div>
 
-                    <div className={`hidden lg:flex flex items-center`}>
+                    <div className={`hidden lg:flex items-center`}>
                         <img src="/images/data-extraction-pana.png" alt="" className={`w-lg`}/>
                     </div>
                 </div>
