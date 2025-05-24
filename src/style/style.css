@@ -2,20 +2,24 @@
 
 :root {
     --txt: #1D1D1D;
-    --bg: #F9F9F9;
+    --bg: #FFFFFF;
     --prm: #C8010B;
+    --acc: #F6F8FA;
 }
 
 [data-theme="dark"] {
-    --txt: #F9F9F9;
+    --txt: #FFFFFF;
     --bg: #1D1D1D;
     --prm: #C8010B;
+    --acc: #F6F8FA;
 }
 
 @theme inline {
     --color-text: var(--txt);
     --color-background: var(--bg);
     --color-primary: var(--prm);
+    --color-accent: var(--acc);
+    --color-greyist: #D1D9E0;
 }
 
 * {
