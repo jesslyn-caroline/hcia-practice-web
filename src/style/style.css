@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+:root {
+    --txt: #1D1D1D;
+    --bg: #F9F9F9;
+    --prm: #C8010B;
+}
+
+[data-theme="dark"] {
+    --txt: #F9F9F9;
+    --bg: #1D1D1D;
+    --prm: #C8010B;
+}
+
+@theme inline {
+    --color-text: var(--txt);
+    --color-background: var(--bg);
+    --color-primary: var(--prm);
+}
+
+* {
+    font-family: "Poppins", sans-serif;
+}
