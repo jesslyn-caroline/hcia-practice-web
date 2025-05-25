@@ -5,6 +5,8 @@ import LoginCard from './components/login_card.tsx'
 import SignupCard from './components/signup_card.tsx'
 
 import Layout from './screens/layout.tsx'
+import CreateQuestion from './screens/create_question.tsx'
+import Home from './screens/home.tsx'
 
 function App() {
 
@@ -15,7 +17,8 @@ function App() {
         <Route path="/signup" element={<SignupCard />} />
       </Route>
       <Route path="/" element={<Layout/>}>
-        <Route index element={<h1>Home</h1>} />
+        <Route index element={<Home />} />
+        <Route path="/create-question" element={<CreateQuestion />} />
       </Route>
     </Routes>
   )
