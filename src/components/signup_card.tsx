@@ -79,7 +79,7 @@ function SignupCard() {
                 </div>
                 <div className={`w-full text-sm text-text`}>
                     <label className={`font-medium`}>Confirm Password</label>
-                    <input type="confirmPassword" className={`w-full py-2 outline-none border-b-2 border-text`} id="confirmPassword" placeholder="Confirm your password" onChange={handlePasswordChange}></input>
+                    <input type="confirmPassword" className={`w-full py-2 outline-none border-b-2 border-text`} id="confirmPassword" placeholder="Confirm your password" onChange={handleConfirmPasswordChange}></input>
                     <div className={`${confirmPasswordErrMessage === "" ? "hidden" : ""} absolute text-xs text-red-500 mt-1`}>{confirmPasswordErrMessage}</div>
                 </div>
                 <div className={`w-full text-sm text-text`}>
