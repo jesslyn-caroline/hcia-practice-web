@@ -3,7 +3,7 @@ import { Outlet } from 'react-router'
 function LoginSignupLayout() {
     return(
         <div className={`w-full flex justify-center`}>
-            <div className={`max-w-[1620px] max-h-[1040px] h-screen w-screen bg-background flex flex-col`}>
+            <div className={`max-w-[1620px] max-h-[1040px] h-full w-full bg-background flex flex-col`}>
                 
                 {/* Header */}
                 <div className={`w-full min-h-14 h-14 bg-accent border-b-1 border-greyist px-10 lg:px-20 flex items-center`}>
