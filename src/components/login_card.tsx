@@ -2,7 +2,7 @@ import { Link } from "react-router"
 
 function LoginCard() {
     return(
-        <div className={`w-full h-full flex items-center justify-center`}>
+        <div className={`w-full h-full flex justify-center pt-14`}>
             {/* Login Card */}
             <div className={`max-w-[400px] w-full h-fit border rounded-xl border-greyist py-8 px-6 lg:px-10 flex flex-col items-center`}>
                 <h1 className={`text-lg text-text font-semibold`}>Log In</h1>
