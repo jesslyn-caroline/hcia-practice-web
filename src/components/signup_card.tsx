@@ -5,35 +5,35 @@ function SignupCard() {
 
     const [studentID, setStudentID] = useState<string>("")
     const [studentIDErrMessage, setStudentIDErrMessage] = useState<string>("")
-    const handleStudentIDchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleStudentIDchange = (e: React.ChangeEvent<HTMLInputElement>):void => {
         setStudentID(e.target.value)
     }
 
     const [studentName, setStudentName] = useState<string>("")
     const [studentNameErrMessage, setStudentNameErrMessage] = useState<string>("")
-    const handleStudentNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleStudentNameChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
         setStudentName(e.target.value)
     }
 
     const [password, setPassword] = useState<string>("")
     const [passwordErrMessage, setPasswordErrMessage] = useState<string>("")
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setPassword(e.target.value)
     }
 
     const [confirmPassword, setConfirmPassword] = useState<string>("")
     const [confirmPasswordErrMessage, setConfirmPasswordErrMessage] = useState<string>("")
-    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
         setConfirmPassword(e.target.value)
     }
 
     const [studentClass, setStudentClass] = useState<string>("none")
     const [studentClassErrMessage, setStudentClassErrMessage] = useState<string>("")
-    const handleStudentClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleStudentClassChange = (e: React.ChangeEvent<HTMLSelectElement>):void => {
         setStudentClass(e.target.value)
     }
 
-    const authentication = () => {
+    const authentication = ():void => {
         if (studentID === "") setStudentIDErrMessage("Please enter your student ID")
         else if (studentID.length !== 9) setStudentIDErrMessage("Invalid Student ID")
         else setStudentIDErrMessage("")
@@ -52,11 +52,13 @@ function SignupCard() {
         if (studentClass === "none") setStudentClassErrMessage("Please select a class")
         else setStudentClassErrMessage("")
 
+        if (studentIDErrMessage !== "" || studentNameErrMessage !== "" || passwordErrMessage !== "" || confirmPasswordErrMessage !== "" || studentClassErrMessage !== "") return;
+
         // auth process
     }
 
     return(
-        <div className={`w-full h-full flex items-center justify-center py-14`}>
+        <div className={`w-full h-full flex justify-center py-14`}>
         {/* Sign Up Card */}
         <div className={`max-w-[400px] w-full h-fit border rounded-xl border-greyist py-8 px-6 lg:px-10 flex flex-col items-center`}>
             <h1 className={`text-lg text-text font-semibold`}>Create Account</h1>
