@@ -21,6 +21,12 @@ function Signup() {
         setPassword(e.target.value)
     }
 
+    const [confirmPassword, setConfirmPassword] = useState<string>("")
+    const [confirmPasswordErrMessage, setConfirmPasswordErrMessage] = useState<string>("")
+    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setConfirmPassword(e.target.value)
+    }
+
     const [studentClass, setStudentClass] = useState<string>("none")
     const [studentClassErrMessage, setStudentClassErrMessage] = useState<string>("")
     const handleStudentClassChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -38,6 +44,10 @@ function Signup() {
         if (password === "") setPasswordErrMessage("Please enter your password")
         else if (password.length < 8) setPasswordErrMessage("Password should be at least 8 characters long")
         else setPasswordErrMessage("")
+
+        if (confirmPassword === "") setConfirmPasswordErrMessage("Please confirm your password")
+        else if (confirmPassword !== password) setConfirmPasswordErrMessage("Password doesn't not match")
+        else setConfirmPasswordErrMessage("")
 
         if (studentClass === "none") setStudentClassErrMessage("Please select a class")
         else setStudentClassErrMessage("")
@@ -76,6 +86,11 @@ function Signup() {
                                     <label className={`font-medium`}>Password</label>
                                     <input type="password" className={`w-full py-2 outline-none border-b-2 border-text`} id="password" placeholder="Enter your password" onChange={handlePasswordChange}></input>
                                     <div className={`${passwordErrMessage === "" ? "hidden" : ""} absolute text-xs text-red-500 mt-1`}>{passwordErrMessage}</div>
+                                </div>
+                                <div className={`w-full text-sm text-text`}>
+                                    <label className={`font-medium`}>Confirm Password</label>
+                                    <input type="confirmPassword" className={`w-full py-2 outline-none border-b-2 border-text`} id="confirmPassword" placeholder="Confirm your password" onChange={handlePasswordChange}></input>
+                                    <div className={`${confirmPasswordErrMessage === "" ? "hidden" : ""} absolute text-xs text-red-500 mt-1`}>{confirmPasswordErrMessage}</div>
                                 </div>
                                 <div className={`w-full text-sm text-text`}>
                                     <label className={`font-medium`}>Class</label>
