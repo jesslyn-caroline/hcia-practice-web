@@ -5,8 +5,8 @@ export const UserContext = createContext({
     studentName: "",
     password: "",
     studentClass: "",
-    handleStudentIDchange: (e: React.ChangeEvent<HTMLInputElement>) => {},
-    handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => {},
+    handleStudentIDchange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
+    handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     login: () => {}
 })
 
@@ -25,6 +25,8 @@ function UserProvider({children} : {children : React.ReactNode}) {
     }
 
     function login() {
+        setStudentName("") // dummy
+        setStudentClass("") // dummy
         // fetch process
 
         return
