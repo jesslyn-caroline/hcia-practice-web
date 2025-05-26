@@ -1,11 +1,12 @@
-import { createContext, useState} from "react"
+import { createContext, useState } from "react"
 import axios from "axios"
 
 export const UserContext = createContext({
     userId: "", 
-    userName: "",
-    password: "",
+    message: "",
+    username: "",
     studentClass: "",
+    role: "",
     handleUserIdChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     login: () => {}
@@ -13,9 +14,13 @@ export const UserContext = createContext({
 
 function UserProvider({children} : {children : React.ReactNode}) {
     const [userId, setUserId] = useState<string>("")
-    const [userName, setUserName] = useState<string>("")
     const [password, setPassword] = useState<string>("")
+
+    const [message, setMessage] = useState<string>("")
+
+    const [username, setUsername] = useState<string>("")
     const [studentClass, setStudentClass] = useState<string>("")
+    const [role, setRole] = useState<string>("")
 
     function handleUserIdChange(e: React.ChangeEvent<HTMLInputElement>):void {
         setUserId(e.target.value)
@@ -25,12 +30,18 @@ function UserProvider({children} : {children : React.ReactNode}) {
         setPassword(e.target.value)
     }
 
-    async function login() {
-        console.log(userId)
+    async function login():Promise<void> {
         try {
-            const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/user/${userId}`)
-            setUserName(response.data.username)
-            setStudentClass(response.data.class)
+            const response = await axios.post(`https://huawei-practice-web-backend.vercel.app/api/user`, {userId, password})
+
+            if (response.status === 200) {
+                setUsername(response.data.username)
+                setStudentClass(response.data.studentClass)
+                setRole(response.data.role)
+
+                setPassword("")
+            }
+            setMessage(response.data.message)
         }
         catch (err) {
             console.log(err)
@@ -38,7 +49,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
     }
 
     return (
-        <UserContext.Provider value={{userId, userName, password, studentClass, handleUserIdChange, handlePasswordChange, login}}>
+        <UserContext.Provider value={{userId, message, username, studentClass, role, handleUserIdChange, handlePasswordChange, login}}>
             {children}
         </UserContext.Provider>
     )
