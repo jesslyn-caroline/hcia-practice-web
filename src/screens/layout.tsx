@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router"
+import { Link } from "react-router"
 
 function Layout() {
     return(
