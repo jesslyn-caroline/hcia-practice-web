@@ -7,7 +7,9 @@ import SignupCard from './components/signup_card.tsx'
 import Layout from './screens/layout.tsx'
 import CreateQuestion from './screens/create_question.tsx'
 import Home from './screens/home.tsx'
+
 import UserProvider from './provider/user_context.tsx'
+import SignupProvider from './provider/signup_context.tsx'
 
 function App() {
 
@@ -16,7 +18,11 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginSignupLayout />} >
           <Route path="/login" element={<LoginCard />} />
-          <Route path="/signup" element={<SignupCard />} />
+          <Route path="/signup" element={
+            <SignupProvider>
+              <SignupCard />
+            </SignupProvider>
+          } />
         </Route>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
@@ -24,7 +30,6 @@ function App() {
         </Route>
       </Routes>
     </UserProvider>
-    
   )
 }
 
