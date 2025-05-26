@@ -1,39 +1,44 @@
 import { createContext, useState} from "react"
+import axios from "axios"
 
 export const UserContext = createContext({
-    studentID: "", 
-    studentName: "",
+    userId: "", 
+    userName: "",
     password: "",
     studentClass: "",
-    handleStudentIDchange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
+    handleUserIdChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     login: () => {}
 })
 
 function UserProvider({children} : {children : React.ReactNode}) {
-    const [studentID, setStudentID] = useState<string>("")
-    const [studentName, setStudentName] = useState<string>("")
+    const [userId, setUserId] = useState<string>("")
+    const [userName, setUserName] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [studentClass, setStudentClass] = useState<string>("")
 
-    function handleStudentIDchange(e: React.ChangeEvent<HTMLInputElement>):void {
-        setStudentID(e.target.value)
+    function handleUserIdChange(e: React.ChangeEvent<HTMLInputElement>):void {
+        setUserId(e.target.value)
     }
 
     function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>):void {
         setPassword(e.target.value)
     }
 
-    function login() {
-        setStudentName("") // dummy
-        setStudentClass("") // dummy
-        // fetch process
-
-        return
+    async function login() {
+        console.log(userId)
+        try {
+            const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/user/${userId}`)
+            setUserName(response.data.username)
+            setStudentClass(response.data.class)
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
     return (
-        <UserContext.Provider value={{studentID, studentName, password, studentClass, handleStudentIDchange, handlePasswordChange, login}}>
+        <UserContext.Provider value={{userId, userName, password, studentClass, handleUserIdChange, handlePasswordChange, login}}>
             {children}
         </UserContext.Provider>
     )
