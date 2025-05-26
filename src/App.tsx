@@ -7,20 +7,24 @@ import SignupCard from './components/signup_card.tsx'
 import Layout from './screens/layout.tsx'
 import CreateQuestion from './screens/create_question.tsx'
 import Home from './screens/home.tsx'
+import UserProvider from './provider/user_context.tsx'
 
 function App() {
 
   return (
-    <Routes>
-      <Route path="/" element={<LoginSignupLayout />} >
-        <Route path="/login" element={<LoginCard />} />
-        <Route path="/signup" element={<SignupCard />} />
-      </Route>
-      <Route path="/" element={<Layout/>}>
-        <Route index element={<Home />} />
-        <Route path="/create-question" element={<CreateQuestion />} />
-      </Route>
-    </Routes>
+    <UserProvider>
+      <Routes>
+        <Route path="/" element={<LoginSignupLayout />} >
+          <Route path="/login" element={<LoginCard />} />
+          <Route path="/signup" element={<SignupCard />} />
+        </Route>
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<Home />} />
+          <Route path="/create-question" element={<CreateQuestion />} />
+        </Route>
+      </Routes>
+    </UserProvider>
+    
   )
 }
 
