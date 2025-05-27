@@ -108,7 +108,7 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
 
         if (!valid) return;
 
-        const response = await axios.post("https://huawei-practice-web-backend.vercel.app/api/user", 
+        const response = await axios.post("https://huawei-practice-web-backend.vercel.app/api/user/signup", 
             {userId, username, password, class: studentClass, role: "student"})
         
         setMessage(response.data.message)
