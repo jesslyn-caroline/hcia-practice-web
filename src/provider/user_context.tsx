@@ -8,6 +8,8 @@ export const UserContext = createContext({
     username: "",
     studentClass: "",
     role: "",
+    userIdErrMessage: "",
+    passwordErrMessage: "",
     handleUserIdChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     login: () => {}
@@ -17,7 +19,10 @@ function UserProvider({children} : {children : React.ReactNode}) {
     const navigate = useNavigate()
 
     const [userId, setUserId] = useState<string>("")
+    const [userIdErrMessage, setUserIdErrMessage] = useState<string>("")
+
     const [password, setPassword] = useState<string>("")
+    const [passwordErrMessage, setPasswordErrMessage] = useState<string>("")
 
     const [message, setMessage] = useState<string>("")
 
@@ -33,7 +38,29 @@ function UserProvider({children} : {children : React.ReactNode}) {
         setPassword(e.target.value)
     }
 
+    function validation():boolean {
+        let valid:boolean = true
+
+        if (userId === "") {
+            setUserIdErrMessage("User ID is required")
+            valid = false
+        }
+        else setUserIdErrMessage("")
+
+        if (password.length === 0) {
+            setPasswordErrMessage("Password is required")
+            valid = false
+        }
+        else setPasswordErrMessage("")
+
+        return valid
+    }
+
     async function login():Promise<void> {
+        let valid:boolean = validation()
+
+        if (!valid) return
+
         try {
             const response = await axios.post(`https://huawei-practice-web-backend.vercel.app/api/user/login`, {userId, password})
 
@@ -46,7 +73,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
 
                 navigate("/")
             }
-            
+
             setMessage(response.data.message)
         }
         catch (err) {
@@ -55,7 +82,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
     }
 
     return (
-        <UserContext.Provider value={{userId, message, username, studentClass, role, handleUserIdChange, handlePasswordChange, login}}>
+        <UserContext.Provider value={{userId, message, username, studentClass, role, userIdErrMessage, passwordErrMessage, handleUserIdChange, handlePasswordChange, login}}>
             {children}
         </UserContext.Provider>
     )
