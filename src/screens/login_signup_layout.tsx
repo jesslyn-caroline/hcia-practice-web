@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router'
+import { ToastContainer, Bounce } from 'react-toastify';
 
 function LoginSignupLayout() {
     return(
@@ -17,6 +18,19 @@ function LoginSignupLayout() {
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
         </div>
     )
 }

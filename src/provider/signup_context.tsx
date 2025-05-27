@@ -1,10 +1,9 @@
 import { createContext, useState } from "react"
 import { useNavigate } from "react-router"
 import axios from "axios"
+import { toast, Bounce } from "react-toastify"
 
 export const SignupContext = createContext({
-    message: "",
-
     userIdErrMessage: "",
     usernameErrMessage: "",
     passwordErrMessage: "",
@@ -22,8 +21,6 @@ export const SignupContext = createContext({
 
 function SignupProvider({ children } : {children : React.ReactNode} ) {
     const navigate = useNavigate()
-
-    const [message, setMessage] = useState<string>("")
 
     const [userId, setUserId] = useState<string>("")
     const [userIdErrMessage, setUserIdErrMessage] = useState<string>("")
@@ -108,16 +105,49 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
 
         if (!valid) return;
 
-        const response = await axios.post("https://huawei-practice-web-backend.vercel.app/api/user/signup", 
-            {userId, username, password, class: studentClass, role: "student"})
-        
-        setMessage(response.data.message)
+        try {
+            const response = await axios.post("https://huawei-practice-web-backend.vercel.app/api/user/signup", 
+                {userId, username, password, class: studentClass, role: "student"})
+            
+    
+            if (response.status === 201) {
+                toast.success(response.data.message, {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                })
+    
+                setTimeout(() => {
+                    navigate("/login")
+                }, 3000)
+            }
+        }
+        catch (err:any) {
+            console.log(err)
+            toast.error(err.response.data.message, {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            })
+        }
 
-        if (response.status === 201) navigate("/login")
+        
     }
 
     return (
-        <SignupContext.Provider value={{ message, userIdErrMessage, usernameErrMessage, passwordErrMessage, confirmPasswordErrMessage, studentClassErrMessage, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup }}>
+        <SignupContext.Provider value={{ userIdErrMessage, usernameErrMessage, passwordErrMessage, confirmPasswordErrMessage, studentClassErrMessage, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup }}>
             {children}
         </SignupContext.Provider>
     )

@@ -1,10 +1,10 @@
 import { createContext, useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router"
+import { toast, Bounce } from "react-toastify"
 
 export const UserContext = createContext({
     userId: "", 
-    message: "",
     username: "",
     studentClass: "",
     role: "",
@@ -23,8 +23,6 @@ function UserProvider({children} : {children : React.ReactNode}) {
 
     const [password, setPassword] = useState<string>("")
     const [passwordErrMessage, setPasswordErrMessage] = useState<string>("")
-
-    const [message, setMessage] = useState<string>("")
 
     const [username, setUsername] = useState<string>("")
     const [studentClass, setStudentClass] = useState<string>("")
@@ -71,18 +69,41 @@ function UserProvider({children} : {children : React.ReactNode}) {
 
                 setPassword("")
 
-                navigate("/")
-            }
+                toast.success(response.data.message, {
+                    position: "bottom-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                })
 
-            setMessage(response.data.message)
+                setTimeout(() => {
+                    navigate("/")
+                }, 3000)
+            }
         }
-        catch (err) {
+        catch (err:any) {
             console.log(err)
+            toast.error(err.response.data.message, {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            })
         }
     }
 
     return (
-        <UserContext.Provider value={{userId, message, username, studentClass, role, userIdErrMessage, passwordErrMessage, handleUserIdChange, handlePasswordChange, login}}>
+        <UserContext.Provider value={{userId, username, studentClass, role, userIdErrMessage, passwordErrMessage, handleUserIdChange, handlePasswordChange, login}}>
             {children}
         </UserContext.Provider>
     )
