@@ -1,31 +1,37 @@
-import { Link } from "react-router"
+import { Link, Outlet } from "react-router"
 
 function Layout() {
     return(
         <div className={`w-full flex justify-center`}>
-            <div className={`max-w-[1620px] max-h-[1040px] h-full w-full bg-background flex flex-col`}>
-                {/* Header */}
-                <div className={`w-full min-h-14 h-14 bg-accent border-b-1 border-greyist px-6 lg:px-20 z-10 flex justify-between items-center`}>
-                    <h1 className={`text-xl text-primary font-semibold`}>HCIA Practice</h1>
+            <div className={`max-w-[1620px] max-h-[1040px] w-full h-screen bg-background flex flex-row`}>
+                {/* Left SideBar */}
+                <div className={`w-1/4 h-full border-r-1 border-greyist`}>
+                    <div className={`w-full min-h-14 h-14 px-6 flex items-center`}>
+                        <h1 className={`text-xl text-primary font-semibold`}>HCIA Practice</h1>
+                    </div>
+                    <div className={`pl-6 flex flex-col py-2`}>
+                        <div className={`border-l-2 border-greyist hover:border-primary transition-all`}>
+                            <Link to="/" className={`w-full px-6 py-1 flex items-center hover:font-semibold transition-all`}>Home</Link>
+                        </div>
+                        <div className={`border-l-2 border-greyist hover:border-primary transition-all`}>
+                            <Link to="/home" className={`w-full px-6 py-1 flex items-center hover:font-semibold transition-all`}>Home</Link>
+                        </div>
+                        <div className={`border-l-2 border-greyist hover:border-primary transition-all`}>
+                            <Link to="/home" className={`w-full px-6 py-1 flex items-center hover:font-semibold transition-all`}>Home</Link>
+                        </div>
+                        <div className={`border-l-2 border-greyist hover:border-primary transition-all`}>
+                            <Link to="/home" className={`w-full px-6 py-1 flex items-center hover:font-semibold transition-all`}>Home</Link>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Content */}
-                <div className={`w-full h-full flex flex-row`}>
-                    <div className={`min-w-fit w-fit flex flex-col`}>
-                        <Link to="/" className={`flex flex-row`}>
-                            <i className={`ri-home-2-line`}/>
-                            <span>Home</span>
-                        </Link>
-                        <Link to="/" className={`flex flex-row`}>
-                            <i className={`ri-home-2-line`}/>
-                            <span></span>
-                        </Link>
+                <div className={`w-full`}>
+                    <div className={`w-full min-h-14 h-14 px-6 bg-accent border-b-1 border-greyist flex items-center`}>
                     </div>
-                    <div className={`w-full`}>
-
+                    <div className={`px-10 py-6`}>
+                        <Outlet />
                     </div>
                 </div>
-                
             </div>
         </div>
     )
