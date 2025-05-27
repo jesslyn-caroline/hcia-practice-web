@@ -1,5 +1,6 @@
 import { createContext, useState } from "react"
 import axios from "axios"
+import { useNavigate } from "react-router"
 
 export const UserContext = createContext({
     userId: "", 
@@ -13,6 +14,8 @@ export const UserContext = createContext({
 })
 
 function UserProvider({children} : {children : React.ReactNode}) {
+    const navigate = useNavigate()
+
     const [userId, setUserId] = useState<string>("")
     const [password, setPassword] = useState<string>("")
 
@@ -32,7 +35,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
 
     async function login():Promise<void> {
         try {
-            const response = await axios.post(`https://huawei-practice-web-backend.vercel.app/api/user`, {userId, password})
+            const response = await axios.post(`https://huawei-practice-web-backend.vercel.app/api/user/login`, {userId, password})
 
             if (response.status === 200) {
                 setUsername(response.data.username)
@@ -40,7 +43,10 @@ function UserProvider({children} : {children : React.ReactNode}) {
                 setRole(response.data.role)
 
                 setPassword("")
+
+                navigate("/")
             }
+            
             setMessage(response.data.message)
         }
         catch (err) {
