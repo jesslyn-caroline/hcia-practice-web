@@ -63,9 +63,9 @@ function UserProvider({children} : {children : React.ReactNode}) {
             const response = await axios.post(`https://huawei-practice-web-backend.vercel.app/api/user/login`, {userId, password})
 
             if (response.status === 200) {
-                setUsername(response.data.username)
-                setStudentClass(response.data.studentClass)
-                setRole(response.data.role)
+                setUsername(response.data.user.username)
+                setStudentClass(response.data.user.studentClass)
+                setRole(response.data.user.role)
 
                 setPassword("")
 
@@ -84,6 +84,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
                 setTimeout(() => {
                     navigate("/")
                 }, 3000)
+                console.log(response.data.username)
             }
         }
         catch (err:any) {
