@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router'
+import { Routes, Route, Navigate } from 'react-router'
+import { useContext } from 'react'
 
 import LoginSignupLayout from './screens/login_signup_layout.tsx'
 import LoginCard from './components/login_card.tsx'
@@ -8,28 +9,40 @@ import Layout from './screens/layout.tsx'
 import CreateQuestion from './screens/create_question.tsx'
 import Home from './screens/home.tsx'
 
-import UserProvider from './provider/user_context.tsx'
+import { UserContext } from './provider/user_context.tsx'
 import SignupProvider from './provider/signup_context.tsx'
 
 function App() {
 
+  const { role } = useContext(UserContext)
+
   return (
-    <UserProvider>
-      <Routes>
-        <Route path="/" element={<LoginSignupLayout />} >
-          <Route path="/login" element={<LoginCard />} />
-          <Route path="/signup" element={
-            <SignupProvider>
-              <SignupCard />
-            </SignupProvider>
-          } />
-        </Route>
+    <Routes>
+      {/* == if user tries to access "/" without log in == */}
+      <Route path="/" element={<Navigate to="/login" />} />
+
+      {/* == login and sign up == */}
+      <Route element={<LoginSignupLayout />} >
+        <Route path="/login" element={<LoginCard />} />
+        <Route path="/signup" element={
+          <SignupProvider>
+            <SignupCard />
+          </SignupProvider>
+        } />
+      </Route>
+
+      {/* == routes for student == */}
+      {
+        role === "student"? 
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
           <Route path="/create-question" element={<CreateQuestion />} />
-        </Route>
-      </Routes>
-    </UserProvider>
+        </Route> : null
+      }
+      
+      {/* == unauthorized == */}
+      <Route path="*" element={<h1>Unauthorized</h1>} />
+    </Routes>
   )
 }
 
