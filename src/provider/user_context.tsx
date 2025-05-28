@@ -18,15 +18,15 @@ export const UserContext = createContext({
 function UserProvider({children} : {children : React.ReactNode}) {
     const navigate = useNavigate()
 
-    const [userId, setUserId] = useState<string>("")
+    const [userId, setUserId] = useState<string>(getDataFromSession("userId"))
     const [userIdErrMessage, setUserIdErrMessage] = useState<string>("")
 
     const [password, setPassword] = useState<string>("")
     const [passwordErrMessage, setPasswordErrMessage] = useState<string>("")
 
-    const [username, setUsername] = useState<string>("")
-    const [studentClass, setStudentClass] = useState<string>("")
-    const [role, setRole] = useState<string>("")
+    const [username, setUsername] = useState<string>(getDataFromSession("username"))
+    const [studentClass, setStudentClass] = useState<string>(getDataFromSession("studentClass"))
+    const [role, setRole] = useState<string>(getDataFromSession("role"))
 
     function handleUserIdChange(e: React.ChangeEvent<HTMLInputElement>):void {
         setUserId(e.target.value)
@@ -34,6 +34,10 @@ function UserProvider({children} : {children : React.ReactNode}) {
 
     function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>):void {
         setPassword(e.target.value)
+    }
+
+    function getDataFromSession(data: string):string {
+        return sessionStorage.getItem(data) || ""
     }
 
     function validation():boolean {
@@ -66,6 +70,11 @@ function UserProvider({children} : {children : React.ReactNode}) {
                 setUsername(response.data.user.username)
                 setStudentClass(response.data.user.studentClass)
                 setRole(response.data.user.role)
+
+                sessionStorage.setItem("userId", response.data.user.userId)
+                sessionStorage.setItem("username", response.data.user.username)
+                sessionStorage.setItem("studentClass", response.data.user.studentClass)
+                sessionStorage.setItem("role", response.data.user.role)
 
                 setPassword("")
 
