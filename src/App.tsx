@@ -36,6 +36,13 @@ function App() {
         role === "student"? 
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
+        </Route> : null
+      }
+
+      {
+        role === "admin"? 
+        <Route path="/" element={<Layout/>}>
+          <Route index element={<Home />} />
           <Route path="/create-question" element={<CreateQuestion />} />
         </Route> : null
       }
