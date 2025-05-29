@@ -142,8 +142,6 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
                 transition: Bounce,
             })
         }
-
-        
     }
 
     return (

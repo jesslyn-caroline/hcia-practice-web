@@ -4,13 +4,16 @@ import { BrowserRouter } from 'react-router'
 
 import App from './App.tsx'
 import UserProvider from './provider/user_context.tsx'
+import CreateQuestionProvider from './provider/create_question_context.tsx'
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <CreateQuestionProvider>
+          <App />
+        </CreateQuestionProvider>
       </UserProvider>
     </BrowserRouter>
   </StrictMode>,
