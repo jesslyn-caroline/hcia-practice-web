@@ -2,20 +2,26 @@ import { useContext } from "react"
 import { Link } from "react-router"
 
 import { SignupContext } from "../provider/signup_context"
+import { ErrorMessageContext } from "../provider/error_message_context"
 
 function SignupCard() {
-    const { userIdErrMessage, 
-        usernameErrMessage, 
-        passwordErrMessage, 
-        confirmPasswordErrMessage, 
-        studentClassErrMessage, 
+    const { 
         handleUserIdChange,
         handleUsernameChange,
         handlePasswordChange,
         handleConfirmPasswordChange,
         handleStudentClassChange,
         signup
-     } = useContext(SignupContext)
+    } = useContext(SignupContext)
+
+    const {
+        userIdErrMessage,
+        usernameErrMessage,
+        passwordErrMessage,
+        confirmPasswordErrMessage,
+        studentClassErrMessage,
+        resetErrMessage
+    } = useContext(ErrorMessageContext)
 
     return(
         // <SignupProvider>
@@ -64,7 +70,7 @@ function SignupCard() {
                 </div>
 
                 <div className={`w-full mt-6`}>
-                    <h3 className={`text-sm`}>Already have account? <Link to="/login" className={`text-blue-600 underline`}>Log In</Link></h3>
+                    <h3 className={`text-sm`}>Already have account? <Link to="/login" className={`text-blue-600 underline`} onClick={resetErrMessage}>Log In</Link></h3>
                 </div>
             </div>
         </div>

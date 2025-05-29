@@ -1,10 +1,13 @@
 import { Link } from "react-router"
 import { useContext } from "react"
 import { UserContext } from "../provider/user_context"
+import { ErrorMessageContext } from "../provider/error_message_context"
 
 function LoginCard() {
 
-    const { userIdErrMessage, passwordErrMessage, handleUserIdChange, handlePasswordChange, login } = useContext(UserContext)
+    const { handleUserIdChange, handlePasswordChange, login } = useContext(UserContext)
+
+    const { userIdErrMessage, passwordErrMessage, resetErrMessage } = useContext(ErrorMessageContext)
 
     return(
         <div className={`w-full h-full flex justify-center pt-14`}>
@@ -27,7 +30,7 @@ function LoginCard() {
                     </button>
                 </div>
                 <div className={`w-full mt-6`}>
-                    <h3 className={`text-sm`}>Don't have an account? <Link to="/signup" className={`text-blue-600 underline`}>Sign up</Link></h3>
+                    <h3 className={`text-sm`}>Don't have an account? <Link to="/signup" className={`text-blue-600 underline`} onClick={resetErrMessage}>Sign up</Link></h3>
                 </div>
             </div>
         </div>  
