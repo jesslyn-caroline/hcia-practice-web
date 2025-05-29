@@ -1,6 +1,9 @@
-import { useState, createContext } from "react"
+import { useState, createContext, useContext } from "react"
 import axios from "axios"
-import { Bounce, toast } from "react-toastify"
+
+import { ErrorMessageContext } from "./error_message_context"
+import toast_success from "../components/toast/toast_success"
+import toast_error from "../components/toast/toast_error"
 
 export const CreateQuestionContext = createContext({
     year : "",
@@ -20,6 +23,8 @@ export const CreateQuestionContext = createContext({
 })
 
 function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
+
+    const { setQuestionErrMessage, setYearErrMessage, setScoreErrMessage, setOptionsErrMessage, setNoAnswerErrMessage } = useContext(ErrorMessageContext)
 
     const [type, setType] = useState<string>("multiple-answer-multiple-choice")
     const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -73,7 +78,94 @@ function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
         setIsOptionsSelected(newIsOptionsSelected)
     }
 
+    function validation ():boolean {
+        let valid:boolean = true
+
+        if (question === "") {
+            setQuestionErrMessage("Please fill the question")
+            valid = false
+        }
+        else setQuestionErrMessage("")
+
+        if (year === "") {
+            setYearErrMessage("Please fill the year")
+            valid = false
+        }
+        else if (year.length !== 4) {
+            setYearErrMessage("Please enter valid year")
+            valid = false
+        }
+        else if (year[0].toUpperCase() !== year[0].toLowerCase() ||
+            year[1].toUpperCase() !== year[1].toLowerCase() ||
+            year[2].toUpperCase() !== year[2].toLowerCase() ||
+            year[3].toUpperCase() !== year[3].toLowerCase()) {
+            setYearErrMessage("Year must be a number")
+            valid = false
+        }
+        else setYearErrMessage("")
+
+        if (score === undefined) {
+            setScoreErrMessage("Please fill the score")
+            valid = false
+        }
+        else if (score < 0) {
+            setScoreErrMessage("Score may not be negative")
+            valid = false
+        }
+        else setScoreErrMessage("")
+
+        if (question === "") {
+            setQuestionErrMessage("Please fill the question")
+            valid = false
+        }
+        else setQuestionErrMessage("")
+
+        let optionsErrMessage:string[] = ["", "", "", ""]
+        let isNoAnswer = true
+
+        if (type === "single-word-answer") {
+            isNoAnswer = false
+            if (optionsValue[0] === "") {
+                optionsErrMessage[0] = "Please enter the question"
+                valid = false
+            }
+            else optionsErrMessage[0] = ""
+        }
+        else if (type === "true-or-false") {
+            if (!isOptionsSelected[0] && !isOptionsSelected[1]) {
+                isNoAnswer = true
+                valid = false
+            }
+            else isNoAnswer = false
+        }
+        else {
+            for (let i = 0; i < 4; i++) {
+                if (optionsValue[i] === "") {
+                    optionsErrMessage[i] = "Please fill the option"
+                    valid = false
+                }
+                else optionsErrMessage[i] = ""
+    
+                if (isOptionsSelected[i]) isNoAnswer = false
+            }
+        }
+
+        setOptionsErrMessage(optionsErrMessage)
+
+        if (isNoAnswer) {
+            setNoAnswerErrMessage("Please select the answer")
+            valid = false
+        }
+        else setNoAnswerErrMessage("")
+
+        return valid
+    }
+
     async function saveQuestion() {
+        let valid:boolean = validation()
+
+        if (!valid) return
+
         let answer:string[] = []
 
         for (let i = 0; i < 4; i++) {
@@ -84,30 +176,13 @@ function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
             const response = await axios.post("https://huawei-practice-web-backend.vercel.app/api/question", 
                 {question, year, type, score, answer, options: optionsValue}
             )
-            toast.success(response.data.message, {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            })
+            
+            if (response.status === 201) {
+                toast_success(response.data.message)
+            }
         }
         catch (err: any) {
-            toast.error(err.response.data.message, {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            })
+            toast_error(err.response.data.message)
         }
     }
 
