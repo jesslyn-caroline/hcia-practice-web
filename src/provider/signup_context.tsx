@@ -1,15 +1,12 @@
-import { createContext, useState } from "react"
+import { createContext, useContext, useState } from "react"
 import { useNavigate } from "react-router"
 import axios from "axios"
-import { toast, Bounce } from "react-toastify"
+
+import { ErrorMessageContext } from "./error_message_context"
+import toast_success from "../components/toast/toast_success"
+import toast_error from "../components/toast/toast_error"
 
 export const SignupContext = createContext({
-    userIdErrMessage: "",
-    usernameErrMessage: "",
-    passwordErrMessage: "",
-    confirmPasswordErrMessage: "",
-    studentClassErrMessage: "",
-
     handleUserIdChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handleUsernameChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
@@ -22,35 +19,22 @@ export const SignupContext = createContext({
 function SignupProvider({ children } : {children : React.ReactNode} ) {
     const navigate = useNavigate()
 
+    const { setUserIdErrMessage, setUsernameErrMessage, setPasswordErrMessage, setConfirmPasswordErrMessage, setStudentClassErrMessage } = useContext(ErrorMessageContext)
+
     const [userId, setUserId] = useState<string>("")
-    const [userIdErrMessage, setUserIdErrMessage] = useState<string>("")
-    const handleUserIdChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
-        setUserId(e.target.value)
-    }
+    const handleUserIdChange = (e: React.ChangeEvent<HTMLInputElement>):void => setUserId(e.target.value)
 
     const [username, setUsername] = useState<string>("")
-    const [usernameErrMessage, setUsernameErrMessage] = useState<string>("")
-    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
-        setUsername(e.target.value)
-    }
+    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>):void => setUsername(e.target.value)
 
     const [password, setPassword] = useState<string>("")
-    const [passwordErrMessage, setPasswordErrMessage] = useState<string>("")
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setPassword(e.target.value)
-    }
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => setPassword(e.target.value)
 
     const [confirmPassword, setConfirmPassword] = useState<string>("")
-    const [confirmPasswordErrMessage, setConfirmPasswordErrMessage] = useState<string>("")
-    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
-        setConfirmPassword(e.target.value)
-    }
+    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>):void => setConfirmPassword(e.target.value)
 
     const [studentClass, setStudentClass] = useState<string>("none")
-    const [studentClassErrMessage, setStudentClassErrMessage] = useState<string>("")
-    const handleStudentClassChange = (e: React.ChangeEvent<HTMLSelectElement>):void => {
-        setStudentClass(e.target.value)
-    }
+    const handleStudentClassChange = (e: React.ChangeEvent<HTMLSelectElement>):void => setStudentClass(e.target.value)
 
     function validation():boolean {
         let valid:boolean = true
@@ -111,17 +95,7 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
             
     
             if (response.status === 201) {
-                toast.success(response.data.message, {
-                    position: "bottom-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: false,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                })
+                toast_success(response.data.message)
     
                 setTimeout(() => {
                     navigate("/login")
@@ -129,23 +103,12 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
             }
         }
         catch (err:any) {
-            console.log(err)
-            toast.error(err.response.data.message, {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            })
+            toast_error(err.response.data.message)
         }
     }
 
     return (
-        <SignupContext.Provider value={{ userIdErrMessage, usernameErrMessage, passwordErrMessage, confirmPasswordErrMessage, studentClassErrMessage, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup }}>
+        <SignupContext.Provider value={{ handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup }}>
             {children}
         </SignupContext.Provider>
     )

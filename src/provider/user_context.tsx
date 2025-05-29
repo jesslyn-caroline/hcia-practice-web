@@ -1,15 +1,17 @@
-import { createContext, useState } from "react"
+import { createContext, useContext, useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router"
-import { toast, Bounce } from "react-toastify"
+
+import { ErrorMessageContext } from "./error_message_context"
+import toast_error from "../components/toast/toast_error"
+import toast_success from "../components/toast/toast_success"
 
 export const UserContext = createContext({
     userId: "", 
     username: "",
     studentClass: "",
     role: "",
-    userIdErrMessage: "",
-    passwordErrMessage: "",
+
     handleUserIdChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     login: () => {}
@@ -18,11 +20,11 @@ export const UserContext = createContext({
 function UserProvider({children} : {children : React.ReactNode}) {
     const navigate = useNavigate()
 
+    const { setUserIdErrMessage, setPasswordErrMessage } = useContext(ErrorMessageContext)
+
     const [userId, setUserId] = useState<string>(getDataFromSession("userId"))
-    const [userIdErrMessage, setUserIdErrMessage] = useState<string>("")
 
     const [password, setPassword] = useState<string>("")
-    const [passwordErrMessage, setPasswordErrMessage] = useState<string>("")
 
     const [username, setUsername] = useState<string>(getDataFromSession("username"))
     const [studentClass, setStudentClass] = useState<string>(getDataFromSession("studentClass"))
@@ -78,17 +80,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
 
                 setPassword("")
 
-                toast.success(response.data.message, {
-                    position: "bottom-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: false,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                    transition: Bounce,
-                })
+                toast_success(response.data.message)
 
                 setTimeout(() => {
                     navigate("/")
@@ -98,22 +90,12 @@ function UserProvider({children} : {children : React.ReactNode}) {
         }
         catch (err:any) {
             console.log(err)
-            toast.error(err.response.data.message, {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            })
+            toast_error(err.response.data.message)
         }
     }
 
     return (
-        <UserContext.Provider value={{userId, username, studentClass, role, userIdErrMessage, passwordErrMessage, handleUserIdChange, handlePasswordChange, login}}>
+        <UserContext.Provider value={{userId, username, studentClass, role,  handleUserIdChange, handlePasswordChange, login}}>
             {children}
         </UserContext.Provider>
     )
