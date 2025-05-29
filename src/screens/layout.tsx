@@ -5,7 +5,7 @@ function Layout() {
         <div className={`w-full flex justify-center`}>
             <div className={`max-w-[1620px] w-full h-full bg-background flex flex-row`}>
                 {/* Left SideBar */}
-                <div className={`w-1/4`}>
+                <div className={`w-1/4 border-r-1 border-greyist`}>
                     <div className={`w-full min-h-14 h-14 px-6 flex items-center`}>
                         <h1 className={`text-xl text-primary font-semibold`}>HCIA Practice</h1>
                     </div>
@@ -21,7 +21,7 @@ function Layout() {
                     </div>
                 </div>
 
-                <div className={`border-l-1 border-greyist w-full h-full`}>
+                <div className={`min-h-screen w-full h-full`}>
                     <div className={`w-full min-h-14 h-14 px-6 bg-primary border-b-1 border-greyist flex items-center`}>
                     </div>
                     <div className={`px-10 py-6`}>
