@@ -9,7 +9,7 @@ function toast_error(message: string) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: JSON.parse(localStorage.getItem("theme") || "light"),
         transition: Bounce,
     })
 }
