@@ -3,10 +3,14 @@ import { Link } from "react-router"
 
 import { SignupContext } from "../provider/signup_context"
 import { ErrorMessageContext } from "../provider/error_message_context"
-import InputField from "./input_field"
+import InputField from "./field/input_field"
+import SelectField from "./field/select_field"
 
 function SignupCard() {
-    const { 
+    const { userId, 
+        username, 
+        password, 
+        confirmPassword, 
         handleUserIdChange,
         handleUsernameChange,
         handlePasswordChange,
@@ -34,38 +38,36 @@ function SignupCard() {
                         errMessage={userIdErrMessage} 
                         placeholderValue={"Enter your Student ID"} 
                         idValue={"userId"} 
-                        labelValue={"Student ID"}/>
+                        labelValue={"Student ID"}
+                        value={userId} />
                     <InputField handleInputChange={handleUsernameChange} 
                         inputType="text"
                         errMessage={usernameErrMessage} 
                         placeholderValue={"Enter your name"} 
                         idValue={"studentName"}
-                        labelValue="Name" />
+                        labelValue="Name"
+                        value={username} />
                     <InputField handleInputChange={handlePasswordChange} 
                         inputType="password"
                         errMessage={passwordErrMessage} 
                         placeholderValue={"Enter your password"} 
                         idValue={"password"}
-                        labelValue="Password" />
+                        labelValue="Password"
+                        value={password} />
                     <InputField handleInputChange={handleConfirmPasswordChange}
                         inputType="password"
                         errMessage={confirmPasswordErrMessage}
                         placeholderValue={"Confirm your password"}
                         idValue={"confirmPassword"}
-                        labelValue="Confirm Password" />
-                    <div className={`w-full text-sm text-text`}>
-                        <label className={`font-medium`}>Class</label>
-                        <select id="class" className={`w-full py-2 outline-none border-b-2 border-text`} title="Select your class" onChange={handleStudentClassChange}>
-                            <option value="none" selected>Select your class</option>
-                            <option value="IF-A Pagi">IF-A Pagi</option>
-                            <option value="IF-B Pagi">IF-B Pagi</option>
-                            <option value="IF-C Pagi">IF-C Pagi</option>
-                            <option value="IF-A Sore">IF-A Sore</option>
-                            <option value="IF-B Sore">IF-B Sore</option>
-                            <option value="IF-C Sore">IF-C Sore</option>
-                        </select>
-                        <div className={`${studentClassErrMessage === "" ? "hidden" : ""} absolute text-xs text-red-500 mt-1`}>{studentClassErrMessage}</div>
-                    </div>
+                        labelValue="Confirm Password"
+                        value={confirmPassword} />
+
+                    <SelectField handleSelectChange={handleStudentClassChange}
+                        optionsValue={["none", "IF-A Pagi", "IF-B Pagi", "IF-C Pagi", "IF-A Sore", "IF-B Sore", "IF-C Sore"]}
+                        optionsLabel={["none","IF-A Pagi", "IF-B Pagi", "IF-C Pagi", "IF-A Sore", "IF-B Sore", "IF-C Sore"]}
+                        labelValue="Class"
+                        titleValue="Select your class"
+                        errMessage={studentClassErrMessage} />
                     <button className={`w-full h-fit bg-primary py-2 rounded-md`} onClick={signup}>
                         <span className={`text-white text-sm font-medium`}>Sign up</span>
                     </button>
