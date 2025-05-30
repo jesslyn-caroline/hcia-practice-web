@@ -2,7 +2,7 @@ import { useState } from "react"
 
 function ToggleMode() {
     const [theme, setTheme] = useState<string>(() => {
-        let currentTheme = JSON.parse(localStorage.getItem("theme") || "light")
+        let currentTheme = JSON.parse(localStorage.getItem("theme")!) || "light"
 
         const html = document.documentElement
         html.setAttribute("data-theme", currentTheme)
