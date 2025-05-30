@@ -20,7 +20,7 @@ function CreateQuestion() {
     return (
         <div className={`flex flex-col`}>
             <i className={`text-4xl ri-menu-add-line mb-2`}/>
-            <h1 className={`text-xl font-semibold mb-4`}>Create Question</h1>
+            <h1 className={`text-xl font-semibold mb-8`}>Create Question</h1>
             <div className={`space-y-8`}>
                 <div className={`flex flex-row space-x-12`}>
                     <div>
