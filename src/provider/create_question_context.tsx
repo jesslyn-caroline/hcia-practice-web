@@ -7,7 +7,9 @@ import toast_error from "../components/toast/toast_error"
 
 export const CreateQuestionContext = createContext({
     year : "",
+    typeOptions: ["", "", "", ""],
     type : "",
+    score : 0,
     question : "",
     optionsValue : ["", "", "", ""],
     isOptionsSelected : [false, false, false, false],
@@ -26,9 +28,11 @@ function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
 
     const { setQuestionErrMessage, setYearErrMessage, setScoreErrMessage, setOptionsErrMessage, setNoAnswerErrMessage } = useContext(ErrorMessageContext)
 
+    const typeOptions: string[] = ["multiple-answer-multiple-choice", "single-answer-multiple-choice", "true-or-false", "single-word-answer"]
     const [type, setType] = useState<string>("multiple-answer-multiple-choice")
     const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setType(e.target.value)
+        console.log(e.target.value)
 
         // reset options value and isSelected
         setOptionsValue(["", "", "", ""])
@@ -187,7 +191,7 @@ function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
     }
 
     return (
-        <CreateQuestionContext.Provider value={{year, type, question, optionsValue, isOptionsSelected, handleTypeChange, handleYearChange, handleScoreChange, handleQuestionChange, handleOptionValueChange, handleIsOptionsSelectedChange, saveQuestion}}>
+        <CreateQuestionContext.Provider value={{year, typeOptions, type, score: score !== undefined ? score : 0, question, optionsValue, isOptionsSelected, handleTypeChange, handleYearChange, handleScoreChange, handleQuestionChange, handleOptionValueChange, handleIsOptionsSelectedChange, saveQuestion}}>
             { children }
         </CreateQuestionContext.Provider>
     )
