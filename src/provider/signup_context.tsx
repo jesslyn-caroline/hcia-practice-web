@@ -7,6 +7,11 @@ import toast_success from "../components/toast/toast_success"
 import toast_error from "../components/toast/toast_error"
 
 export const SignupContext = createContext({
+    userId: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+
     handleUserIdChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handleUsernameChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
@@ -108,7 +113,7 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
     }
 
     return (
-        <SignupContext.Provider value={{ handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup }}>
+        <SignupContext.Provider value={{ userId, username, password, confirmPassword, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup }}>
             {children}
         </SignupContext.Provider>
     )
