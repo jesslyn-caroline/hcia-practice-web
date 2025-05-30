@@ -7,7 +7,8 @@ import toast_error from "../components/toast/toast_error"
 import toast_success from "../components/toast/toast_success"
 
 export const UserContext = createContext({
-    userId: "", 
+    userId: "",
+    password: "", 
     username: "",
     studentClass: "",
     role: "",
@@ -95,7 +96,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
     }
 
     return (
-        <UserContext.Provider value={{userId, username, studentClass, role,  handleUserIdChange, handlePasswordChange, login}}>
+        <UserContext.Provider value={{userId, username, password, studentClass, role,  handleUserIdChange, handlePasswordChange, login}}>
             {children}
         </UserContext.Provider>
     )
