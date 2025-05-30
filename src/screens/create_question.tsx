@@ -7,11 +7,13 @@ import SingleWordAnswer from "../components/create_answer_choices/single_word_an
 import TrueOrFalse from "../components/create_answer_choices/true-or-false"
 import { Bounce, ToastContainer } from "react-toastify"
 import { ErrorMessageContext } from "../provider/error_message_context"
+import InputField from "../components/field/input_field"
+import SelectField from "../components/field/select_field"
 
 
 function CreateQuestion() {
 
-    const { year, type, question, handleYearChange, handleTypeChange, handleScoreChange, handleQuestionChange, saveQuestion } = useContext(CreateQuestionContext)
+    const { year, score, typeOptions, type, question, handleYearChange, handleTypeChange, handleScoreChange, handleQuestionChange, saveQuestion } = useContext(CreateQuestionContext)
 
     const { yearErrMessage, scoreErrMessage, questionErrMessage } = useContext(ErrorMessageContext)
 
@@ -19,40 +21,36 @@ function CreateQuestion() {
         <div className={`flex flex-col`}>
             <i className={`text-4xl ri-menu-add-line mb-2`}/>
             <h1 className={`text-xl font-semibold mb-4`}>Create Question</h1>
-            <div className={`flex flex-col space-y-8`}>
-
+            <div className={`space-y-8`}>
                 <div className={`flex flex-row space-x-12`}>
-                    <div className={`flex flex-col space-y-1.5`}>
-                        <span className={`text-sm font-semibold`}>Question Type</span>
-                        <select value={type} onChange={handleTypeChange} className={`text-sm pb-1 outline-none border-b-2 border-text`} title="question-type">
-                            <option value="multiple-answer-multiple-choice">Multiple Answers Multiple Choice</option>
-                            <option value="single-answer-multiple-choice">Single Answer Multiple Choice</option>
-                            <option value="true-or-false">True or False</option>
-                            <option value="single-word-answer">Single Word Answer</option>
-                        </select>
+                    <div>
+                        <SelectField handleSelectChange={handleTypeChange} 
+                            optionsValue={typeOptions} 
+                            optionsLabel={["Multiple Answers Multiple Choice", "Single Answer Multiple Choice", "True or False", "Single Word Answer"]}
+                            labelValue="Question Type" 
+                            titleValue="question-type"
+                            errMessage="" />
                     </div>
-                    <div className={`flex flex-col space-y-1.5`}>
-                        <span className={`text-sm font-semibold`}>Question Year</span>
-                        <input type="text" value={year} onChange={handleYearChange} minLength={4} maxLength={4} className={`text-sm px-1 pb-1 outline-none border-b-2 border-text`} id="question-year" placeholder="YYYY"/>
-                        <span className={`${yearErrMessage === "" ? "hidden" : ""}`}>
-                            <div className={`absolute text-xs text-red-500`}>{yearErrMessage}</div>
-                        </span>
-                    </div>
-                    <div className={`flex flex-col space-y-1.5`}>
-                        <span className={`text-sm font-semibold`}>Score</span>
-                        <input type="number"  onChange={handleScoreChange} className={`text-sm px-1 pb-1 outline-none border-b-2 border-text`} id="question-score" placeholder="Score"/>
-                        <span className={`${scoreErrMessage === "" ? "hidden" : ""}`}>
-                            <div className={`absolute text-xs text-red-500`}>{scoreErrMessage}</div>
-                        </span>
-                    </div>
+                    <InputField handleInputChange={handleYearChange}
+                        inputType="text" 
+                        errMessage={yearErrMessage} 
+                        placeholderValue="YYYY" 
+                        idValue="question-year" 
+                        labelValue="Year"
+                        value={year} />
+                    <InputField handleInputChange={handleScoreChange} 
+                        inputType="number" 
+                        errMessage={scoreErrMessage} 
+                        placeholderValue="Score" 
+                        idValue="question-score" 
+                        labelValue="Score" 
+                        value={score} />
                 </div>
 
-                <div className={`flex flex-col space-y-1.5`}>
-                    <span className={`text-sm font-semibold`}>Question</span>
-                    <textarea value={question} onChange={handleQuestionChange} rows={4} className={`text-sm resize-none outline-none p-2 border-2 border-greyist rounded-sm`} id="question" placeholder="Enter your question"></textarea>
-                    <span className={`${questionErrMessage === "" ? "hidden" : ""}`}>
-                        <div className={`absolute text-xs text-red-500`}>{questionErrMessage}</div>
-                    </span>
+                <div>
+                    <div className={`font-semibold`}>Question Type</div>
+                    <textarea value={question} onChange={handleQuestionChange} rows={4} className={`w-full mt-2 resize-none outline-none p-2 border-2 border-text rounded-sm`} id="question" placeholder="Enter your question"></textarea>
+                    <div className={`${questionErrMessage === "" ? "hidden" : ""} absolute text-xs text-red-500 mt-1`}>{questionErrMessage}</div>
                 </div>
 
                 <div>
@@ -63,13 +61,13 @@ function CreateQuestion() {
                 </div>
                 
                 <button className={`w-fit h-fit bg-primary px-4 py-1.5 rounded-md flex flex-row items-center space-x-1`} onClick={saveQuestion}>
-                    <i className={`text-background text-xl ri-save-fill`}/>
-                    <span className={`text-background text-sm font-medium`}>Save</span>
+                    <i className={`text-white text-xl ri-save-fill`}/>
+                    <span className={`text-white font-medium`}>Save</span>
                 </button>
             </div>
             <ToastContainer
                 position="bottom-right"
-                autoClose={5000}
+                autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick={false}
