@@ -5,13 +5,15 @@
     --bg: #FFFFFF;
     --prm: #C8010B;
     --acc: #F6F8FA;
+    --acc2: #D1D9E0;
 }
 
 [data-theme="dark"] {
     --txt: #FFFFFF;
-    --bg: #1D1D1D;
+    --bg: #212830;
     --prm: #C8010B;
-    --acc: #F6F8FA;
+    --acc: #151B23;
+    --acc2: #3D444D;
 }
 
 @theme inline {
@@ -19,9 +21,15 @@
     --color-background: var(--bg);
     --color-primary: var(--prm);
     --color-accent: var(--acc);
-    --color-greyist: #D1D9E0;
+    --color-accent-2: var(--acc2);
 }
 
 * {
     font-family: "Poppins", sans-serif;
+}
+
+body {
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
 }
