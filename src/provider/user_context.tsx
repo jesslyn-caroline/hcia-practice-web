@@ -40,7 +40,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
     }
 
     function getDataFromSession(data: string):string {
-        return JSON.parse(sessionStorage.getItem(data)!) || ""
+        return sessionStorage.getItem(data) || ""
     }
 
     function validation():boolean {
@@ -73,13 +73,13 @@ function UserProvider({children} : {children : React.ReactNode}) {
 
             if (response.status === 200) {
                 setUsername(response.data.user.username)
-                setStudentClass(response.data.user.studentClass)
+                setStudentClass(response.data.user.class)
                 setRole(response.data.user.role)
 
-                sessionStorage.setItem("userId", JSON.stringify(response.data.user.userId))
-                sessionStorage.setItem("username", JSON.stringify(response.data.user.username))
-                sessionStorage.setItem("studentClass", JSON.stringify(response.data.user.studentClass))
-                sessionStorage.setItem("role", JSON.stringify(response.data.user.role))
+                sessionStorage.setItem("userId", response.data.user.userId)
+                sessionStorage.setItem("username", response.data.user.username)
+                sessionStorage.setItem("studentClass", response.data.user.class)
+                sessionStorage.setItem("role", response.data.user.role)
 
                 setPassword("")
 
