@@ -50,7 +50,7 @@ function CreateQuestion() {
 
                 <div>
                     <div className={`font-semibold`}>Question Type</div>
-                    <textarea value={question} onChange={handleQuestionChange} rows={4} className={`w-full mt-2 resize-none outline-none p-2 border-2 border-text rounded-sm`} id="question" placeholder="Enter your question"></textarea>
+                    <textarea value={question} onChange={handleQuestionChange} rows={4} className={`w-full mt-2 resize-none outline-none p-2 border-2 border-accent-2 rounded-sm`} id="question" placeholder="Enter your question"></textarea>
                     <div className={`${questionErrMessage === "" ? "hidden" : ""} absolute text-xs text-red-500 mt-1`}>{questionErrMessage}</div>
                 </div>
 
