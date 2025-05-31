@@ -13,6 +13,7 @@ export const CreateQuestionContext = createContext({
     question : "",
     optionsValue : ["", "", "", ""],
     isOptionsSelected : [false, false, false, false],
+    isOnLoad : false,
 
     handleTypeChange : (e: React.ChangeEvent<HTMLSelectElement>) => { console.log(e.target.value) },
     handleYearChange : (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
@@ -165,10 +166,14 @@ function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
         return valid
     }
 
+    const [isOnLoad, setIsOnLoad] = useState<boolean>(false)
+
     async function saveQuestion() {
         let valid:boolean = validation()
 
         if (!valid) return
+
+        setIsOnLoad(true)
 
         let answer:string[] = []
 
@@ -188,10 +193,12 @@ function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
         catch (err: any) {
             toast_error(err.response.data.message)
         }
+
+        setIsOnLoad(false)
     }
 
     return (
-        <CreateQuestionContext.Provider value={{year, typeOptions, type, score: score !== undefined ? score : 0, question, optionsValue, isOptionsSelected, handleTypeChange, handleYearChange, handleScoreChange, handleQuestionChange, handleOptionValueChange, handleIsOptionsSelectedChange, saveQuestion}}>
+        <CreateQuestionContext.Provider value={{year, typeOptions, type, score: score !== undefined ? score : 0, question, optionsValue, isOptionsSelected, isOnLoad, handleTypeChange, handleYearChange, handleScoreChange, handleQuestionChange, handleOptionValueChange, handleIsOptionsSelectedChange, saveQuestion}}>
             { children }
         </CreateQuestionContext.Provider>
     )
