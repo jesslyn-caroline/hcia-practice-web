@@ -81,18 +81,15 @@ function UserProvider({children} : {children : React.ReactNode}) {
                 sessionStorage.setItem("class", response.data.user.class)
                 sessionStorage.setItem("role", response.data.user.role)
 
-                setPassword("")
-
                 toast_success(response.data.message)
 
                 setTimeout(() => {
                     navigate("/")
+                    setPassword("")
                 }, 3000)
-                console.log(response.data.username)
             }
         }
         catch (err:any) {
-            console.log(err)
             toast_error(err.response.data.message)
         }
     }
