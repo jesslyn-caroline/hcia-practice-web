@@ -9,11 +9,12 @@ import { Bounce, ToastContainer } from "react-toastify"
 import { ErrorMessageContext } from "../provider/error_message_context"
 import InputField from "../components/field/input_field"
 import SelectField from "../components/field/select_field"
+import ActionButton from "../components/action_button"
 
 
 function CreateQuestion() {
 
-    const { year, score, typeOptions, type, question, handleYearChange, handleTypeChange, handleScoreChange, handleQuestionChange, saveQuestion } = useContext(CreateQuestionContext)
+    const { year, score, typeOptions, type, question, isOnLoad, handleYearChange, handleTypeChange, handleScoreChange, handleQuestionChange, saveQuestion } = useContext(CreateQuestionContext)
 
     const { yearErrMessage, scoreErrMessage, questionErrMessage } = useContext(ErrorMessageContext)
 
@@ -59,11 +60,7 @@ function CreateQuestion() {
                     { type === "single-word-answer"? <SingleWordAnswer /> : null }
                     { type === "true-or-false"? <TrueOrFalse /> : null }
                 </div>
-                
-                <button className={`w-fit h-fit bg-primary px-4 py-1.5 rounded-md flex flex-row items-center space-x-1`} onClick={saveQuestion}>
-                    <i className={`text-white text-xl ri-save-fill`}/>
-                    <span className={`text-white font-medium`}>Save</span>
-                </button>
+                <ActionButton action={saveQuestion} text={"Save"} icon={"ri-save-fill"} isOnLoad={isOnLoad}/>
             </div>
             <ToastContainer
                 position="bottom-right"
