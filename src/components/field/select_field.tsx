@@ -11,7 +11,7 @@ function SelectField({handleSelectChange, optionsValue, optionsLabel, labelValue
     return (
         <div className={`w-full flex flex-col space-y-2`}>
             <div className={`font-semibold`}>{labelValue}</div>
-            <select onChange={handleSelectChange} className={` pb-1 outline-none border-b-2 border-text`} title={titleValue}>
+            <select onChange={handleSelectChange} className={`pb-1 outline-none border-b-2 border-accent-2`} title={titleValue}>
                 {
                     ...optionsValue.map((value, index) => 
                         <option value={value}>{optionsLabel[index]}</option>

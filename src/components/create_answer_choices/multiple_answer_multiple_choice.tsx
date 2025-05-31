@@ -31,7 +31,7 @@ function MultipleAnswerMultipleChoice() {
                                 <input type="text" 
                                     value={value} 
                                     onChange={(e) => {handleOptionValueChange(index, e)}} 
-                                    className={`w-full text-sm py-2 outline-none border-b-2 border-text`} 
+                                    className={`w-full text-sm py-2 outline-none border-b-2 border-accent-2`} 
                                     placeholder={`Enter Option ${index + 1}`} />
                                 <span className={`${optionsErrMessage[index] === "" ? "hidden" : ""}`}>
                                     <div className={`absolute text-xs text-red-500 mt-1`}>{optionsErrMessage[index]}</div>

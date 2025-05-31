@@ -14,7 +14,7 @@ function InputField({handleInputChange, inputType, errMessage, placeholderValue,
             <label className={`font-medium`}>{labelValue}</label>
             <input type={inputType} 
                 onChange={handleInputChange} 
-                className={`w-full h-9 outline-none border-b-2 border-text`} 
+                className={`w-full h-9 outline-none border-b-2 border-accent-2`} 
                 id={idValue}
                 placeholder={placeholderValue} 
                 value={value} />
