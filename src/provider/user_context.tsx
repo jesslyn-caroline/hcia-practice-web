@@ -69,7 +69,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
         try {
             const response = await axios.post(`https://huawei-practice-web-backend.vercel.app/api/user/login`, {userId, password})
             
-            console.log(response)
+            console.log(response.data.user)
 
             if (response.status === 200) {
                 setUsername(response.data.user.username)
