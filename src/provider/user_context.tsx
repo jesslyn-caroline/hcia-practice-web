@@ -76,10 +76,10 @@ function UserProvider({children} : {children : React.ReactNode}) {
                 setStudentClass(response.data.user.studentClass)
                 setRole(response.data.user.role)
 
-                sessionStorage.setItem("userId", response.data.user.userId)
-                sessionStorage.setItem("username", response.data.user.username)
-                sessionStorage.setItem("studentClass", response.data.user.studentClass)
-                sessionStorage.setItem("role", response.data.user.role)
+                // sessionStorage.setItem("userId", response.data.user.userId)
+                // sessionStorage.setItem("username", response.data.user.username)
+                // sessionStorage.setItem("studentClass", response.data.user.studentClass)
+                // sessionStorage.setItem("role", response.data.user.role)
 
                 setPassword("")
 
