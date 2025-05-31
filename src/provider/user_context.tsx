@@ -28,7 +28,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
     const [password, setPassword] = useState<string>("")
 
     const [username, setUsername] = useState<string>(getDataFromSession("username"))
-    const [studentClass, setStudentClass] = useState<string>(getDataFromSession("studentClass"))
+    const [studentClass, setStudentClass] = useState<string>(getDataFromSession("class"))
     const [role, setRole] = useState<string>(getDataFromSession("role"))
 
     function handleUserIdChange(e: React.ChangeEvent<HTMLInputElement>):void {
@@ -78,7 +78,7 @@ function UserProvider({children} : {children : React.ReactNode}) {
 
                 sessionStorage.setItem("userId", response.data.user.userId)
                 sessionStorage.setItem("username", response.data.user.username)
-                sessionStorage.setItem("studentClass", response.data.user.class)
+                sessionStorage.setItem("class", response.data.user.class)
                 sessionStorage.setItem("role", response.data.user.role)
 
                 setPassword("")
