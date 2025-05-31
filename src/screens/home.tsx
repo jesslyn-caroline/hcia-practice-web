@@ -7,8 +7,8 @@ function Home() {
 
     return (
         <div>
-            <i className={`text-3xl ri-robot-2-line`}></i>
-            <h1>Hello {username}</h1>
+            <i className={`text-5xl ri-robot-2-line`}></i>
+            <h1 className={`text-xl font-semibold mt-5`}>Hello, {username}</h1>
         </div>
     )
 }
