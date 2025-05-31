@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link, Outlet } from "react-router"
 
 function Layout() {
-    const [isClosedSideBar, setIsClosedSideBar] = useState<boolean>(false)
+    const [isClosedSideBar, setIsClosedSideBar] = useState<boolean>(true)
 
     function toggleSideBar(event: string) {
         if (event === "close") setIsClosedSideBar(true)
