@@ -4,10 +4,11 @@ import { useContext } from "react"
 import { UserContext } from "../provider/user_context"
 import { ErrorMessageContext } from "../provider/error_message_context"
 import InputField from "./field/input_field"
+import ActionButton from "./action_button"
 
 function LoginCard() {
 
-    const { userId, password, handleUserIdChange, handlePasswordChange, login } = useContext(UserContext)
+    const { userId, password, isOnLoad, handleUserIdChange, handlePasswordChange, login } = useContext(UserContext)
 
     const { userIdErrMessage, passwordErrMessage, resetErrMessage } = useContext(ErrorMessageContext)
 
@@ -30,9 +31,7 @@ function LoginCard() {
                         idValue={"password"} 
                         labelValue={"Password"}
                         value={password} />
-                    <button className={`w-full h-fit bg-primary py-2 rounded-md`} onClick={login}>
-                        <span className={`text-white text-sm font-medium`}>Log In</span>
-                    </button>
+                    <ActionButton action={login} text={"Log In"} icon={""} isOnLoad={isOnLoad}/>
                 </div>
                 <div className={`w-full mt-6`}>
                     <h3>

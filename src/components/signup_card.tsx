@@ -5,12 +5,14 @@ import { SignupContext } from "../provider/signup_context"
 import { ErrorMessageContext } from "../provider/error_message_context"
 import InputField from "./field/input_field"
 import SelectField from "./field/select_field"
+import ActionButton from "./action_button"
 
 function SignupCard() {
     const { userId, 
         username, 
         password, 
-        confirmPassword, 
+        confirmPassword,
+        isOnLoad, 
         handleUserIdChange,
         handleUsernameChange,
         handlePasswordChange,
@@ -63,14 +65,12 @@ function SignupCard() {
                         value={confirmPassword} />
 
                     <SelectField handleSelectChange={handleStudentClassChange}
-                        optionsValue={["none", "IF-A Pagi", "IF-B Pagi", "IF-C Pagi", "IF-A Sore", "IF-B Sore", "IF-C Sore"]}
-                        optionsLabel={["none","IF-A Pagi", "IF-B Pagi", "IF-C Pagi", "IF-A Sore", "IF-B Sore", "IF-C Sore"]}
+                        optionsValue={["IF-A Pagi", "IF-B Pagi", "IF-C Pagi", "IF-A Sore", "IF-B Sore", "IF-C Sore"]}
+                        optionsLabel={["IF-A Pagi", "IF-B Pagi", "IF-C Pagi", "IF-A Sore", "IF-B Sore", "IF-C Sore"]}
                         labelValue="Class"
                         titleValue="Select your class"
                         errMessage={studentClassErrMessage} />
-                    <button className={`w-full h-fit bg-primary py-2 rounded-md`} onClick={signup}>
-                        <span className={`text-white text-sm font-medium`}>Sign up</span>
-                    </button>
+                    <ActionButton action={signup} text={"Sign Up"} icon={""} isOnLoad={isOnLoad}/>
                 </div>
 
                 <div className={`w-full mt-6`}>
