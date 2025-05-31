@@ -18,7 +18,7 @@ function SelectField({handleSelectChange, optionsValue, optionsLabel, labelValue
                     )
                 }
             </select>
-            <div className={`${errMessage === "" ? "hidden" : ""} absolute text-xs text-red-500 mt-1`}>{errMessage}</div>
+            <div className={`${errMessage === "" ? "hidden" : ""} text-xs text-red-500`}>{errMessage}</div>
         </div>
     )
 }
