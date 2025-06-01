@@ -19,7 +19,8 @@ export const SignupContext = createContext({
     handleConfirmPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handleStudentClassChange: (e: React.ChangeEvent<HTMLSelectElement>) => { console.log(e.target.value) },
 
-    signup: () => { console.log("signup") }
+    signup: () => { console.log("signup") },
+    clearInputs: () => { console.log("clearInputs") }
 })
 
 function SignupProvider({ children } : {children : React.ReactNode} ) {
@@ -102,10 +103,11 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
         try {
             const response = await axios.post("https://huawei-practice-web-backend.vercel.app/api/user/signup", 
                 {userId, username, password, class: studentClass, role: "student"})
-            
     
             if (response.status === 201) {
                 toast_success(response.data.message)
+
+                clearInputs()
     
                 setTimeout(() => {
                     navigate("/login")
@@ -119,8 +121,16 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
         setIsOnLoad(false)
     }
 
+    function clearInputs() {
+        setUserId("")
+        setUsername("")
+        setPassword("")
+        setConfirmPassword("")
+        setStudentClass("IF-A Pagi")
+    }
+
     return (
-        <SignupContext.Provider value={{ userId, username, password, confirmPassword, isOnLoad, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup }}>
+        <SignupContext.Provider value={{ userId, username, password, confirmPassword, isOnLoad, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup, clearInputs }}>
             {children}
         </SignupContext.Provider>
     )
