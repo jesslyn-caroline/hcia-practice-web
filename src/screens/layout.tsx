@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import { Link, Outlet } from "react-router"
 import { UserContext } from "../provider/user_context"
+import { Bounce, ToastContainer } from "react-toastify"
 
 function Layout() {
 
@@ -50,6 +51,19 @@ function Layout() {
                         </div>
                     </div>
                 </div>
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                    transition={Bounce}
+                />
             </div>
         </div>
     )

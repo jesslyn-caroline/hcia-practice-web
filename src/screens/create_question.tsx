@@ -5,7 +5,6 @@ import { CreateQuestionContext } from "../provider/create_question_context"
 import SingleAnswerMultipleChoice from "../components/create_answer_choices/single_answer_multiple_choice"
 import SingleWordAnswer from "../components/create_answer_choices/single_word_answer"
 import TrueOrFalse from "../components/create_answer_choices/true-or-false"
-import { Bounce, ToastContainer } from "react-toastify"
 import { ErrorMessageContext } from "../provider/error_message_context"
 import InputField from "../components/field/input_field"
 import SelectField from "../components/field/select_field"
@@ -65,19 +64,6 @@ function CreateQuestion() {
                 </div>
                 <ActionButton action={saveQuestion} text={"Save"} icon={"ri-save-fill"} isOnLoad={isOnLoad}/>
             </div>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
         </div>
     )
 }
