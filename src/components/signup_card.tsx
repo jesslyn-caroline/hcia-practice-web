@@ -18,7 +18,8 @@ function SignupCard() {
         handlePasswordChange,
         handleConfirmPasswordChange,
         handleStudentClassChange,
-        signup
+        signup,
+        clearInputs
     } = useContext(SignupContext)
 
     const {
@@ -74,7 +75,7 @@ function SignupCard() {
                 </div>
 
                 <div className={`w-full mt-6`}>
-                    <h3>Already have account? <Link to="/login" className={`text-blue-600 underline`} onClick={resetErrMessage}>Log In</Link></h3>
+                    <h3>Already have account? <Link to="/login" className={`text-blue-600 underline`} onClick={() => {resetErrMessage(), clearInputs()}}>Log In</Link></h3>
                 </div>
             </div>
         </div>
