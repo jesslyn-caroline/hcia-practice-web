@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { useLocation } from "react-router"
 
 export const UserContext = createContext({
     userId: "",
@@ -12,7 +13,6 @@ export const UserContext = createContext({
     setUsername: (username: string) => { console.log(username) },
     setStudentClass: (studentClass: string) => { console.log(studentClass) },
     setRole: (role: string) => { console.log(role) },
-    setCurrentActiveRoute: (route: string) => { console.log(route) },
 })
 
 interface RouteObject {
@@ -37,10 +37,9 @@ function UserProvider({children}: {children: React.ReactNode}) {
 
     const [userRoutes, setUserRoutes] = useState<RouteObject[]>([])
 
-    const [currentActiveRoute, setCurrentActiveRoute] = useState<string>(() => {
-        const currentActiveRoute = sessionStorage.getItem("currentActiveRoute") || "/"
-        return currentActiveRoute
-    })
+    const location = useLocation()
+    const [currentActiveRoute, setCurrentActiveRoute] = useState<string>(location.pathname)
+    useEffect(() => setCurrentActiveRoute(location.pathname), [location])
 
     function getDataFromSession(data: string):string {
         return sessionStorage.getItem(data) || ""
@@ -52,7 +51,7 @@ function UserProvider({children}: {children: React.ReactNode}) {
     }, [role])
 
     return (
-        <UserContext.Provider value={{userId, username, studentClass, role, userRoutes, currentActiveRoute, setUserId, setUsername, setStudentClass, setRole, setCurrentActiveRoute}}>
+        <UserContext.Provider value={{userId, username, studentClass, role, userRoutes, currentActiveRoute, setUserId, setUsername, setStudentClass, setRole}}>
             {children}
         </UserContext.Provider>
     )
