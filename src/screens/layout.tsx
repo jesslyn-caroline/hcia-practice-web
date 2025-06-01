@@ -1,13 +1,11 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Link, Outlet } from "react-router"
-
-interface RouteObject {
-    link: string
-    name: string
-    icon: string
-}
+import { UserContext } from "../provider/user_context"
 
 function Layout() {
+
+    const { userRoutes, currentActiveRoute, setCurrentActiveRoute} = useContext(UserContext)
+
     const [isOpenedSideBar, setIsOpenedSideBar] = useState<boolean>(false)
 
     function toggleSideBar(event: string) {
@@ -15,18 +13,6 @@ function Layout() {
         else setIsOpenedSideBar(true)
     }
 
-    const adminRoute: RouteObject[] = [
-        {link: "/", name: "Home", icon: "ri-home-2-line"},
-        {link: "/create-question", name: "Create Question", icon: "ri-list-check-2"},
-    ]
-    // const userRoute: RouteObject[] = [
-    //     {link: "/", name: "Home"},
-    // ]
-
-    const [currentActiveRoute, setCurrentActiveRoute] = useState<string>(() => {
-        const currentActiveRoute = sessionStorage.getItem("currentActiveRoute") || "/"
-        return currentActiveRoute
-    })
 
     function changeRoute(route: string) {
         setCurrentActiveRoute(route)
@@ -48,7 +34,7 @@ function Layout() {
                     </div>
                     <div className={`px-4 md:px-6 py-2 flex flex-col space-y-3 `}>
                         { 
-                             ...adminRoute.map((route) => {
+                            ...userRoutes.map((route) => {
                                  return (
                                 <Link to={route.link} className={`flex flex-row items-center space-x-4 px-3 py-2 ${currentActiveRoute === route.link? "bg-gray-100 font-semibold" : ""} hover:bg-gray-100 rounded-md transition-colors`} onClick={() => changeRoute(route.link)}>
                                     <i className={`font-normal text-2xl ${route.icon}`}/>
