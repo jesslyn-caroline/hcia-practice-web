@@ -109,7 +109,8 @@ function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
         }
         else setYearErrMessage("")
 
-        if (score === undefined) {
+
+        if (isNaN(score!) || score === undefined) {
             setScoreErrMessage("Please fill the score")
             valid = false
         }
