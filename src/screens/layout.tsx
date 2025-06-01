@@ -46,7 +46,7 @@ function Layout() {
                     <div className={`h-14 px-9 flex items-center`}>
                         <i className={`text-2xl ri-menu-fold-line`} onClick={() => toggleSideBar("close")}/>
                     </div>
-                    <div className={`px-6 py-2 flex flex-col space-y-3 `}>
+                    <div className={`px-4 md:px-6 py-2 flex flex-col space-y-3 `}>
                         { 
                              ...adminRoute.map((route) => {
                                  return (
@@ -64,10 +64,10 @@ function Layout() {
                 <div className={`w-full flex flex-row`}>
                     <div className={`hidden ${isOpenedSideBar? "md:block" : "hidden"} min-w-2xs w-2xs transition-discrete`} />
                     <div className={`w-full h-full flex flex-col`}>
-                        <div className={`h-14 px-10 bg-primary flex items-center`}>
+                        <div className={`h-14 px-4 md:px-10 bg-primary flex items-center`}>
                             <i className={`${isOpenedSideBar? "opacity-0" : "opacity-100"} text-2xl text-white ri-menu-line`} onClick={() => toggleSideBar("open")}/>
                         </div>
-                        <div className={`px-10 py-6`}>
+                        <div className={`px-4 md:px-10 py-6`}>
                            <Outlet />
                         </div>
                     </div>
