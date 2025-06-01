@@ -13,7 +13,6 @@ function Layout() {
         else setIsOpenedSideBar(true)
     }
 
-
     function changeRoute(route: string) {
         setCurrentActiveRoute(route)
         sessionStorage.setItem("currentActiveRoute", route)
@@ -29,7 +28,7 @@ function Layout() {
 
                 {/* SideBar */}
                 <div className={`${isOpenedSideBar? "translate-x-0" : "-translate-x-full"} z-20 absolute left-0 w-2xs h-full bg-background ease-in-out duration-200 border-r-1 border-accent-2`}>
-                    <div className={`h-14 px-9 flex items-center`}>
+                    <div className={`h-14 px-7 md:px-9 flex items-center`}>
                         <i className={`text-2xl ri-menu-fold-line cursor-pointer`} onClick={() => toggleSideBar("close")}/>
                     </div>
                     <div className={`px-4 md:px-6 py-2 flex flex-col space-y-3 `}>
