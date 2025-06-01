@@ -11,6 +11,7 @@ import Home from './screens/home.tsx'
 
 import { UserContext } from './provider/user_context.tsx'
 import SignupProvider from './provider/signup_context.tsx'
+import LoginProvider from './provider/login_context.tsx'
 
 function App() {
 
@@ -23,7 +24,11 @@ function App() {
 
       {/* == login and sign up == */}
       <Route element={<LoginSignupLayout />} >
-        <Route path="/login" element={<LoginCard />} />
+        <Route path="/login" element={
+          <LoginProvider>
+            <LoginCard />
+          </LoginProvider>   
+        } />
         <Route path="/signup" element={
           <SignupProvider>
             <SignupCard />
