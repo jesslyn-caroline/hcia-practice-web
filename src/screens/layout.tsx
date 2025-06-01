@@ -44,7 +44,7 @@ function Layout() {
                 {/* SideBar */}
                 <div className={`${isOpenedSideBar? "translate-x-0" : "-translate-x-full"} z-20 absolute left-0 w-2xs h-full bg-background ease-in-out duration-200 border-r-1 border-accent-2`}>
                     <div className={`h-14 px-9 flex items-center`}>
-                        <i className={`text-2xl ri-menu-fold-line`} onClick={() => toggleSideBar("close")}/>
+                        <i className={`text-2xl ri-menu-fold-line cursor-pointer`} onClick={() => toggleSideBar("close")}/>
                     </div>
                     <div className={`px-4 md:px-6 py-2 flex flex-col space-y-3 `}>
                         { 
@@ -65,7 +65,7 @@ function Layout() {
                     <div className={`hidden ${isOpenedSideBar? "md:block" : "hidden"} min-w-2xs w-2xs transition-discrete`} />
                     <div className={`w-full h-full flex flex-col`}>
                         <div className={`h-14 px-4 md:px-10 bg-primary flex items-center`}>
-                            <i className={`${isOpenedSideBar? "opacity-0" : "opacity-100"} text-2xl text-white ri-menu-line`} onClick={() => toggleSideBar("open")}/>
+                            <i className={`${isOpenedSideBar? "opacity-0" : "opacity-100"} text-2xl text-white ri-menu-line cursor-pointer`} onClick={() => toggleSideBar("open")}/>
                         </div>
                         <div className={`px-4 md:px-10 py-6`}>
                            <Outlet />
