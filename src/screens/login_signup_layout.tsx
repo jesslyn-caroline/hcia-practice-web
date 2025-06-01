@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router'
 import { ToastContainer, Bounce } from 'react-toastify';
+
 import ToggleMode from '../components/toggle_mode';
 
 function LoginSignupLayout() {
