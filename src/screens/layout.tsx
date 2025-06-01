@@ -4,20 +4,13 @@ import { UserContext } from "../provider/user_context"
 
 function Layout() {
 
-    const { userRoutes, currentActiveRoute, setCurrentActiveRoute} = useContext(UserContext)
+    const { userRoutes, currentActiveRoute} = useContext(UserContext)
 
     const [isOpenedSideBar, setIsOpenedSideBar] = useState<boolean>(false)
 
     function toggleSideBar(event: string) {
         if (event === "close") setIsOpenedSideBar(false)
         else setIsOpenedSideBar(true)
-    }
-
-    function changeRoute(route: string) {
-        setCurrentActiveRoute(route)
-        sessionStorage.setItem("currentActiveRoute", route)
-
-        toggleSideBar("close")
     }
 
     return(
@@ -35,7 +28,7 @@ function Layout() {
                         { 
                             ...userRoutes.map((route) => {
                                  return (
-                                <Link to={route.link} className={`flex flex-row items-center space-x-4 px-3 py-2 ${currentActiveRoute === route.link? "bg-gray-100 font-semibold" : ""} hover:bg-gray-100 rounded-md transition-colors`} onClick={() => changeRoute(route.link)}>
+                                <Link to={route.link} className={`flex flex-row items-center space-x-4 px-3 py-2 ${currentActiveRoute === route.link? "bg-gray-100 font-semibold" : ""} hover:bg-gray-100 rounded-md transition-colors`} onClick={() => {}}>
                                     <i className={`font-normal text-2xl ${route.icon}`}/>
                                     <span className={`text-sm`}>{route.name}</span>
                                 </Link>
