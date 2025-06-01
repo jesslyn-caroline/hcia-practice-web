@@ -186,7 +186,7 @@ function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
 
         try {
             const response = await axios.post("https://huawei-practice-web-backend.vercel.app/api/question", 
-                {question, year, type, score, answer, options: optionsValue}
+                {question, year: parseInt(year), type, score, answer, options: optionsValue}
             )
             
             if (response.status === 201) {
