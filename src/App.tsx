@@ -12,6 +12,7 @@ import Home from './screens/home.tsx'
 import { UserContext } from './provider/user_context.tsx'
 import SignupProvider from './provider/signup_context.tsx'
 import LoginProvider from './provider/login_context.tsx'
+import NotFound from './screens/not_found.tsx'
 
 function App() {
 
@@ -57,7 +58,7 @@ function App() {
       }
       
       {/* == unauthorized == */}
-      <Route path="*" element={<h1>Unauthorized</h1>} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
