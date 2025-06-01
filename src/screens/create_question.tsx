@@ -30,7 +30,8 @@ function CreateQuestion() {
                             optionsLabel={["Multiple Answers Multiple Choice", "Single Answer Multiple Choice", "True or False", "Single Word Answer"]}
                             labelValue="Question Type" 
                             titleValue="question-type"
-                            errMessage="" />
+                            errMessage=""
+                            value={type} />
                     </div>
                     <div className={`flex flex-row space-x-12`}>
                         <InputField handleInputChange={handleYearChange}
