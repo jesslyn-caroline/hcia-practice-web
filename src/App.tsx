@@ -2,17 +2,19 @@ import { Routes, Route, Navigate } from 'react-router'
 import { useContext } from 'react'
 
 import LoginSignupLayout from './screens/login_signup_layout.tsx'
-import LoginCard from './components/login_card.tsx'
-import SignupCard from './components/signup_card.tsx'
-
 import Layout from './screens/layout.tsx'
-import CreateQuestion from './screens/create_question.tsx'
-import Home from './screens/home.tsx'
 
 import { UserContext } from './provider/user_context.tsx'
+
 import SignupProvider from './provider/signup_context.tsx'
 import LoginProvider from './provider/login_context.tsx'
+
+import LoginCard from './components/login_card.tsx'
+import SignupCard from './components/signup_card.tsx'
+import CreateQuestion from './screens/create_question.tsx'
+import Home from './screens/home.tsx'
 import NotFound from './screens/not_found.tsx'
+import QuestionList from './screens/question_list.tsx'
 
 function App() {
 
@@ -54,6 +56,7 @@ function App() {
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
           <Route path="/create-question" element={<CreateQuestion />} />
+          <Route path="/question-list" element={<QuestionList />} />
         </Route> : null
       }
       
