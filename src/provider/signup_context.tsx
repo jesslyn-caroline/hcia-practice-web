@@ -106,11 +106,10 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
     
             if (response.status === 201) {
                 toast_success(response.data.message)
-
-                clearInputs()
     
                 setTimeout(() => {
                     navigate("/login")
+                    clearInputs()
                 }, 3000)
             }
         }

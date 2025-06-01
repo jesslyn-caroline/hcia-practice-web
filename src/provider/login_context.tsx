@@ -70,13 +70,11 @@ function LoginProvider({children} : {children : React.ReactNode}) {
                 sessionStorage.setItem("class", response.data.user.class)
                 sessionStorage.setItem("role", response.data.user.role)
 
-                clearInputs()
-
                 toast_success(response.data.message)
                 
                 setTimeout(() => {
                     navigate("/")
-                    setPassword("")
+                    clearInputs()
                 }, 3000)
             }
         }
