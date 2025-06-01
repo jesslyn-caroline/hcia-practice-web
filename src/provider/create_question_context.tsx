@@ -1,9 +1,10 @@
-import { useState, createContext, useContext } from "react"
+import { useState, createContext, useContext, useEffect } from "react"
 import axios from "axios"
 
 import { ErrorMessageContext } from "./error_message_context"
 import toast_success from "../components/toast/toast_success"
 import toast_error from "../components/toast/toast_error"
+import { UserContext } from "./user_context"
 
 export const CreateQuestionContext = createContext({
     year : "",
@@ -22,18 +23,19 @@ export const CreateQuestionContext = createContext({
     handleOptionValueChange : (index:number, e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value, index) },
     handleIsOptionsSelectedChange : (index:number, e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value, index) },
 
-    saveQuestion: () => { console.log("save") }
+    saveQuestion: () => { console.log("save") },
+    clearInputs: () => { console.log("clearInputs") }
 })
 
 function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
 
     const { setQuestionErrMessage, setYearErrMessage, setScoreErrMessage, setOptionsErrMessage, setNoAnswerErrMessage } = useContext(ErrorMessageContext)
+    const { currentActiveRoute } = useContext(UserContext)
 
     const typeOptions: string[] = ["multiple-answer-multiple-choice", "single-answer-multiple-choice", "true-or-false", "single-word-answer"]
     const [type, setType] = useState<string>("multiple-answer-multiple-choice")
     const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setType(e.target.value)
-        console.log(e.target.value)
 
         // reset options value and isSelected
         setOptionsValue(["", "", "", ""])
@@ -198,8 +200,21 @@ function CreateQuestionProvider ({children} : {children : React.ReactNode}) {
         setIsOnLoad(false)
     }
 
+    const clearInputs = () => {
+        setYear(date.getFullYear().toString())
+        setType("multiple-answer-multiple-choice")
+        setScore(0)
+        setQuestion("")
+        setOptionsValue(["", "", "", ""])
+        setIsOptionsSelected([false, false, false, false])
+    }
+
+    useEffect(() => {
+        clearInputs()
+    }, [currentActiveRoute])
+
     return (
-        <CreateQuestionContext.Provider value={{year, typeOptions, type, score: score !== undefined ? score : 0, question, optionsValue, isOptionsSelected, isOnLoad, handleTypeChange, handleYearChange, handleScoreChange, handleQuestionChange, handleOptionValueChange, handleIsOptionsSelectedChange, saveQuestion}}>
+        <CreateQuestionContext.Provider value={{year, typeOptions, type, score: score !== undefined ? score : 0, question, optionsValue, isOptionsSelected, isOnLoad, handleTypeChange, handleYearChange, handleScoreChange, handleQuestionChange, handleOptionValueChange, handleIsOptionsSelectedChange, saveQuestion, clearInputs}}>
             { children }
         </CreateQuestionContext.Provider>
     )
