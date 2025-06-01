@@ -23,7 +23,7 @@ function CreateQuestion() {
             <i className={`text-4xl ri-menu-add-line mb-2`}/>
             <h1 className={`text-xl font-semibold mb-8`}>Create Question</h1>
             <div className={`space-y-8`}>
-                <div className={`flex flex-row space-x-12`}>
+                <div className={`flex flex-col md:flex-row md:space-x-12`}>
                     <div>
                         <SelectField handleSelectChange={handleTypeChange} 
                             optionsValue={typeOptions} 
@@ -32,20 +32,22 @@ function CreateQuestion() {
                             titleValue="question-type"
                             errMessage="" />
                     </div>
-                    <InputField handleInputChange={handleYearChange}
-                        inputType="text" 
-                        errMessage={yearErrMessage} 
-                        placeholderValue="YYYY" 
-                        idValue="question-year" 
-                        labelValue="Year"
-                        value={year} />
-                    <InputField handleInputChange={handleScoreChange} 
-                        inputType="number" 
-                        errMessage={scoreErrMessage} 
-                        placeholderValue="Score" 
-                        idValue="question-score" 
-                        labelValue="Score" 
-                        value={score} />
+                    <div className={`flex flex-row space-x-12`}>
+                        <InputField handleInputChange={handleYearChange}
+                            inputType="text" 
+                            errMessage={yearErrMessage} 
+                            placeholderValue="YYYY" 
+                            idValue="question-year" 
+                            labelValue="Year"
+                            value={year} />
+                        <InputField handleInputChange={handleScoreChange} 
+                            inputType="number" 
+                            errMessage={scoreErrMessage} 
+                            placeholderValue="Score" 
+                            idValue="question-score" 
+                            labelValue="Score" 
+                            value={score} />
+                    </div>
                 </div>
 
                 <div>
