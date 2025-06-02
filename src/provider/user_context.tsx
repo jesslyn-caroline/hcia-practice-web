@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { useLocation } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 
 export const UserContext = createContext({
     userId: "",
@@ -22,6 +22,8 @@ interface RouteObject {
 }
 
 function UserProvider({children}: {children: React.ReactNode}) {
+    const navigate = useNavigate()
+
     const [userId, setUserId] = useState<string>(getDataFromSession("userId"))
     const [username, setUsername] = useState<string>(getDataFromSession("username"))
     const [studentClass, setStudentClass] = useState<string>(getDataFromSession("class"))
@@ -40,7 +42,12 @@ function UserProvider({children}: {children: React.ReactNode}) {
 
     const location = useLocation()
     const [currentActiveRoute, setCurrentActiveRoute] = useState<string>(location.pathname)
-    useEffect(() => setCurrentActiveRoute(location.pathname), [location])
+    useEffect(() => {
+        setCurrentActiveRoute(location.pathname)
+
+        if (location.pathname === "/login" && role !== "") navigate("/")
+        else if (location.pathname === "/signup" && role !== "") navigate("/")
+    }, [location])
 
     function getDataFromSession(data: string):string {
         return sessionStorage.getItem(data) || ""
