@@ -12,15 +12,15 @@ const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <StrictMode>
     <BrowserRouter>
-      <ErrorMessageProvider>
-        <UserProvider>   
+      <UserProvider>
+        <ErrorMessageProvider>    
           <CreateQuestionProvider>
             <QuestionListProvider>
               <App />
             </QuestionListProvider>  
           </CreateQuestionProvider>
-        </UserProvider>
-      </ErrorMessageProvider>
+        </ErrorMessageProvider>
+      </UserProvider>
     </BrowserRouter>
   </StrictMode>,
 )
