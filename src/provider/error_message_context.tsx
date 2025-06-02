@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { UserContext } from "./user_context";
 
 export const ErrorMessageContext = createContext({
     userIdErrMessage: "", 
@@ -29,6 +30,8 @@ export const ErrorMessageContext = createContext({
 })
 
 function ErrorMessageProvider({children} : {children: React.ReactNode}) {
+
+    const { currentActiveRoute } = useContext(UserContext)
     
     // === login and signup ===
     const [userIdErrMessage, setUserIdErrMessage] = useState<string>("")
@@ -55,7 +58,17 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
         setPasswordErrMessage("")
         setConfirmPasswordErrMessage("")
         setStudentClassErrMessage("")
+
+        setQuestionErrMessage("")
+        setYearErrMessage("")
+        setScoreErrMessage("")
+        setOptionsErrMessage(["", "", "", ""])
+        setNoAnswerErrMessage("")
     }
+
+    useEffect(() => {
+        resetErrMessage()
+    }, [currentActiveRoute])
 
     return (
         <ErrorMessageContext.Provider 
@@ -65,7 +78,7 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
                 passwordErrMessage, 
                 confirmPasswordErrMessage, 
                 studentClassErrMessage,
-
+                
                 questionErrMessage, 
                 yearErrMessage, 
                 scoreErrMessage, 
