@@ -25,10 +25,6 @@ function App() {
       {/* == if user tries to access "/" without log in == */}
       <Route path="/" element={<Navigate to="/login" />} />
 
-      {/* == if user tries to access "/signup" or "/login" with a role, redirect to "/" == */}
-      { role !== "" ? <Route path="/signup" element={<Navigate to="/" />} /> : null }
-      { role !== "" ? <Route path="/login" element={<Navigate to="/" />} /> : null }
-
       {/* == login and sign up == */}
       <Route element={<LoginSignupLayout />} >
         <Route path="/login" element={
