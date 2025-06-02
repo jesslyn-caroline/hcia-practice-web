@@ -1,10 +1,11 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import axios from "axios"
 
 import { ErrorMessageContext } from "./error_message_context"
 import toast_success from "../components/toast/toast_success"
 import toast_error from "../components/toast/toast_error"
+import { UserContext } from "./user_context"
 
 export const SignupContext = createContext({
     userId: "",
@@ -27,6 +28,7 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
     const navigate = useNavigate()
 
     const { setUserIdErrMessage, setUsernameErrMessage, setPasswordErrMessage, setConfirmPasswordErrMessage, setStudentClassErrMessage } = useContext(ErrorMessageContext)
+    const { currentActiveRoute } = useContext(UserContext)
 
     const [userId, setUserId] = useState<string>("")
     const handleUserIdChange = (e: React.ChangeEvent<HTMLInputElement>):void => setUserId(e.target.value)
@@ -127,6 +129,10 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
         setConfirmPassword("")
         setStudentClass("IF-A Pagi")
     }
+
+    useEffect(() => {
+        clearInputs()
+    }, [currentActiveRoute])
 
     return (
         <SignupContext.Provider value={{ userId, username, password, confirmPassword, isOnLoad, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup, clearInputs }}>

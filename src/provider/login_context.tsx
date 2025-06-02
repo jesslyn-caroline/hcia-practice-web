@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router"
 
@@ -15,13 +15,12 @@ export const LoginContext = createContext({
     handleUserIdChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     login: () => {},
-    clearInputs: () => {}
 })
 
 function LoginProvider({children} : {children : React.ReactNode}) {
     const navigate = useNavigate()
 
-    const { setUserId, setUsername, setStudentClass, setRole } = useContext(UserContext)
+    const { setUserId, setUsername, setStudentClass, setRole, currentActiveRoute } = useContext(UserContext)
     const { setUserIdErrMessage, setPasswordErrMessage } = useContext(ErrorMessageContext)
 
     const [userId, setUserIdVal] = useState<string>("")
@@ -90,8 +89,12 @@ function LoginProvider({children} : {children : React.ReactNode}) {
         setPassword("")
     } 
 
+    useEffect(() => {
+        clearInputs()
+    }, [currentActiveRoute])
+
     return (
-        <LoginContext.Provider value={{userId, password, isOnLoad, handleUserIdChange, handlePasswordChange, login, clearInputs}}>
+        <LoginContext.Provider value={{userId, password, isOnLoad, handleUserIdChange, handlePasswordChange, login}}>
             {children}
         </LoginContext.Provider>
     )
