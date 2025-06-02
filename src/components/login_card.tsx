@@ -8,8 +8,8 @@ import ActionButton from "./action_button"
 
 function LoginCard() {
 
-    const { userId, password, isOnLoad, handleUserIdChange, handlePasswordChange, login, clearInputs } = useContext(LoginContext)
-    const { userIdErrMessage, passwordErrMessage, resetErrMessage } = useContext(ErrorMessageContext)
+    const { userId, password, isOnLoad, handleUserIdChange, handlePasswordChange, login } = useContext(LoginContext)
+    const { userIdErrMessage, passwordErrMessage } = useContext(ErrorMessageContext)
 
     return(
         <div className={`w-full h-full flex justify-center pt-14`}>
@@ -34,7 +34,7 @@ function LoginCard() {
                 </div>
                 <div className={`w-full mt-6`}>
                     <h3>
-                        Don't have an account? <Link to="/signup" className={`text-blue-600 underline`} onClick={() => {resetErrMessage(), clearInputs()}}>Sign up</Link>
+                        Don't have an account? <Link to="/signup" className={`text-blue-600 underline`}>Sign up</Link>
                     </h3>
                 </div>
             </div>
