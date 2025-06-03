@@ -18,7 +18,7 @@ function Layout() {
         <div className={`w-full flex justify-center`}>
             <div className={`max-w-[1620px] w-full h-screen bg-background`}>
                 {/* Overlay */}
-                <div className={`${isOpenedSideBar? "" : "hidden"} md:hidden absolute w-full h-full bg-black opacity-50 z-10 transition-all`} onClick={() => toggleSideBar("close")}/>
+                <div className={`${isOpenedSideBar? "" : "hidden"} md:hidden absolute w-full h-full bg-black opacity-50 z-10 transition-allzz`} onClick={() => toggleSideBar("close")}/>
 
                 {/* SideBar */}
                 <div className={`${isOpenedSideBar? "translate-x-0" : "-translate-x-full"} z-20 absolute left-0 w-2xs h-full bg-background ease-in-out duration-200`}>
@@ -42,11 +42,11 @@ function Layout() {
                 {/* Content */}
                 <div className={`w-full h-full flex flex-row`}>
                     <div className={`hidden ${isOpenedSideBar? "md:block" : "hidden"} min-w-2xs w-2xs transition-discrete`} />
-                    <div className={`min-h-screen w-full h-fit border-l-1 border-accent-2 flex flex-col`}>
+                    <div className={`min-h-screen w-full h-screen border-l-1 border-accent-2 flex flex-col`}>
                         <div className={`min-h-14 h-14 px-4 md:px-10 bg-primary flex items-center`}>
                             <i className={`${isOpenedSideBar? "opacity-0" : "opacity-100"} text-2xl text-white ri-menu-line cursor-pointer`} onClick={() => toggleSideBar("open")}/>
                         </div>
-                        <div className={`px-4 md:px-10 py-6`}>
+                        <div className={`px-4 md:px-10 py-6 overflow-y-scroll`}>
                            <Outlet />
                         </div>
                     </div>
