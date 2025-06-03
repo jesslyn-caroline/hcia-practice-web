@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import ReactPaginate from "react-paginate"
 
 import { QuestionListContext } from "../provider/question_list_context"
 
@@ -12,6 +13,17 @@ function QuestionList() {
                 <i className={`text-4xl ri-list-check-2 mb-2`}/>
                 <h1 className={`text-xl font-semibold mb-8`}>Question List</h1>
                 <div className={`overflow-x-auto`}>
+                    <ReactPaginate 
+                        pageCount={Math.ceil(questionList.length / 20)}
+                        pageRangeDisplayed={20}
+                        previousLabel={"<"}
+                        nextLabel={">"}
+                        breakLabel={"..."}
+                        marginPagesDisplayed={2}
+                        containerClassName={"pagination"}
+                        activeClassName={"active"}
+                        className={`text-3xl`}
+                    />
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="text-gray-500 uppercase">
                             <tr>
