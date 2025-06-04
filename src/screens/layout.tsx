@@ -16,7 +16,7 @@ function Layout() {
 
     return(
         <div className={`w-full flex justify-center`}>
-            <div className={`max-w-[1620px] w-full h-screen bg-background`}>
+            <div className={`max-w-[1620px] w-full h-full bg-background`}>
                 {/* Overlay */}
                 <div className={`${isOpenedSideBar? "" : "hidden"} md:hidden absolute w-full h-full bg-black opacity-50 z-10 transition-allzz`} onClick={() => toggleSideBar("close")}/>
 
