@@ -6,8 +6,13 @@ import toast_error from "../components/toast/toast_error";
 
 export const QuestionListContext = createContext({
     questionList: [{_id: "", question: "", year: 0, type: "", options: ["", "", "", ""], answer: ["", "", "", ""], score: 0}],
+    currentItems: [{_id: "", question: "", year: 0, type: "", options: ["", "", "", ""], answer: ["", "", "", ""], score: 0}],
+    pageCount: 0,
+    startOffset: 0,
+    isOnLoadDelete: false,
     
-    deleteQuestion: (id: string) => { console.log(id) }
+    deleteQuestion: (id: string) => { console.log(id) },
+    handlePageClick: (e: {selected: number}) => { console.log(e) }
 })
 
 interface QuestionModel {
@@ -25,12 +30,25 @@ function QuestionListProvider ({children} : {children: React.ReactNode}) {
     const { isOnLoad } = useContext(CreateQuestionContext)
 
     const [questionList, setQuestionList] = useState<QuestionModel[]>([])
-
     useEffect(() => {
         getQuestionList()
     }, [isOnLoad])
-    
-    // const [filterByYear, setFilterByYear] = useState<number>(-1)
+
+    // === React Paginate ===
+
+    const itemsPerPage:number = 20
+    const [startOffset, setStartOffset] = useState<number>(0)
+
+    const endOffset:number = startOffset + itemsPerPage
+    const currentItems:QuestionModel[] = questionList.slice(startOffset, endOffset)
+    const pageCount:number = Math.ceil(questionList.length / itemsPerPage)
+
+    const handlePageClick = (e: {selected: number}) => {
+        const newOffset = (e.selected * itemsPerPage) % questionList.length
+        setStartOffset(newOffset)
+    }
+
+    // ======================
 
     async function getQuestionList():Promise<void> {
         try {
@@ -45,7 +63,11 @@ function QuestionListProvider ({children} : {children: React.ReactNode}) {
         }
     }
 
+    const [isOnLoadDelete, setIsOnLoadDelete] = useState<boolean>(false)
+
     async function deleteQuestion (id: string):Promise<void> {
+        setIsOnLoadDelete(true)
+
         try {
             const response = await axios.delete(`https://huawei-practice-web-backend.vercel.app/api/question/${id}`)
 
@@ -57,10 +79,12 @@ function QuestionListProvider ({children} : {children: React.ReactNode}) {
         catch (err: any) {
             toast_error(err.response.data.message)
         }
+
+        setIsOnLoadDelete(false)
     }
 
     return (
-        <QuestionListContext.Provider value={{questionList, deleteQuestion}}>
+        <QuestionListContext.Provider value={{questionList, currentItems, pageCount, startOffset, isOnLoadDelete, deleteQuestion, handlePageClick}}>
             {children}
         </QuestionListContext.Provider>
     )
