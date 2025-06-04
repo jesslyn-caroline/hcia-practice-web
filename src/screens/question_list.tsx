@@ -13,17 +13,18 @@ function QuestionList() {
                 <i className={`text-4xl ri-list-check-2 mb-2`}/>
                 <h1 className={`text-xl font-semibold mb-8`}>Question List</h1>
                 <div className={`overflow-x-auto`}>
-                    <ReactPaginate 
-                        pageCount={Math.ceil(questionList.length / 20)}
-                        pageRangeDisplayed={20}
-                        previousLabel={"<"}
-                        nextLabel={">"}
-                        breakLabel={"..."}
-                        marginPagesDisplayed={2}
-                        containerClassName={"pagination"}
-                        activeClassName={"active"}
-                        className={`text-3xl`}
-                    />
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    // onPageChange={deleteQuestion}
+                    pageRangeDisplayed={5}
+                    pageCount={20}
+                    previousLabel={<i className="ri-arrow-left-line"/>}
+                    renderOnZeroPageCount={null}
+                    className="flex flex-row justify-center items-center"
+                    pageClassName="border-1 border-accent-2 w-8 h-8 flex justify-center items-center"
+                    breakClassName="border-1 border-accent-2 w-8 h-8 flex justify-center items-center"                    
+                />
                     <table className="min-w-full divide-y divide-gray-200">
                         <thead className="text-gray-500 uppercase">
                             <tr>
