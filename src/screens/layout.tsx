@@ -46,7 +46,7 @@ function Layout() {
                         <div className={`min-h-14 h-14 px-4 md:px-10 bg-primary flex items-center`}>
                             <i className={`${isOpenedSideBar? "opacity-0" : "opacity-100"} text-2xl text-white ri-menu-line cursor-pointer`} onClick={() => toggleSideBar("open")}/>
                         </div>
-                        <div className={`px-4 md:px-10 py-6 overflow-y-scroll`}>
+                        <div className={`px-4 md:px-10 py-6 overflow-y-scroll scroll-bar-hidden`}>
                            <Outlet />
                         </div>
                     </div>
