@@ -18,10 +18,10 @@ function Layout() {
         <div className={`w-full flex justify-center`}>
             <div className={`max-w-[1620px] w-full h-full bg-background`}>
                 {/* Overlay */}
-                <div className={`${isOpenedSideBar? "" : "hidden"} md:hidden absolute w-full h-full bg-black opacity-50 z-10 transition-allzz`} onClick={() => toggleSideBar("close")}/>
+                <div className={`${isOpenedSideBar? "" : "hidden"} md:hidden absolute w-full h-screen bg-black opacity-50 z-10 transition-allzz`} onClick={() => toggleSideBar("close")}/>
 
                 {/* SideBar */}
-                <div className={`${isOpenedSideBar? "translate-x-0" : "-translate-x-full"} z-20 absolute left-0 w-2xs h-full bg-background ease-in-out duration-200`}>
+                <div className={`${isOpenedSideBar? "translate-x-0" : "-translate-x-full"} z-20 absolute left-0 w-2xs h-screen bg-background ease-in-out duration-200`}>
                     <div className={`h-14 px-7 md:px-9 flex items-center`}>
                         <i className={`text-2xl ri-menu-fold-line cursor-pointer`} onClick={() => toggleSideBar("close")}/>
                     </div>
