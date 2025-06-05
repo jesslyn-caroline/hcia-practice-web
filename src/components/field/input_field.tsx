@@ -10,7 +10,7 @@ interface Props {
 
 function InputField({handleInputChange, inputType, errMessage, placeholderValue, idValue, labelValue, value} : Props) {
     return (
-        <div>
+        <div className={`relative`}>
             <label className={`font-medium`}>{labelValue}</label>
             <input type={inputType} 
                 onChange={handleInputChange} 

@@ -11,7 +11,7 @@ function SingleAnswerMultipleChoice() {
 
     return (
         <div>
-            <div className={`flex flex-col mb-5`}>
+            <div className={`flex flex-col mb-5 relative`}>
                 <span className={`text-sm font-semibold`}>Question Choices</span>
                 <span className={`text-sm text-gray-500`}>Select the correct answer</span>
                 <span className={`${noAnswerErrMessage === "" ? "hidden" : ""}`}>
@@ -27,7 +27,7 @@ function SingleAnswerMultipleChoice() {
                                 name="option" 
                                 onChange={(e) => {handleIsOptionsSelectedChange(index, e)}} 
                                 className={`w-5`} /> 
-                            <label htmlFor={`option-${index}`}  className={`w-full`}>
+                            <label htmlFor={`option-${index}`}  className={`w-full relative`}>
                                 {``}
                                 <input type="text" 
                                     value={value} 

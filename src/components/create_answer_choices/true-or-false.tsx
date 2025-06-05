@@ -11,7 +11,7 @@ function TrueOrFalse() {
 
     return (
         <div>
-            <div className={`flex flex-col mb-5`}>
+            <div className={`flex flex-col mb-5 relative`}>
                 <span className={`text-sm font-semibold`}>Question Choices</span>
                 <span className={`text-sm text-gray-500`}>Select the correct answer</span>
                 <span className={`${noAnswerErrMessage === "" ? "hidden" : ""}`}>
