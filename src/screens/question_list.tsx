@@ -13,8 +13,8 @@ function QuestionList() {
             <div className={`flex flex-col`}>
                 <i className={`text-4xl ri-list-check-2 mb-2`}/>
                 <h1 className={`text-xl font-semibold mb-8`}>Question List</h1>
-                <div className={`overflow-x-auto`}>
-                    <table className="mb-20 min-w-full divide-y divide-gray-200">
+                <div className={``}>
+                    <table className="mb-20 min-w-full divide-y divide-gray-200 overflow-x-auto">
                         <thead className="text-gray-500 uppercase">
                             <tr>
                                 <th scope="col" className="w-12 font-medium">No.</th>
@@ -29,10 +29,10 @@ function QuestionList() {
                             { ...currentItems.map((question, index) => {
                                 return (
                                     <tr key={question._id}>
-                                        <td className="text-center">{index + startOffset + 1}</td>
+                                        <td className="py-3 text-center">{index + startOffset + 1}</td>
                                         <td className="px-6 py-3">{question.question}</td>
-                                        <td className="text-center">{question.year}</td>
-                                        <td className="text-center">{question.type.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}</td>
+                                        <td className="py-3 text-center">{question.year}</td>
+                                        <td className="py-3 text-center">{question.type.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}</td>
                                         <td className="px-6 py-3">
                                             {...question.answer.map((answer) => {
                                                 return (
@@ -41,8 +41,8 @@ function QuestionList() {
                                             })}
                                         </td>
                                         <td className="px-6 py-3 flex flex-row justify-center space-x-2">
-                                            <ActionButton action={() => deleteQuestion(question._id)} text="Delete" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete}/>
-                                            <ActionButton action={() => deleteQuestion(question._id)} text="Delete" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete}/>
+                                            <ActionButton action={() => deleteQuestion(question._id)} text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete}/>
+                                            <ActionButton action={() => deleteQuestion(question._id)} text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete}/>
                                         </td>
                                     </tr>
                                     )
