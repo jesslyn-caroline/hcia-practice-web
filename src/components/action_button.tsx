@@ -2,12 +2,21 @@ interface Props {
     action: () => void,
     text: string,
     icon: string,
-    isOnLoad: boolean
+    isOnLoad: boolean,
+    bgColor: string,
+    hoverbgColor: string,
+    borderColor: string,
+    hoverBorderColor: string
+    textColor: string,
+    hoverTextColor: string
 }
 
-function ActionButton({action, text, icon, isOnLoad} : Props) {
+function ActionButton({action, text, icon, isOnLoad, bgColor, hoverbgColor, borderColor, hoverBorderColor, textColor, hoverTextColor} : Props) {
+    const buttonStyle = `bg-${bgColor} hover:bg-${hoverbgColor} border border-${borderColor} hover:border-${hoverBorderColor} text-${textColor} hover:text-${hoverTextColor}`
+
     return (
-        <button className={`h-fit bg-primary px-4 py-2 rounded-md text-white relative flex justify-center cursor-pointer hover:bg-[#AF0009] transition-all`} onClick={action} disabled={isOnLoad}>
+        // button default color is red
+        <button className={`h-fit px-4 py-2 rounded-md relative flex justify-center cursor-pointer transition-all ${buttonStyle}`} onClick={action} disabled={isOnLoad}>
             <div className={`${isOnLoad ? "opacity-0" : "opacity-100"} flex flex-row place-items-center ${text !== "" && icon !== "" ? "space-x-2" : ""}`}>
                 <i className={`${icon} text-xl`} />
                 <span className={`font-medium`}>{text}</span>
