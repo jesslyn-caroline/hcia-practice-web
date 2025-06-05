@@ -8,7 +8,7 @@ interface Props {
 function ActionButton({action, text, icon, isOnLoad} : Props) {
     return (
         <button className={`h-fit bg-primary px-4 py-2 rounded-md text-white relative flex justify-center cursor-pointer hover:bg-[#AF0009] transition-all`} onClick={action} disabled={isOnLoad}>
-            <div className={`${isOnLoad ? "opacity-0" : "opacity-100"} flex flex-row place-items-center space-x-2`}>
+            <div className={`${isOnLoad ? "opacity-0" : "opacity-100"} flex flex-row place-items-center ${text !== "" && icon !== "" ? "space-x-2" : ""}`}>
                 <i className={`${icon} text-xl`} />
                 <span className={`font-medium`}>{text}</span>
             </div>
