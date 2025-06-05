@@ -21,7 +21,7 @@ function QuestionList() {
                                 <th scope="col" className="w-90 px-6 py-3 font-medium text-start">Question</th>
                                 <th scope="col" className="px-6 py-3 font-medium">Year</th>
                                 <th scope="col" className="w-70 font-medium">Type</th>
-                                <th scope="col" className="w-50 px-6 py-3 font-medium text-start">Answer</th>
+                                <th scope="col" className="w-60 px-6 py-3 font-medium text-start">Answer</th>
                                 <th scope="col" className="px-6 py-3 font-medium">Action</th>
                             </tr>
                         </thead>
@@ -41,8 +41,11 @@ function QuestionList() {
                                             })}
                                         </td>
                                         <td className="px-6 py-3 flex flex-row justify-center space-x-2">
-                                            <ActionButton action={() => deleteQuestion(question._id)} text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete === question._id}/>
-                                            {/* <ActionButton action={() => deleteQuestion(question._id)} text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete }/> */}
+                                            <ActionButton action={() => deleteQuestion(question._id)} 
+                                                text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete === question._id} 
+                                                bgColor="white" hoverbgColor="[#AF0009]" 
+                                                borderColor="primary" hoverBorderColor="[#AF0009]" 
+                                                textColor="primary" hoverTextColor="white"/>
                                         </td>
                                     </tr>
                                     )

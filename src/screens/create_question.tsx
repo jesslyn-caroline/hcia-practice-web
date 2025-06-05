@@ -62,7 +62,11 @@ function CreateQuestion() {
                     { type === "single-word-answer"? <SingleWordAnswer /> : null }
                     { type === "true-or-false"? <TrueOrFalse /> : null }
                 </div>
-                <ActionButton action={saveQuestion} text={"Save"} icon={"ri-save-fill"} isOnLoad={isOnLoad}/>
+                <ActionButton action={saveQuestion} 
+                    text={"Save"} icon={"ri-save-fill"} isOnLoad={isOnLoad} 
+                    bgColor="primary" hoverbgColor="[#AF0009]" 
+                    borderColor="primary" hoverBorderColor="[#AF0009]" 
+                    textColor="white" hoverTextColor="white"/>
             </div>
         </div>
     )

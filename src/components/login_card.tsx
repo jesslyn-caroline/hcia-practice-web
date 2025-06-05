@@ -30,7 +30,11 @@ function LoginCard() {
                         idValue={"password"} 
                         labelValue={"Password"}
                         value={password} />
-                    <ActionButton action={login} text={"Log In"} icon={""} isOnLoad={isOnLoad}/>
+                    <ActionButton action={login} 
+                        text={"Log In"} icon={""} isOnLoad={isOnLoad} 
+                        bgColor="primary" hoverbgColor="[#AF0009]" 
+                        borderColor="primary" hoverBorderColor="[#AF0009]" 
+                        textColor="white" hoverTextColor="white"/>
                 </div>
                 <div className={`w-full mt-6`}>
                     <h3>
