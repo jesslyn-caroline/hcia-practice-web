@@ -43,9 +43,14 @@ function QuestionList() {
                                         <td className="px-6 py-3 flex flex-row justify-center space-x-2">
                                             <ActionButton action={() => deleteQuestion(question._id)} 
                                                 text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete === question._id} 
-                                                bgColor="white" hoverbgColor="[#AF0009]" 
-                                                borderColor="primary" hoverBorderColor="[#AF0009]" 
-                                                textColor="primary" hoverTextColor="white"/>
+                                                bgColor="bg-white" hoverbgColor="hover:bg-[#AF0009]" 
+                                                borderColor="border-primary" hoverBorderColor="hover:border-[#AF0009]" 
+                                                textColor="text-primary" hoverTextColor="hover:text-white"/>
+                                            <ActionButton action={() => {}}
+                                                text="" icon="ri-edit-line" isOnLoad={false}
+                                                bgColor="bg-yellow-300" hoverbgColor="hover:bg-yellow-400" 
+                                                borderColor="border-yellow-300" hoverBorderColor="hover:border-yellow-400" 
+                                                textColor="text-white" hoverTextColor="text-white"/>
                                         </td>
                                     </tr>
                                     )
