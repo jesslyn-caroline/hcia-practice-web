@@ -50,7 +50,7 @@ function CreateQuestion() {
                     </div>
                 </div>
 
-                <div>
+                <div className={`relative`}>
                     <div className={`font-semibold`}>Question Type</div>
                     <textarea value={question} onChange={handleQuestionChange} rows={4} className={`w-full mt-2 resize-none outline-none p-2 border-2 border-accent-2 rounded-sm`} id="question" placeholder="Enter your question"></textarea>
                     <div className={`${questionErrMessage === "" ? "hidden" : ""} absolute text-xs text-red-500 mt-1`}>{questionErrMessage}</div>
@@ -64,9 +64,9 @@ function CreateQuestion() {
                 </div>
                 <ActionButton action={saveQuestion} 
                     text={"Save"} icon={"ri-save-fill"} isOnLoad={isOnLoad} 
-                    bgColor="primary" hoverbgColor="[#AF0009]" 
-                    borderColor="primary" hoverBorderColor="[#AF0009]" 
-                    textColor="white" hoverTextColor="white"/>
+                    bgColor="bg-primary" hoverbgColor="hover:bg-[#AF0009]" 
+                    borderColor="border-primary" hoverBorderColor="hover:border-[#AF0009]" 
+                    textColor="text-white" hoverTextColor="h0ver:text-white"/>
             </div>
         </div>
     )

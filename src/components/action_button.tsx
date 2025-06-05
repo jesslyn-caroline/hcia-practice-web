@@ -12,7 +12,8 @@ interface Props {
 }
 
 function ActionButton({action, text, icon, isOnLoad, bgColor, hoverbgColor, borderColor, hoverBorderColor, textColor, hoverTextColor} : Props) {
-    const buttonStyle = `bg-${bgColor} hover:bg-${hoverbgColor} border border-${borderColor} hover:border-${hoverBorderColor} text-${textColor} hover:text-${hoverTextColor}`
+    const buttonStyle = `${bgColor} ${hoverbgColor} border ${borderColor} ${hoverBorderColor} ${textColor} ${hoverTextColor}`
+    console.log(buttonStyle)
 
     return (
         // button default color is red
