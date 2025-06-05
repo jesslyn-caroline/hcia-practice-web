@@ -41,8 +41,8 @@ function QuestionList() {
                                             })}
                                         </td>
                                         <td className="px-6 py-3 flex flex-row justify-center space-x-2">
-                                            <ActionButton action={() => deleteQuestion(question._id)} text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete}/>
-                                            <ActionButton action={() => deleteQuestion(question._id)} text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete}/>
+                                            <ActionButton action={() => deleteQuestion(question._id)} text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete === question._id}/>
+                                            {/* <ActionButton action={() => deleteQuestion(question._id)} text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete }/> */}
                                         </td>
                                     </tr>
                                     )

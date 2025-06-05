@@ -9,7 +9,7 @@ export const QuestionListContext = createContext({
     currentItems: [{_id: "", question: "", year: 0, type: "", options: ["", "", "", ""], answer: ["", "", "", ""], score: 0}],
     pageCount: 0,
     startOffset: 0,
-    isOnLoadDelete: false,
+    isOnLoadDelete: "",
     
     deleteQuestion: (id: string) => { console.log(id) },
     handlePageClick: (e: {selected: number}) => { console.log(e) }
@@ -63,10 +63,10 @@ function QuestionListProvider ({children} : {children: React.ReactNode}) {
         }
     }
 
-    const [isOnLoadDelete, setIsOnLoadDelete] = useState<boolean>(false)
+    const [isOnLoadDelete, setIsOnLoadDelete] = useState<string>("false")
 
     async function deleteQuestion (id: string):Promise<void> {
-        setIsOnLoadDelete(true)
+        setIsOnLoadDelete(id)
 
         try {
             const response = await axios.delete(`https://huawei-practice-web-backend.vercel.app/api/question/${id}`)
@@ -80,7 +80,7 @@ function QuestionListProvider ({children} : {children: React.ReactNode}) {
             toast_error(err.response.data.message)
         }
 
-        setIsOnLoadDelete(false)
+        setIsOnLoadDelete("")
     }
 
     return (
