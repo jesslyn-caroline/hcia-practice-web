@@ -57,10 +57,10 @@ function CreateQuestion() {
                 </div>
 
                 <div>
-                    { type === "multiple-answer-multiple-choice"? <MultipleAnswerMultipleChoice /> : null }
-                    { type === "single-answer-multiple-choice"? <SingleAnswerMultipleChoice /> : null }
-                    { type === "single-word-answer"? <SingleWordAnswer /> : null }
-                    { type === "true-or-false"? <TrueOrFalse /> : null }
+                    { type === "multiple-answer-multiple-choice"? <MultipleAnswerMultipleChoice mode="create"/> : null }
+                    { type === "single-answer-multiple-choice"? <SingleAnswerMultipleChoice mode="create"/> : null }
+                    { type === "single-word-answer"? <SingleWordAnswer mode="create"/> : null }
+                    { type === "true-or-false"? <TrueOrFalse mode="create"/> : null }
                 </div>
                 <ActionButton action={saveQuestion} 
                     text={"Save"} icon={"ri-save-fill"} isOnLoad={isOnLoad} />
