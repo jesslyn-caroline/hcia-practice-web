@@ -9,10 +9,8 @@ export const UserContext = createContext({
     userRoutes: [{link: "/", name: "Home", icon: "ri-home-2-line"}],
     currentActiveRoute: "",
 
-    setUserId: (userId: string) => { console.log(userId) },
-    setUsername: (username: string) => { console.log(username) },
-    setStudentClass: (studentClass: string) => { console.log(studentClass) },
-    setRole: (role: string) => { console.log(role) },
+    loginUser: (userId: string, username: string, studentClass: string, role: string) => { console.log(userId, username, studentClass, role) },
+    logout: () => {},
 })
 
 interface RouteObject {
@@ -28,6 +26,34 @@ function UserProvider({children}: {children: React.ReactNode}) {
     const [username, setUsername] = useState<string>(getDataFromSession("username"))
     const [studentClass, setStudentClass] = useState<string>(getDataFromSession("class"))
     const [role, setRole] = useState<string>(getDataFromSession("role"))
+
+    function loginUser(userId: string, username: string, studentClass: string, role: string):void {
+        setUserId(userId)
+        setUsername(username)
+        setStudentClass(studentClass)
+        setRole(role)
+
+        sessionStorage.setItem("userId", userId)
+        sessionStorage.setItem("username", username)
+        sessionStorage.setItem("class", studentClass)
+        sessionStorage.setItem("role", role)
+    }
+
+    function logout():void {
+        setUserId("")
+        setUsername("")
+        setStudentClass("")
+        setRole("")
+
+        sessionStorage.removeItem("userId")
+        sessionStorage.removeItem("username")
+        sessionStorage.removeItem("class")
+        sessionStorage.removeItem("role")
+
+        setTimeout(() => {
+            navigate("/login")
+        }, 3000)
+    }
 
     const adminRoute: RouteObject[] = [
         {link: "/", name: "Home", icon: "ri-home-2-line"},
@@ -59,7 +85,7 @@ function UserProvider({children}: {children: React.ReactNode}) {
     }, [role])
 
     return (
-        <UserContext.Provider value={{userId, username, studentClass, role, userRoutes, currentActiveRoute, setUserId, setUsername, setStudentClass, setRole}}>
+        <UserContext.Provider value={{userId, username, studentClass, role, userRoutes, currentActiveRoute, loginUser, logout}}>
             {children}
         </UserContext.Provider>
     )
