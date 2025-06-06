@@ -1,12 +1,15 @@
-import { useContext } from "react"
+import React, { useContext } from "react"
 
 import { CreateQuestionContext } from "../../provider/create_question_context"
+import { EditQuestionContext } from "../../provider/edit_question_context"
 import { ErrorMessageContext } from "../../provider/error_message_context"
 
 
-function MultipleAnswerMultipleChoice() {
+function MultipleAnswerMultipleChoice({mode}: {mode: string}) {
 
-    const { optionsValue, isOptionsSelected, handleOptionValueChange, handleIsOptionsSelectedChange } = useContext(CreateQuestionContext)
+    const { optionsValue, isOptionsSelected, handleOptionValueChange, handleIsOptionsSelectedChange } = useContext(
+        mode === "edit" ? EditQuestionContext : CreateQuestionContext
+    )
     const { optionsErrMessage, noAnswerErrMessage } = useContext(ErrorMessageContext)
 
     return (

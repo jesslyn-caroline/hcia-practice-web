@@ -1,12 +1,15 @@
 import { useContext } from "react"
 
 import { CreateQuestionContext } from "../../provider/create_question_context"
+import { EditQuestionContext } from "../../provider/edit_question_context"
 import { ErrorMessageContext } from "../../provider/error_message_context"
 
 
-function SingleAnswerMultipleChoice() {
+function SingleAnswerMultipleChoice({mode}: {mode: string}) {
 
-    const { optionsValue, handleOptionValueChange, handleIsOptionsSelectedChange } = useContext(CreateQuestionContext)
+    const { optionsValue, isOptionsSelected, handleOptionValueChange, handleIsOptionsSelectedChange } = useContext(
+        mode === "edit" ? EditQuestionContext : CreateQuestionContext
+    )
     const { optionsErrMessage, noAnswerErrMessage } = useContext(ErrorMessageContext)
 
     return (
@@ -26,7 +29,8 @@ function SingleAnswerMultipleChoice() {
                                 id={`option-${index}`} 
                                 name="option" 
                                 onChange={(e) => {handleIsOptionsSelectedChange(index, e)}} 
-                                className={`w-5`} /> 
+                                className={`w-5`} 
+                                checked={isOptionsSelected[index]}/> 
                             <label htmlFor={`option-${index}`}  className={`w-full relative`}>
                                 {``}
                                 <input type="text" 

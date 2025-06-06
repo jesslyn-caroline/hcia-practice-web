@@ -1,11 +1,14 @@
 import { useContext } from "react"
 import { CreateQuestionContext } from "../../provider/create_question_context"
+import { EditQuestionContext } from "../../provider/edit_question_context"
 import { ErrorMessageContext } from "../../provider/error_message_context"
 
 
-function TrueOrFalse() {
+function TrueOrFalse({mode}: {mode: string}) {
 
-    const { handleIsOptionsSelectedChange } = useContext(CreateQuestionContext)
+    const { handleIsOptionsSelectedChange, isOptionsSelected } = useContext(
+        mode === "edit" ? EditQuestionContext : CreateQuestionContext
+    )
 
     const { noAnswerErrMessage } = useContext(ErrorMessageContext)
 
@@ -24,7 +27,8 @@ function TrueOrFalse() {
                         id="option-1"
                         name="option" 
                         onChange={(e) => {handleIsOptionsSelectedChange(0, e)}} 
-                        className={`w-5`} /> 
+                        className={`w-5`} 
+                        checked={isOptionsSelected[0]}/> 
                     <label htmlFor="option-1" className={`w-full`}>
                         <span className={`text-sm`}>True</span>
                     </label>
@@ -34,7 +38,8 @@ function TrueOrFalse() {
                         id="option-2" 
                         name="option" 
                         onChange={(e) => {handleIsOptionsSelectedChange(1, e)}} 
-                        className={`w-5`} /> 
+                        className={`w-5`} 
+                        checked={isOptionsSelected[1]}/> 
                     <label htmlFor="option-2" className={`w-full`}>
                         <span className={`text-sm`}>False</span>
                     </label>
