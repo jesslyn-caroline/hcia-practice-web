@@ -1,10 +1,10 @@
 import { useContext } from "react"
 
-import MultipleAnswerMultipleChoice from "../components/create_answer_choices/multiple_answer_multiple_choice"
+import MultipleAnswerMultipleChoice from "../components/choices/multiple_answer_multiple_choice"
 import { EditQuestionContext } from "../provider/edit_question_context"
-import SingleAnswerMultipleChoice from "../components/create_answer_choices/single_answer_multiple_choice"
-import SingleWordAnswer from "../components/create_answer_choices/single_word_answer"
-import TrueOrFalse from "../components/create_answer_choices/true-or-false"
+import SingleAnswerMultipleChoice from "../components/choices/single_answer_multiple_choice"
+import SingleWordAnswer from "../components/choices/single_word_answer"
+import TrueOrFalse from "../components/choices/true-or-false"
 import { ErrorMessageContext } from "../provider/error_message_context"
 import InputField from "../components/field/input_field"
 import SelectField from "../components/field/select_field"
@@ -19,8 +19,8 @@ function EditQuestion() {
 
     return (
         <div className={`flex flex-col`}>
-            <i className={`text-4xl ri-menu-add-line mb-2`}/>
-            <h1 className={`text-xl font-semibold mb-8`}>Create Question</h1>
+            <i className={`text-4xl ri-edit-line mb-2`}/>
+            <h1 className={`text-xl font-semibold mb-8`}>Edit Question</h1>
             <div className={`space-y-8`}>
                 <div className={`flex flex-col md:flex-row md:space-x-12`}>
                     <div>
