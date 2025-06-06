@@ -6,7 +6,7 @@ import ActionButton from "../components/action_button"
 
 function QuestionList() {
 
-    const {currentItems, pageCount, startOffset, isOnLoadDelete, deleteQuestion, handlePageClick} = useContext(QuestionListContext)
+    const {currentItems, pageCount, startOffset, isOnLoadDelete, deleteQuestion, handlePageClick, editQuestion} = useContext(QuestionListContext)
 
     return (
         <div>
@@ -43,7 +43,7 @@ function QuestionList() {
                                         <td className="px-6 py-3 flex flex-col md:flex-row justify-center space-x-0 space-y-2 md:space-x-2 md:space-y-0">
                                             <ActionButton action={() => deleteQuestion(question._id)} 
                                                 text="Delete" icon="" isOnLoad={isOnLoadDelete === question._id} />
-                                            <ActionButton action={() => {}}
+                                            <ActionButton action={() => { editQuestion(question._id) }}
                                                 text="Edit" icon="" isOnLoad={false}
                                                 bgColor="bg-yellow-400" hoverbgColor="hover:bg-yellow-500"
                                                 borderColor="border-yellow-400" hoverBorderColor="hover:border-yellow-400" 
