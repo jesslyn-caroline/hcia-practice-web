@@ -12,7 +12,7 @@ export const SignupContext = createContext({
     username: "",
     password: "",
     confirmPassword: "",
-    isOnLoad: false,
+    isOnLoadSignup: false,
 
     handleUserIdChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handleUsernameChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
@@ -32,22 +32,8 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
 
     const [userId, setUserId] = useState<string>("")
     const handleUserIdChange = (e: React.ChangeEvent<HTMLInputElement>):void => setUserId(e.target.value)
-
-    const [username, setUsername] = useState<string>("")
-    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>):void => setUsername(e.target.value)
-
-    const [password, setPassword] = useState<string>("")
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => setPassword(e.target.value)
-
-    const [confirmPassword, setConfirmPassword] = useState<string>("")
-    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>):void => setConfirmPassword(e.target.value)
-
-    const [studentClass, setStudentClass] = useState<string>("IF-A Pagi")
-    const handleStudentClassChange = (e: React.ChangeEvent<HTMLSelectElement>):void => setStudentClass(e.target.value)
-
-    function validation():boolean {
+    function userIdValidation():boolean {
         let valid:boolean = true
-
         if (userId === "") {
             setUserIdErrMessage("User ID is required")
             valid = false
@@ -56,14 +42,34 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
             setUserIdErrMessage("User ID must be 8 characters long")
             valid = false
         }
-        else setUserIdErrMessage("")
+        else {
+            setUserIdErrMessage("")
+        }
+
+        return valid
+    }
+
+    const [username, setUsername] = useState<string>("")
+    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>):void => setUsername(e.target.value)
+    function usernameValidation():boolean {
+        let valid:boolean = true
 
         if (username.trim() === "") {
             setUsernameErrMessage("Username is required")
             valid = false
         }
-        else setUsernameErrMessage("")
-        
+        else {
+            setUsernameErrMessage("")
+        }
+
+        return valid
+    }
+
+    const [password, setPassword] = useState<string>("")
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => setPassword(e.target.value)
+    function passwordValidation():boolean {
+        let valid:boolean = true
+
         if (password === "") {
             setPasswordErrMessage("Password is required")
             valid = false
@@ -72,7 +78,17 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
             setPasswordErrMessage("Password must be at least 8 characters long")
             valid = false
         }
-        else setPasswordErrMessage("")
+        else {
+            setPasswordErrMessage("")
+        }
+
+        return valid
+    }
+
+    const [confirmPassword, setConfirmPassword] = useState<string>("")
+    const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>):void => setConfirmPassword(e.target.value)
+    function confirmPasswordValidation():boolean {
+        let valid:boolean = true
 
         if (confirmPassword === "") {
             setConfirmPasswordErrMessage("Confirm Password is required")
@@ -82,25 +98,41 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
             setConfirmPasswordErrMessage("Passwords do not match")
             valid = false
         }
-        else setConfirmPasswordErrMessage("")
+        else {
+            setConfirmPasswordErrMessage("")
+        }
+
+        return valid
+    }
+
+    const [studentClass, setStudentClass] = useState<string>("IF-A Pagi")
+    const handleStudentClassChange = (e: React.ChangeEvent<HTMLSelectElement>):void => setStudentClass(e.target.value)
+    function studentClassValidation():boolean {
+        let valid:boolean = true
 
         if (studentClass === "none") {
             setStudentClassErrMessage("Student Class is required")
             valid = false
         }
-        else setStudentClassErrMessage("")
+        else {
+            setStudentClassErrMessage("")
+        }
 
         return valid
     }
 
-    const [isOnLoad, setIsOnLoad] = useState<boolean>(false)
+    const [isOnLoadSignup, setIsOnLoadSignup] = useState<boolean>(false)
 
     async function signup():Promise<void> {
-        let valid = validation()
+        let isUserIdValid:boolean = userIdValidation()
+        let isUsernameValid:boolean = usernameValidation()
+        let isPasswordValid:boolean = passwordValidation()
+        let isConfirmPasswordValid:boolean = confirmPasswordValidation()
+        let isStudentClassValid:boolean = studentClassValidation()
 
-        if (!valid) return;
+        if (!isUserIdValid || !isUsernameValid || !isPasswordValid || !isConfirmPasswordValid || !isStudentClassValid) return;
 
-        setIsOnLoad(true)
+        setIsOnLoadSignup(true)
 
         try {
             const response = await axios.post("https://huawei-practice-web-backend.vercel.app/api/user/signup", 
@@ -119,7 +151,7 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
             toast_error(err.response.data.message)
         }
 
-        setIsOnLoad(false)
+        setIsOnLoadSignup(false)
     }
 
     function clearInputs() {
@@ -135,7 +167,7 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
     }, [currentActiveRoute])
 
     return (
-        <SignupContext.Provider value={{ userId, username, password, confirmPassword, isOnLoad, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup, clearInputs }}>
+        <SignupContext.Provider value={{ userId, username, password, confirmPassword, isOnLoadSignup, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup, clearInputs }}>
             {children}
         </SignupContext.Provider>
     )

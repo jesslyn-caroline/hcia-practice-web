@@ -10,7 +10,7 @@ import { UserContext } from "./user_context"
 export const LoginContext = createContext({
     userId: "",
     password: "", 
-    isOnLoad: false,
+    isOnLoadLogin: false,
 
     handleUserIdChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
@@ -20,55 +20,56 @@ export const LoginContext = createContext({
 function LoginProvider({children} : {children : React.ReactNode}) {
     const navigate = useNavigate()
 
-    const { setUserId, setUsername, setStudentClass, setRole, currentActiveRoute } = useContext(UserContext)
+    const { loginUser, currentActiveRoute } = useContext(UserContext)
     const { setUserIdErrMessage, setPasswordErrMessage } = useContext(ErrorMessageContext)
 
-    const [userId, setUserIdVal] = useState<string>("")
-    const handleUserIdChange = (e: React.ChangeEvent<HTMLInputElement>):void => setUserIdVal(e.target.value)
-
-    const [password, setPassword] = useState<string>("")
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => setPassword(e.target.value)
-
-    function validation():boolean {
+    const [userId, setUserId] = useState<string>("")
+    const handleUserIdChange = (e: React.ChangeEvent<HTMLInputElement>):void => setUserId(e.target.value)
+    function userIdValidation():boolean {
         let valid:boolean = true
 
         if (userId === "") {
             setUserIdErrMessage("User ID is required")
             valid = false
         }
-        else setUserIdErrMessage("")
+        else {
+            setUserIdErrMessage("")
+        }
+
+        return valid
+    }
+
+    const [password, setPassword] = useState<string>("")
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => setPassword(e.target.value)
+    function passwordValidation():boolean {
+        let valid:boolean = true
 
         if (password.length === 0) {
             setPasswordErrMessage("Password is required")
             valid = false
         }
-        else setPasswordErrMessage("")
+        else {
+            setPasswordErrMessage("")
+        }
 
         return valid
     }
 
-    const [isOnLoad, setIsOnLoad] = useState<boolean>(false)
+    const [isOnLoadLogin, setIsOnLoadLogin] = useState<boolean>(false)
+
     async function login():Promise<void> {
-        let valid:boolean = validation()
+        let isUserIdValid:boolean = userIdValidation()
+        let isPasswordValid:boolean = passwordValidation()
 
-        if (!valid) return
+        if (!isUserIdValid || !isPasswordValid) return
 
-        setIsOnLoad(true)
+        setIsOnLoadLogin(true)
 
         try {
             const response = await axios.post(`https://huawei-practice-web-backend.vercel.app/api/user/login`, {userId, password})
 
             if (response.status === 200) {
-                setUserId(response.data.user.userId)
-                setUsername(response.data.user.username)
-                setStudentClass(response.data.user.class)
-                setRole(response.data.user.role)
-
-                sessionStorage.setItem("userId", response.data.user.userId)
-                sessionStorage.setItem("username", response.data.user.username)
-                sessionStorage.setItem("class", response.data.user.class)
-                sessionStorage.setItem("role", response.data.user.role)
-
+                loginUser(response.data.user.userId, response.data.user.username, response.data.user.class, response.data.user.role)
                 toast_success(response.data.message)
                 
                 setTimeout(() => {
@@ -81,7 +82,7 @@ function LoginProvider({children} : {children : React.ReactNode}) {
             toast_error(err.response.data.message)
         }
 
-        setIsOnLoad(false)
+        setIsOnLoadLogin(false)
     }
 
     function clearInputs():void {
@@ -94,7 +95,7 @@ function LoginProvider({children} : {children : React.ReactNode}) {
     }, [currentActiveRoute])
 
     return (
-        <LoginContext.Provider value={{userId, password, isOnLoad, handleUserIdChange, handlePasswordChange, login}}>
+        <LoginContext.Provider value={{userId, password, isOnLoadLogin, handleUserIdChange, handlePasswordChange, login}}>
             {children}
         </LoginContext.Provider>
     )
