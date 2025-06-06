@@ -15,6 +15,8 @@ import CreateQuestion from './screens/create_question.tsx'
 import Home from './screens/home.tsx'
 import NotFound from './screens/not_found.tsx'
 import QuestionList from './screens/question_list.tsx'
+import EditQuestion from './screens/edit_question.tsx'
+import EditQuestionProvider from './provider/edit_question_context.tsx'
 
 function App() {
 
@@ -53,6 +55,10 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/create-question" element={<CreateQuestion />} />
           <Route path="/question-list" element={<QuestionList />} />
+          <Route path="/question/edit/:id" element={
+            <EditQuestionProvider>
+               <EditQuestion />
+            </EditQuestionProvider>} />
         </Route> : null
       }
       
