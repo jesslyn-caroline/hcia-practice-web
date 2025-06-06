@@ -12,7 +12,7 @@ function SignupCard() {
         username, 
         password, 
         confirmPassword,
-        isOnLoad, 
+        isOnLoadSignup, 
         handleUserIdChange,
         handleUsernameChange,
         handlePasswordChange,
@@ -62,7 +62,6 @@ function SignupCard() {
                         idValue={"confirmPassword"}
                         labelValue="Confirm Password"
                         value={confirmPassword} />
-
                     <SelectField handleSelectChange={handleStudentClassChange}
                         optionsValue={["IF-A Pagi", "IF-B Pagi", "IF-C Pagi", "IF-A Sore", "IF-B Sore", "IF-C Sore"]}
                         optionsLabel={["IF-A Pagi", "IF-B Pagi", "IF-C Pagi", "IF-A Sore", "IF-B Sore", "IF-C Sore"]}
@@ -70,9 +69,8 @@ function SignupCard() {
                         titleValue="Select your class"
                         errMessage={studentClassErrMessage} />
                     <ActionButton action={signup} 
-                        text={"Sign Up"} icon={""} isOnLoad={isOnLoad} />
+                        text={"Sign Up"} icon={""} isOnLoad={isOnLoadSignup} />
                 </div>
-
                 <div className={`w-full mt-6`}>
                     <h3>Already have account? <Link to="/login" className={`text-blue-600 underline`}>Log In</Link></h3>
                 </div>

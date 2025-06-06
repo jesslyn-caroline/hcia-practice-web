@@ -8,7 +8,7 @@ import ActionButton from "./action_button"
 
 function LoginCard() {
 
-    const { userId, password, isOnLoad, handleUserIdChange, handlePasswordChange, login } = useContext(LoginContext)
+    const { userId, password, isOnLoadLogin, handleUserIdChange, handlePasswordChange, login } = useContext(LoginContext)
     const { userIdErrMessage, passwordErrMessage } = useContext(ErrorMessageContext)
 
     return(
@@ -31,7 +31,7 @@ function LoginCard() {
                         labelValue={"Password"}
                         value={password} />
                     <ActionButton action={login} 
-                        text={"Log In"} icon={""} isOnLoad={isOnLoad} />
+                        text={"Log In"} icon={""} isOnLoad={isOnLoadLogin} />
                 </div>
                 <div className={`w-full mt-6`}>
                     <h3>
