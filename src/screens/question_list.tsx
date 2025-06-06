@@ -40,17 +40,14 @@ function QuestionList() {
                                                 )
                                             })}
                                         </td>
-                                        <td className="px-6 py-3 flex flex-row justify-center space-x-2">
+                                        <td className="px-6 py-3 flex flex-col md:flex-row justify-center space-x-0 space-y-2 md:space-x-2 md:space-y-0">
                                             <ActionButton action={() => deleteQuestion(question._id)} 
-                                                text="" icon="ri-delete-bin-line" isOnLoad={isOnLoadDelete === question._id} 
-                                                bgColor="bg-white" hoverbgColor="hover:bg-[#AF0009]" 
-                                                borderColor="border-primary" hoverBorderColor="hover:border-[#AF0009]" 
-                                                textColor="text-primary" hoverTextColor="hover:text-white"/>
+                                                text="Delete" icon="" isOnLoad={isOnLoadDelete === question._id} />
                                             <ActionButton action={() => {}}
-                                                text="" icon="ri-edit-line" isOnLoad={false}
-                                                bgColor="bg-yellow-300" hoverbgColor="hover:bg-yellow-400" 
-                                                borderColor="border-yellow-300" hoverBorderColor="hover:border-yellow-400" 
-                                                textColor="text-white" hoverTextColor="text-white"/>
+                                                text="Edit" icon="" isOnLoad={false}
+                                                bgColor="bg-yellow-400" hoverbgColor="hover:bg-yellow-500"
+                                                borderColor="border-yellow-400" hoverBorderColor="hover:border-yellow-400" 
+                                                textColor="text-white" hoverTextColor="hover:text-white"/>
                                         </td>
                                     </tr>
                                     )

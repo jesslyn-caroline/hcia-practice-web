@@ -63,10 +63,7 @@ function CreateQuestion() {
                     { type === "true-or-false"? <TrueOrFalse /> : null }
                 </div>
                 <ActionButton action={saveQuestion} 
-                    text={"Save"} icon={"ri-save-fill"} isOnLoad={isOnLoad} 
-                    bgColor="bg-primary" hoverbgColor="hover:bg-[#AF0009]" 
-                    borderColor="border-primary" hoverBorderColor="hover:border-[#AF0009]" 
-                    textColor="text-white" hoverTextColor="h0ver:text-white"/>
+                    text={"Save"} icon={"ri-save-fill"} isOnLoad={isOnLoad} />
             </div>
         </div>
     )

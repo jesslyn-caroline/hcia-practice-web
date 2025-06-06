@@ -70,10 +70,7 @@ function SignupCard() {
                         titleValue="Select your class"
                         errMessage={studentClassErrMessage} />
                     <ActionButton action={signup} 
-                        text={"Sign Up"} icon={""} isOnLoad={isOnLoad} 
-                        bgColor="bg-primary" hoverbgColor="hover:bg-[#AF0009]" 
-                        borderColor="border-primary" hoverBorderColor="hover:border-[#AF0009]" 
-                        textColor="text-white" hoverTextColor="h0ver:text-white"/>
+                        text={"Sign Up"} icon={""} isOnLoad={isOnLoad} />
                 </div>
 
                 <div className={`w-full mt-6`}>
