@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import { useContext } from "react"
 
 import { CreateQuestionContext } from "../../provider/create_question_context"
 import { EditQuestionContext } from "../../provider/edit_question_context"
