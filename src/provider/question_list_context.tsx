@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { CreateQuestionContext } from "./create_question_context";
 import toast_success from "../components/toast/toast_success";
 import toast_error from "../components/toast/toast_error";
+import { useNavigate } from "react-router";
 
 export const QuestionListContext = createContext({
     questionList: [{_id: "", question: "", year: 0, type: "", options: ["", "", "", ""], answer: ["", "", "", ""], score: 0}],
@@ -12,7 +13,8 @@ export const QuestionListContext = createContext({
     isOnLoadDelete: "",
     
     deleteQuestion: (id: string) => { console.log(id) },
-    handlePageClick: (e: {selected: number}) => { console.log(e) }
+    handlePageClick: (e: {selected: number}) => { console.log(e) },
+    editQuestion: (id: string) => { console.log(id) }
 })
 
 interface QuestionModel {
@@ -83,8 +85,14 @@ function QuestionListProvider ({children} : {children: React.ReactNode}) {
         setIsOnLoadDelete("")
     }
 
+    const navigate = useNavigate()
+
+    function editQuestion (id: string) {
+        navigate(`/question/edit/${id}`)
+    }
+
     return (
-        <QuestionListContext.Provider value={{questionList, currentItems, pageCount, startOffset, isOnLoadDelete, deleteQuestion, handlePageClick}}>
+        <QuestionListContext.Provider value={{questionList, currentItems, pageCount, startOffset, isOnLoadDelete, deleteQuestion, handlePageClick, editQuestion}}>
             {children}
         </QuestionListContext.Provider>
     )
