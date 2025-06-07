@@ -17,6 +17,7 @@ import NotFound from './screens/not_found.tsx'
 import QuestionList from './screens/question_list.tsx'
 import EditQuestion from './screens/edit_question.tsx'
 import EditQuestionProvider from './provider/edit_question_context.tsx'
+import CreateQuestionProvider from './provider/create_question_context.tsx'
 
 function App() {
 
@@ -53,8 +54,12 @@ function App() {
         role === "admin"? 
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
-          <Route path="/create-question" element={<CreateQuestion />} />
-          <Route path="/question-list" element={<QuestionList />} />
+          <Route path="/question/new" element={
+            <CreateQuestionProvider>
+              <CreateQuestion />
+            </CreateQuestionProvider> 
+          } />
+          <Route path="/question" element={<QuestionList />} />
           <Route path="/question/edit/:id" element={
             <EditQuestionProvider>
                <EditQuestion />
