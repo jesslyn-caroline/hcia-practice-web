@@ -14,7 +14,6 @@ import ActionButton from "../components/action_button"
 function EditQuestion() {
 
     const { year, score, typeOptions, type, question, isOnLoad, handleYearChange, handleTypeChange, handleScoreChange, handleQuestionChange, saveQuestion } = useContext(EditQuestionContext)
-
     const { yearErrMessage, scoreErrMessage, questionErrMessage } = useContext(ErrorMessageContext)
 
     return (
