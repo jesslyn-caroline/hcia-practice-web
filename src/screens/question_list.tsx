@@ -20,6 +20,7 @@ function QuestionList() {
                                 <th scope="col" className="w-12 font-medium">No.</th>
                                 <th scope="col" className="w-90 px-6 py-3 font-medium text-start">Question</th>
                                 <th scope="col" className="px-6 py-3 font-medium">Year</th>
+                                <th scope="col" className="w-70 font-medium">Score</th>
                                 <th scope="col" className="w-70 font-medium">Type</th>
                                 <th scope="col" className="w-60 px-6 py-3 font-medium text-start">Answer</th>
                                 <th scope="col" className="px-6 py-3 font-medium">Action</th>
@@ -32,6 +33,7 @@ function QuestionList() {
                                         <td className="py-3 text-center">{index + startOffset + 1}</td>
                                         <td className="px-6 py-3">{question.question}</td>
                                         <td className="py-3 text-center">{question.year}</td>
+                                        <td className="py-3 text-center">{question.score}</td>
                                         <td className="py-3 text-center">{question.type.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}</td>
                                         <td className="px-6 py-3">
                                             {...question.answer.map((answer) => {
