@@ -58,10 +58,10 @@ function LoginProvider({children} : {children : React.ReactNode}) {
     const [isOnLoadLogin, setIsOnLoadLogin] = useState<boolean>(false)
 
     async function login():Promise<void> {
-        let isUserIdValid:boolean = userIdValidation()
-        let isPasswordValid:boolean = passwordValidation()
+        let userIdValid:boolean = userIdValidation()
+        let passwordValid:boolean = passwordValidation()
 
-        if (!isUserIdValid || !isPasswordValid) return
+        if (!userIdValid || !passwordValid) return
 
         setIsOnLoadLogin(true)
 

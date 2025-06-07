@@ -124,13 +124,13 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
     const [isOnLoadSignup, setIsOnLoadSignup] = useState<boolean>(false)
 
     async function signup():Promise<void> {
-        let isUserIdValid:boolean = userIdValidation()
-        let isUsernameValid:boolean = usernameValidation()
-        let isPasswordValid:boolean = passwordValidation()
-        let isConfirmPasswordValid:boolean = confirmPasswordValidation()
-        let isStudentClassValid:boolean = studentClassValidation()
+        let userIdValid:boolean = userIdValidation()
+        let usernameValid:boolean = usernameValidation()
+        let passwordValid:boolean = passwordValidation()
+        let confirmPasswordValid:boolean = confirmPasswordValidation()
+        let studentClassValid:boolean = studentClassValidation()
 
-        if (!isUserIdValid || !isUsernameValid || !isPasswordValid || !isConfirmPasswordValid || !isStudentClassValid) return;
+        if (!userIdValid || !usernameValid || !passwordValid || !confirmPasswordValid || !studentClassValid) return;
 
         setIsOnLoadSignup(true)
 
