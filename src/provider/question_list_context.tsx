@@ -1,6 +1,5 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
-import { CreateQuestionContext } from "./create_question_context";
+import { createContext, useEffect, useState } from "react";
 import toast_success from "../components/toast/toast_success";
 import toast_error from "../components/toast/toast_error";
 import { useNavigate } from "react-router";
@@ -14,7 +13,9 @@ export const QuestionListContext = createContext({
     
     deleteQuestion: (id: string) => { console.log(id) },
     handlePageClick: (e: {selected: number}) => { console.log(e) },
-    editQuestion: (id: string) => { console.log(id) }
+    editQuestion: (id: string) => { console.log(id) },
+    setIsOnLoadEdit: (toggle: boolean) => { console.log(toggle) },
+    setIsOnLoadCreate: (toggle: boolean) => { console.log(toggle) }
 })
 
 interface QuestionModel {
@@ -29,12 +30,13 @@ interface QuestionModel {
 
 function QuestionListProvider ({children} : {children: React.ReactNode}) {
 
-    const { isOnLoad } = useContext(CreateQuestionContext)
+    const [isOnLoadCreate, setIsOnLoadCreate] = useState<boolean>(false)
+    const [isOnLoadEdit, setIsOnLoadEdit] = useState<boolean>(false)
 
     const [questionList, setQuestionList] = useState<QuestionModel[]>([])
     useEffect(() => {
         getQuestionList()
-    }, [isOnLoad])
+    }, [isOnLoadCreate, isOnLoadEdit])
 
     // === React Paginate ===
 
@@ -92,7 +94,7 @@ function QuestionListProvider ({children} : {children: React.ReactNode}) {
     }
 
     return (
-        <QuestionListContext.Provider value={{questionList, currentItems, pageCount, startOffset, isOnLoadDelete, deleteQuestion, handlePageClick, editQuestion}}>
+        <QuestionListContext.Provider value={{questionList, currentItems, pageCount, startOffset, isOnLoadDelete, setIsOnLoadCreate, setIsOnLoadEdit, deleteQuestion, handlePageClick, editQuestion}}>
             {children}
         </QuestionListContext.Provider>
     )
