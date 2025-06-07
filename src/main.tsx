@@ -4,7 +4,6 @@ import { BrowserRouter } from 'react-router'
 
 import App from './App.tsx'
 import UserProvider from './provider/user_context.tsx'
-import CreateQuestionProvider from './provider/create_question_context.tsx'
 import ErrorMessageProvider from './provider/error_message_context.tsx'
 import QuestionListProvider from './provider/question_list_context.tsx'
 
@@ -14,11 +13,9 @@ root.render(
     <BrowserRouter>
       <UserProvider>
         <ErrorMessageProvider>    
-          <CreateQuestionProvider>
-            <QuestionListProvider>
-              <App />
-            </QuestionListProvider>  
-          </CreateQuestionProvider>
+          <QuestionListProvider>
+            <App />
+          </QuestionListProvider>  
         </ErrorMessageProvider>
       </UserProvider>
     </BrowserRouter>
