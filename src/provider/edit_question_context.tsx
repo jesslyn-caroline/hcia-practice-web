@@ -6,6 +6,7 @@ import toast_success from "../components/toast/toast_success"
 import toast_error from "../components/toast/toast_error"
 import { UserContext } from "./user_context"
 import { useNavigate, useParams } from "react-router"
+import { QuestionListContext } from "./question_list_context"
 
 export const EditQuestionContext = createContext({
     year : "",
@@ -40,10 +41,11 @@ interface QuestionModel {
 
 function EditQuestionProvider ({children} : {children : React.ReactNode}) {
 
-    const { id } = useParams()
+    const params = useParams()
     const navigate = useNavigate()
 
-    const { setQuestionErrMessage, setYearErrMessage, setScoreErrMessage, setOptionsErrMessage, setNoAnswerErrMessage } = useContext(ErrorMessageContext)
+    const { setQuestionErrMessage, setYearErrMessage, setScoreErrMessage, setOptionsErrMessage, setNoAnswerErrMessage, resetErrMessage } = useContext(ErrorMessageContext)
+    const { setIsOnLoadEdit } = useContext(QuestionListContext)
     const { currentActiveRoute } = useContext(UserContext)
 
     const typeOptions: string[] = ["multiple-answer-multiple-choice", "single-answer-multiple-choice", "true-or-false", "single-word-answer"]
@@ -54,6 +56,7 @@ function EditQuestionProvider ({children} : {children : React.ReactNode}) {
         // reset options value and isSelected
         setOptionsValue(["", "", "", ""])
         setIsOptionsSelected([false, false, false, false])
+        resetErrMessage()
 
         if (e.target.value === "single-word-answer") setIsOptionsSelected([true, false, false, false])
         
@@ -63,12 +66,60 @@ function EditQuestionProvider ({children} : {children : React.ReactNode}) {
     const date = new Date()
     const [year, setYear] = useState<string>(date.getFullYear().toString())
     const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>):void => setYear(e.target.value)
+    function yearValidation ():boolean {
+        let valid:boolean = true
+
+        if (year === "") {
+            setYearErrMessage("Please fill the year")
+            valid = false
+        }
+        else if (year.length !== 4) {
+            setYearErrMessage("Please enter valid year")
+            valid = false
+        }
+        else if (year[0].toUpperCase() !== year[0].toLowerCase() ||
+            year[1].toUpperCase() !== year[1].toLowerCase() ||
+            year[2].toUpperCase() !== year[2].toLowerCase() ||
+            year[3].toUpperCase() !== year[3].toLowerCase()) {
+            setYearErrMessage("Year must be a number")
+            valid = false
+        }
+        else setYearErrMessage("")
+
+        return valid
+    }
 
     const [score, setScore] = useState<number>()
     const handleScoreChange = (e: React.ChangeEvent<HTMLInputElement>):void => setScore(parseInt(e.target.value))
+    function scoreValidation ():boolean {
+        let valid:boolean = true
+
+        if (isNaN(score!) || score === undefined) {
+            setScoreErrMessage("Please fill the score")
+            valid = false
+        }
+        else if (score < 0) {
+            setScoreErrMessage("Score may not be negative")
+            valid = false
+        }
+        else setScoreErrMessage("")
+
+        return valid
+    }
 
     const [question, setQuestion] = useState<string>("")
     const handleQuestionChange = (e: React.ChangeEvent<HTMLTextAreaElement>):void => setQuestion(e.target.value)
+    function questionValidation ():boolean {
+        let valid:boolean = true
+
+        if (question === "") {
+            setQuestionErrMessage("Please fill the question")
+            valid = false
+        }
+        else setQuestionErrMessage("")
+
+        return valid
+    }
     
     const [optionsValue, setOptionsValue] = useState<string[]>(["", "", "", ""])
     const handleOptionValueChange = (index:number, e: React.ChangeEvent<HTMLInputElement>):void => {
@@ -98,49 +149,8 @@ function EditQuestionProvider ({children} : {children : React.ReactNode}) {
 
         setIsOptionsSelected(newIsOptionsSelected)
     }
-
-    function validation ():boolean {
+    function optionValidation ():boolean {
         let valid:boolean = true
-
-        if (question === "") {
-            setQuestionErrMessage("Please fill the question")
-            valid = false
-        }
-        else setQuestionErrMessage("")
-
-        if (year === "") {
-            setYearErrMessage("Please fill the year")
-            valid = false
-        }
-        else if (year.length !== 4) {
-            setYearErrMessage("Please enter valid year")
-            valid = false
-        }
-        else if (year[0].toUpperCase() !== year[0].toLowerCase() ||
-            year[1].toUpperCase() !== year[1].toLowerCase() ||
-            year[2].toUpperCase() !== year[2].toLowerCase() ||
-            year[3].toUpperCase() !== year[3].toLowerCase()) {
-            setYearErrMessage("Year must be a number")
-            valid = false
-        }
-        else setYearErrMessage("")
-
-
-        if (isNaN(score!) || score === undefined) {
-            setScoreErrMessage("Please fill the score")
-            valid = false
-        }
-        else if (score < 0) {
-            setScoreErrMessage("Score may not be negative")
-            valid = false
-        }
-        else setScoreErrMessage("")
-
-        if (question === "") {
-            setQuestionErrMessage("Please fill the question")
-            valid = false
-        }
-        else setQuestionErrMessage("")
 
         let optionsErrMessage:string[] = ["", "", "", ""]
         let isNoAnswer = true
@@ -186,11 +196,15 @@ function EditQuestionProvider ({children} : {children : React.ReactNode}) {
     const [isOnLoad, setIsOnLoad] = useState<boolean>(false)
 
     async function saveQuestion() {
-        let valid:boolean = validation()
+        let yearValid:boolean = yearValidation()
+        let scoreValid:boolean = scoreValidation()
+        let questionValid:boolean = questionValidation()
+        let optionValid:boolean = optionValidation()
 
-        if (!valid) return
+        if (!yearValid || !scoreValid || !questionValid || !optionValid) return
 
         setIsOnLoad(true)
+        setIsOnLoadEdit(true)
 
         let answer:string[] = []
 
@@ -199,7 +213,7 @@ function EditQuestionProvider ({children} : {children : React.ReactNode}) {
         }
 
         try {
-            const response = await axios.put(`https://huawei-practice-web-backend.vercel.app/api/question/${id}`, 
+            const response = await axios.put(`https://huawei-practice-web-backend.vercel.app/api/question/${params.id}`, 
                 {question, year: parseInt(year), type, score, answer, options: optionsValue}
             )
             
@@ -213,6 +227,7 @@ function EditQuestionProvider ({children} : {children : React.ReactNode}) {
         }
 
         setIsOnLoad(false)
+        setIsOnLoadEdit(false)
     }
 
     const clearInputs = () => {
@@ -230,7 +245,7 @@ function EditQuestionProvider ({children} : {children : React.ReactNode}) {
 
     async function getQuestion() {
         try {
-            const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/question/${id}`)
+            const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/question/${params.id}`)
             
             if (response.status === 200) {
                 const question:QuestionModel = response.data
@@ -251,14 +266,14 @@ function EditQuestionProvider ({children} : {children : React.ReactNode}) {
                 setIsOptionsSelected(selectedOption)
             }
         }
-        catch (err: any) {
-            console.log(err)
+        catch (err: any) {console.log(params.id)
+            toast_error(err.response.data.message)
         }
     }
 
     useEffect(() => {
         getQuestion()
-    }, [id])
+    }, [params])
 
     return (
         <EditQuestionContext.Provider value={{year, typeOptions, type, score: score !== undefined ? score : 0, question, optionsValue, isOptionsSelected, isOnLoad, handleTypeChange, handleYearChange, handleScoreChange, handleQuestionChange, handleOptionValueChange, handleIsOptionsSelectedChange, saveQuestion, clearInputs}}>
