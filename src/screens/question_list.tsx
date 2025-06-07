@@ -57,7 +57,7 @@ function QuestionList() {
                             }
                         </tbody>
                     </table>
-                    <div className={`w-full flex justify-center overflow-x-auto scroll-bar-hidden`}>
+                    <div className={`w-screen md:w-full flex justify-center overflow-x-auto scroll-bar-hidden`}>
                         <ReactPaginate
                             previousLabel={<i className="ri-arrow-left-s-line"/>}
                             breakLabel="..."
