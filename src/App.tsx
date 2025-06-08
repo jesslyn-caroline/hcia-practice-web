@@ -18,6 +18,8 @@ import QuestionList from './screens/question_list.tsx'
 import EditQuestion from './screens/edit_question.tsx'
 import EditQuestionProvider from './provider/edit_question_context.tsx'
 import CreateQuestionProvider from './provider/create_question_context.tsx'
+import ClassList from './screens/class_list.tsx'
+import ClassListProvider from './provider/class_list.tsx'
 
 function App() {
 
@@ -64,6 +66,10 @@ function App() {
             <EditQuestionProvider>
                <EditQuestion />
             </EditQuestionProvider>} />
+          <Route path="/classes" element={
+            <ClassListProvider>
+              <ClassList />
+            </ClassListProvider> }/>
         </Route> : null
       }
       

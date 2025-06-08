@@ -59,6 +59,7 @@ function UserProvider({children}: {children: React.ReactNode}) {
         {link: "/", name: "Home", icon: "ri-home-2-line"},
         {link: "/question/new", name: "Create Question", icon: "ri-menu-add-line"},
         {link: "/question", name: "Question List", icon: "ri-list-check-2"},
+        {link: "/classes", name: "Classes", icon: "ri-group-3-line"},
     ]
     const userRoute: RouteObject[] = [
         {link: "/", name: "Home", icon: "ri-home-2-line"},
