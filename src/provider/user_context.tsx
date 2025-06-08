@@ -57,7 +57,7 @@ function UserProvider({children}: {children: React.ReactNode}) {
 
     const adminRoute: RouteObject[] = [
         {link: "/", name: "Home", icon: "ri-home-2-line"},
-        {link: "/question/new", name: "Create Question", icon: "ri-list-check-2"},
+        {link: "/question/new", name: "Create Question", icon: "ri-menu-add-line"},
         {link: "/question", name: "Question List", icon: "ri-list-check-2"},
     ]
     const userRoute: RouteObject[] = [
