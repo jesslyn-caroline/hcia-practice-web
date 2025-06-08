@@ -1,7 +1,7 @@
 interface Props {
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     inputType: string
-    errMessage: string
+    errMessage?: string
     placeholderValue: string
     idValue: string
     labelValue: string
@@ -24,3 +24,12 @@ function InputField({handleInputChange, inputType, errMessage, placeholderValue,
 }
 
 export default InputField
+
+// == Usage ==
+// <InputField handleInputChange={() => {}} 
+//     inputType=""
+//     errMessage={} 
+//     placeholderValue={} 
+//     idValue={} 
+//     labelValue={}
+//     value={} /> 
