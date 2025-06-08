@@ -81,8 +81,6 @@ function QuestionListProvider ({children} : {children: React.ReactNode}) {
     const handleTypeSearch = (e: React.ChangeEvent<HTMLSelectElement>) => setTypeSearch(e.target.value)
 
     function search():void {
-        console.log(questionSearch, yearSearch, typeSearch)
-
         let filterArr = questionList.filter((item: QuestionModel) => {
             return item.question.toLowerCase().includes(questionSearch.toLowerCase()) && 
                 (item.year.toString() === yearSearch || yearSearch === "") && 
