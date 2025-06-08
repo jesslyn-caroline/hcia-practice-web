@@ -219,7 +219,7 @@ function EditQuestionProvider ({children} : {children : React.ReactNode}) {
             
             if (response.status === 200) {
                 toast_success(response.data.message)
-                navigate(`/question-list`)
+                navigate(`/question`)
             }
         }
         catch (err: any) {
