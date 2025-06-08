@@ -2,7 +2,7 @@ interface Props {
     action: () => void,
     text: string,
     icon: string,
-    isOnLoad: boolean,
+    isOnLoad?: boolean,
     bgColor?: string,
     hoverbgColor?: string,
     borderColor?: string,
