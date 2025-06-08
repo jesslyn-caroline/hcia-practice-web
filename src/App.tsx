@@ -19,7 +19,9 @@ import EditQuestion from './screens/edit_question.tsx'
 import EditQuestionProvider from './provider/edit_question_context.tsx'
 import CreateQuestionProvider from './provider/create_question_context.tsx'
 import ClassList from './screens/class_list.tsx'
-import ClassListProvider from './provider/class_list.tsx'
+import ClassListProvider from './provider/class_list_context.tsx'
+import ClassViewProvider from './provider/class_view_context.tsx'
+import ClassView from './screens/class_view.tsx'
 
 function App() {
 
@@ -70,6 +72,11 @@ function App() {
             <ClassListProvider>
               <ClassList />
             </ClassListProvider> }/>
+          <Route path="/class/:id" element={
+            <ClassViewProvider>
+              <ClassView />
+            </ClassViewProvider>
+          } />
         </Route> : null
       }
       
