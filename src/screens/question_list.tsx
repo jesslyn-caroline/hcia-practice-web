@@ -29,7 +29,7 @@ function QuestionList() {
                                 value={typeSearch} />
                         </div>
                         <div className={`md:mt-3`}>
-                            <ActionButton action={search} text="Search" icon="ri-search-line" isOnLoad={false} />
+                            <ActionButton action={search} text="Search" icon="ri-search-line" />
                         </div>
                     </div>
                     <div className={``}>
