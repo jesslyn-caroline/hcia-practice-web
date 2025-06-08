@@ -6,7 +6,6 @@ export const ErrorMessageContext = createContext({
     usernameErrMessage: "", 
     passwordErrMessage: "", 
     confirmPasswordErrMessage: "", 
-    studentClassErrMessage: "",
 
     questionErrMessage: "", 
     yearErrMessage: "", 
@@ -18,7 +17,6 @@ export const ErrorMessageContext = createContext({
     setUsernameErrMessage: (message: string) => { console.log(message) },
     setPasswordErrMessage: (message: string) => { console.log(message) },
     setConfirmPasswordErrMessage: (message: string) => { console.log(message) },
-    setStudentClassErrMessage: (message: string) => { console.log(message) },
 
     setQuestionErrMessage: (message: string) => { console.log(message) },
     setYearErrMessage: (message: string) => { console.log(message) },
@@ -39,7 +37,6 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
     const [passwordErrMessage, setPasswordErrMessage] = useState<string>("")
 
     const [confirmPasswordErrMessage, setConfirmPasswordErrMessage] = useState<string>("")
-    const [studentClassErrMessage, setStudentClassErrMessage] = useState<string>("")
 
     // =======================
 
@@ -57,7 +54,6 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
         setUsernameErrMessage("")
         setPasswordErrMessage("")
         setConfirmPasswordErrMessage("")
-        setStudentClassErrMessage("")
 
         setQuestionErrMessage("")
         setYearErrMessage("")
@@ -77,7 +73,6 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
                 usernameErrMessage, 
                 passwordErrMessage, 
                 confirmPasswordErrMessage, 
-                studentClassErrMessage,
                 
                 questionErrMessage, 
                 yearErrMessage, 
@@ -88,7 +83,6 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
                 setUsernameErrMessage, 
                 setPasswordErrMessage, 
                 setConfirmPasswordErrMessage, 
-                setStudentClassErrMessage,
                 setQuestionErrMessage,
                 setYearErrMessage,
                 setScoreErrMessage,

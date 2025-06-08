@@ -18,7 +18,6 @@ export const SignupContext = createContext({
     handleUsernameChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
     handleConfirmPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => { console.log(e.target.value) },
-    handleStudentClassChange: (e: React.ChangeEvent<HTMLSelectElement>) => { console.log(e.target.value) },
 
     signup: () => { console.log("signup") },
     clearInputs: () => { console.log("clearInputs") }
@@ -27,7 +26,7 @@ export const SignupContext = createContext({
 function SignupProvider({ children } : {children : React.ReactNode} ) {
     const navigate = useNavigate()
 
-    const { setUserIdErrMessage, setUsernameErrMessage, setPasswordErrMessage, setConfirmPasswordErrMessage, setStudentClassErrMessage } = useContext(ErrorMessageContext)
+    const { setUserIdErrMessage, setUsernameErrMessage, setPasswordErrMessage, setConfirmPasswordErrMessage } = useContext(ErrorMessageContext)
     const { currentActiveRoute } = useContext(UserContext)
 
     const [userId, setUserId] = useState<string>("")
@@ -105,22 +104,6 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
         return valid
     }
 
-    const [studentClass, setStudentClass] = useState<string>("IF-A Pagi")
-    const handleStudentClassChange = (e: React.ChangeEvent<HTMLSelectElement>):void => setStudentClass(e.target.value)
-    function studentClassValidation():boolean {
-        let valid:boolean = true
-
-        if (studentClass === "none") {
-            setStudentClassErrMessage("Student Class is required")
-            valid = false
-        }
-        else {
-            setStudentClassErrMessage("")
-        }
-
-        return valid
-    }
-
     const [isOnLoadSignup, setIsOnLoadSignup] = useState<boolean>(false)
 
     async function signup():Promise<void> {
@@ -128,15 +111,14 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
         let usernameValid:boolean = usernameValidation()
         let passwordValid:boolean = passwordValidation()
         let confirmPasswordValid:boolean = confirmPasswordValidation()
-        let studentClassValid:boolean = studentClassValidation()
 
-        if (!userIdValid || !usernameValid || !passwordValid || !confirmPasswordValid || !studentClassValid) return;
+        if (!userIdValid || !usernameValid || !passwordValid || !confirmPasswordValid ) return;
 
         setIsOnLoadSignup(true)
 
         try {
             const response = await axios.post("https://huawei-practice-web-backend.vercel.app/api/user/signup", 
-                {userId, username, password, class: studentClass, role: "student"})
+                {userId, username, password, role: "student"})
     
             if (response.status === 201) {
                 toast_success(response.data.message)
@@ -159,7 +141,6 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
         setUsername("")
         setPassword("")
         setConfirmPassword("")
-        setStudentClass("IF-A Pagi")
     }
 
     useEffect(() => {
@@ -167,7 +148,7 @@ function SignupProvider({ children } : {children : React.ReactNode} ) {
     }, [currentActiveRoute])
 
     return (
-        <SignupContext.Provider value={{ userId, username, password, confirmPassword, isOnLoadSignup, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, handleStudentClassChange, signup, clearInputs }}>
+        <SignupContext.Provider value={{ userId, username, password, confirmPassword, isOnLoadSignup, handleUserIdChange, handleUsernameChange, handlePasswordChange, handleConfirmPasswordChange, signup, clearInputs }}>
             {children}
         </SignupContext.Provider>
     )

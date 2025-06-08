@@ -4,7 +4,7 @@ import { Link } from "react-router"
 import { SignupContext } from "../provider/signup_context"
 import { ErrorMessageContext } from "../provider/error_message_context"
 import InputField from "./field/input_field"
-import SelectField from "./field/select_field"
+// import SelectField from "./field/select_field"
 import ActionButton from "./action_button"
 
 function SignupCard() {
@@ -17,7 +17,6 @@ function SignupCard() {
         handleUsernameChange,
         handlePasswordChange,
         handleConfirmPasswordChange,
-        handleStudentClassChange,
         signup,
     } = useContext(SignupContext)
 
@@ -26,7 +25,6 @@ function SignupCard() {
         usernameErrMessage,
         passwordErrMessage,
         confirmPasswordErrMessage,
-        studentClassErrMessage,
     } = useContext(ErrorMessageContext)
 
     return(
@@ -62,12 +60,6 @@ function SignupCard() {
                         idValue={"confirmPassword"}
                         labelValue="Confirm Password"
                         value={confirmPassword} />
-                    <SelectField handleSelectChange={handleStudentClassChange}
-                        optionsValue={["IF-A Pagi", "IF-B Pagi", "IF-C Pagi", "IF-A Sore", "IF-B Sore", "IF-C Sore"]}
-                        optionsLabel={["IF-A Pagi", "IF-B Pagi", "IF-C Pagi", "IF-A Sore", "IF-B Sore", "IF-C Sore"]}
-                        labelValue="Class"
-                        titleValue="Select your class"
-                        errMessage={studentClassErrMessage} />
                     <ActionButton action={signup} 
                         text={"Sign Up"} icon={""} isOnLoad={isOnLoadSignup} />
                 </div>
