@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import toast_error from "../components/toast/toast_error";
 import { useNavigate } from "react-router";
+import type { ClassModel } from "../model/class_model";
 
 export const ClassListContext = createContext({
     classList: [{_id: "", name: "", academicYear: "", isArchived: false}],
@@ -9,12 +10,6 @@ export const ClassListContext = createContext({
     viewClass: (classId: string) => { console.log(classId) }
 })
 
-interface ClassModel {
-    _id: string,
-    name: string,
-    academicYear: string
-    isArchived: boolean
-}
 
 function ClassListProvider({children} : {children : React.ReactNode}) {
 

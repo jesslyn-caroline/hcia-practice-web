@@ -7,6 +7,7 @@ import toast_error from "../components/toast/toast_error"
 import { UserContext } from "./user_context"
 import { useNavigate, useParams } from "react-router"
 import { QuestionListContext } from "./question_list_context"
+import type { QuestionModel } from "../model/question_model"
 
 export const EditQuestionContext = createContext({
     year : "",
@@ -29,15 +30,7 @@ export const EditQuestionContext = createContext({
     clearInputs: () => { console.log("clearInputs") }
 })
 
-interface QuestionModel {
-    _id: string,
-    question: string,
-    year: number,
-    type: string,
-    options: string[],
-    answer: string[],
-    score: number
-}
+
 
 function EditQuestionProvider ({children} : {children : React.ReactNode}) {
 

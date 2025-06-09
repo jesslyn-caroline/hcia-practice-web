@@ -10,6 +10,7 @@ function ClassViewProvider ({children} : {children : React.ReactNode}) {
 
     const { id } = useParams()
 
+    // const [members, setMembers] = useState<string>()
 
     return (
         <ClassViewContext.Provider value={{id : (id === undefined ? "" : id)}}>

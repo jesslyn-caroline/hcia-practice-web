@@ -4,6 +4,7 @@ import toast_success from "../components/toast/toast_success";
 import toast_error from "../components/toast/toast_error";
 import { useNavigate } from "react-router";
 import { UserContext } from "./user_context";
+import type { QuestionModel } from "../model/question_model";
 
 export const QuestionListContext = createContext({
     questionList: [{_id: "", question: "", year: 0, type: "", options: ["", "", "", ""], answer: ["", "", "", ""], score: 0}],
@@ -29,15 +30,6 @@ export const QuestionListContext = createContext({
     search: () => { console.log("search") }
 })
 
-interface QuestionModel {
-    _id: string,
-    question: string,
-    year: number,
-    type: string,
-    options: string[],
-    answer: string[],
-    score: number
-}
 
 function QuestionListProvider ({children} : {children: React.ReactNode}) {
 

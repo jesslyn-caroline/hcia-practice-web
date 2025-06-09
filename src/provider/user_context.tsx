@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router"
+import type { RouteObject } from "../model/route_object";
 
 export const UserContext = createContext({
     userId: "",
@@ -12,12 +13,6 @@ export const UserContext = createContext({
     loginUser: (userId: string, username: string, studentClass: string, role: string) => { console.log(userId, username, studentClass, role) },
     logout: () => {},
 })
-
-interface RouteObject {
-    link: string
-    name: string
-    icon: string
-}
 
 function UserProvider({children}: {children: React.ReactNode}) {
     const navigate = useNavigate()
