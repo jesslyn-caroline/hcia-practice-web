@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import type { UserModel } from "../model/user_model";
 import axios from "axios";
@@ -10,26 +10,27 @@ export const ClassViewContext = createContext({
     members : [{userId: "", username: "", classId: "", role: ""}]
 })
 
-async function ClassViewProvider ({children} : {children : React.ReactNode}) {
+function ClassViewProvider ({children} : {children : React.ReactNode}) {
 
     const { id } = useParams()
 
-    const members:UserModel[] = await getMembers()
+    const [members, setMembers] = useState<UserModel[]>([])
+    useEffect(() => { getMembers() }, [])
 
-    
-    async function getMembers():Promise<UserModel[]> {
+    async function getMembers():Promise<void> {
+        console.log(members)
         try {
             const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/user?classId=${id}`)
 
             if (response.status === 200) {
-                return response.data
+                setMembers(response.data)
             }
         }
         catch (err: any) {
             toast_error(err.response.data.message)
         }
-        return []
     }
+
 
     return (
         <ClassViewContext.Provider value={{id : (id === undefined ? "" : id), members}}>
