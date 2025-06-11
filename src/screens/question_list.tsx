@@ -33,49 +33,52 @@ function QuestionList() {
                         </div>
                     </div>
                     <div className={``}>
-                        <table className="mb-20 min-w-full divide-y divide-gray-200 overflow-x-auto">
-                            <thead className="text-gray-500 uppercase">
-                                <tr>
-                                    <th scope="col" className="w-12 font-medium">No.</th>
-                                    <th scope="col" className="w-90 px-6 py-3 font-medium text-start">Question</th>
-                                    <th scope="col" className="px-6 py-3 font-medium">Year</th>
-                                    <th scope="col" className="w-70 px-6 py-3 font-medium">Score</th>
-                                    <th scope="col" className="w-70 font-medium">Type</th>
-                                    <th scope="col" className="w-60 px-6 py-3 font-medium text-start">Answer</th>
-                                    <th scope="col" className="px-6 py-3 font-medium">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-200">
-                                { ...currentItems.map((question, index) => {
-                                    return (
-                                        <tr key={question._id}>
-                                            <td className="py-3 text-center">{index + startOffset + 1}</td>
-                                            <td className="px-6 py-3">{question.question}</td>
-                                            <td className="py-3 text-center">{question.year}</td>
-                                            <td className="px-6 py-3 text-center">{question.score}</td>
-                                            <td className="py-3 text-center">{question.type.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}</td>
-                                            <td className="px-6 py-3">
-                                                {...question.answer.map((answer) => {
-                                                    return (
-                                                        <p className={`mb-2`}>{answer}</p>
-                                                    )
-                                                })}
-                                            </td>
-                                            <td className="px-6 py-3 flex flex-col md:flex-row justify-center space-x-0 space-y-2 md:space-x-2 md:space-y-0">
-                                                <ActionButton action={() => deleteQuestion(question._id)} 
-                                                    text="Delete" icon="" isOnLoad={isOnLoadDelete === question._id} />
-                                                <ActionButton action={() => { editQuestion(question._id) }}
-                                                    text="Edit" icon="" isOnLoad={false}
-                                                    bgColor="bg-yellow-400" hoverbgColor="hover:bg-yellow-500"
-                                                    borderColor="border-yellow-400" hoverBorderColor="hover:border-yellow-400" 
-                                                    textColor="text-white" hoverTextColor="hover:text-white"/>
-                                            </td>
-                                        </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
+                        <div className={`max-w-screen mb-20 overflow-x-scroll scroll-bar-hidden`}>
+                            <table className="min-w-full divide-y divide-gray-200">
+                                <thead className="text-gray-500 uppercase">
+                                    <tr>
+                                        <th scope="col" className="w-12 font-medium">No.</th>
+                                        <th scope="col" className="w-90 px-6 py-3 font-medium text-start">Question</th>
+                                        <th scope="col" className="px-6 py-3 font-medium">Year</th>
+                                        <th scope="col" className="w-70 px-6 py-3 font-medium">Score</th>
+                                        <th scope="col" className="w-70 font-medium">Type</th>
+                                        <th scope="col" className="w-60 px-6 py-3 font-medium text-start">Answer</th>
+                                        <th scope="col" className="px-6 py-3 font-medium">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-200">
+                                    { ...currentItems.map((question, index) => {
+                                        return (
+                                            <tr key={question._id}>
+                                                <td className="py-3 text-center">{index + startOffset + 1}</td>
+                                                <td className="px-6 py-3">{question.question}</td>
+                                                <td className="py-3 text-center">{question.year}</td>
+                                                <td className="px-6 py-3 text-center">{question.score}</td>
+                                                <td className="py-3 text-center">{question.type.split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}</td>
+                                                <td className="px-6 py-3">
+                                                    {...question.answer.map((answer) => {
+                                                        return (
+                                                            <p className={`mb-2`}>{answer}</p>
+                                                        )
+                                                    })}
+                                                </td>
+                                                <td className="px-6 py-3 flex flex-col md:flex-row justify-center space-x-0 space-y-2 md:space-x-2 md:space-y-0">
+                                                    <ActionButton action={() => deleteQuestion(question._id)} 
+                                                        text="Delete" icon="" isOnLoad={isOnLoadDelete === question._id} />
+                                                    <ActionButton action={() => { editQuestion(question._id) }}
+                                                        text="Edit" icon="" isOnLoad={false}
+                                                        bgColor="bg-yellow-400" hoverbgColor="hover:bg-yellow-500"
+                                                        borderColor="border-yellow-400" hoverBorderColor="hover:border-yellow-400" 
+                                                        textColor="text-white" hoverTextColor="hover:text-white"/>
+                                                </td>
+                                            </tr>
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        
                         <div className={`flex justify-center overflow-x-auto scroll-bar-hidden`}>
                             <ReactPaginate
                                 previousLabel={<i className="ri-arrow-left-s-line"/>}
