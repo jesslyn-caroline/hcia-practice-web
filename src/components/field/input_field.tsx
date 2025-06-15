@@ -4,7 +4,7 @@ interface Props {
     errMessage?: string
     placeholderValue: string
     idValue: string
-    labelValue: string
+    labelValue?: string
     value: string | number
 }
 
