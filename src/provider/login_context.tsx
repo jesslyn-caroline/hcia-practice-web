@@ -69,7 +69,7 @@ function LoginProvider({children} : {children : React.ReactNode}) {
             const response = await axios.post(`https://huawei-practice-web-backend.vercel.app/api/user/login`, {userId, password})
 
             if (response.status === 200) {
-                loginUser(response.data.user.userId, response.data.user.username, response.data.user.class, response.data.user.role)
+                loginUser(response.data.user)
                 toast_success(response.data.message)
                 
                 setTimeout(() => {

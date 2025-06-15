@@ -1,50 +1,34 @@
 import { createContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router"
 import type { RouteObject } from "../model/route_object";
+import type { UserModel } from "../model/user_model";
 
 export const UserContext = createContext({
-    userId: "",
-    username: "",
-    studentClass: "",
-    role: "",
+    user: { userId: "", username: "", classId: "", role: ""},
     userRoutes: [{link: "/", name: "Home", icon: "ri-home-2-line"}],
     currentActiveRoute: "",
 
-    loginUser: (userId: string, username: string, studentClass: string, role: string) => { console.log(userId, username, studentClass, role) },
+    loginUser: (user: UserModel) => { console.log(user) },
     logout: () => {},
 })
 
 function UserProvider({children}: {children: React.ReactNode}) {
     const navigate = useNavigate()
 
-    const [userId, setUserId] = useState<string>(getDataFromSession("userId"))
-    const [username, setUsername] = useState<string>(getDataFromSession("username"))
-    const [studentClass, setStudentClass] = useState<string>(getDataFromSession("class"))
-    const [role, setRole] = useState<string>(getDataFromSession("role"))
+    const [user, setUser] = useState<UserModel>(() => {
+        const user = sessionStorage.getItem("user")
+        return user? JSON.parse(user) : { userId: "", username: "", classId: "", role: ""}
+    })
 
-    function loginUser(userId: string, username: string, studentClass: string, role: string):void {
-        setUserId(userId)
-        setUsername(username)
-        setStudentClass(studentClass)
-        setRole(role)
-
-        sessionStorage.setItem("userId", userId)
-        sessionStorage.setItem("username", username)
-        sessionStorage.setItem("class", studentClass)
-        sessionStorage.setItem("role", role)
+    function loginUser(user: UserModel):void {
+       setUser(user)
+       sessionStorage.setItem("user", JSON.stringify(user))
     }
 
     function logout():void {
-        setUserId("")
-        setUsername("")
-        setStudentClass("")
-        setRole("")
-
-        sessionStorage.removeItem("userId")
-        sessionStorage.removeItem("username")
-        sessionStorage.removeItem("class")
-        sessionStorage.removeItem("role")
-
+        setUser({ userId: "", username: "", classId: "", role: ""})
+        sessionStorage.removeItem("user")
+        
         setTimeout(() => {
             navigate("/login")
         }, 3000)
@@ -58,6 +42,7 @@ function UserProvider({children}: {children: React.ReactNode}) {
     ]
     const userRoute: RouteObject[] = [
         {link: "/", name: "Home", icon: "ri-home-2-line"},
+        {link: "/class", name: "Class", icon: "ri-group-3-line"},
     ]
 
     const [userRoutes, setUserRoutes] = useState<RouteObject[]>([])
@@ -67,21 +52,17 @@ function UserProvider({children}: {children: React.ReactNode}) {
     useEffect(() => {
         setCurrentActiveRoute(location.pathname)
 
-        if (location.pathname === "/login" && role !== "") navigate("/")
-        else if (location.pathname === "/signup" && role !== "") navigate("/")
+        if (location.pathname === "/login" && user.role !== "") navigate("/")
+        else if (location.pathname === "/signup" && user.role !== "") navigate("/")
     }, [location])
 
-    function getDataFromSession(data: string):string {
-        return sessionStorage.getItem(data) || ""
-    }
-
     useEffect(() => {
-        if (role === "admin") setUserRoutes(adminRoute)
+        if (user.role === "admin") setUserRoutes(adminRoute)
         else setUserRoutes(userRoute)
-    }, [role])
+    }, [user.role])
 
     return (
-        <UserContext.Provider value={{userId, username, studentClass, role, userRoutes, currentActiveRoute, loginUser, logout}}>
+        <UserContext.Provider value={{user, userRoutes, currentActiveRoute, loginUser, logout}}>
             {children}
         </UserContext.Provider>
     )
