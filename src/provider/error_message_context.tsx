@@ -13,6 +13,8 @@ export const ErrorMessageContext = createContext({
     optionsErrMessage: ["", "", "", ""], 
     noAnswerErrMessage: "",
 
+    classCodeErrMessage: "",
+
     setUserIdErrMessage: (message: string) => { console.log(message) },
     setUsernameErrMessage: (message: string) => { console.log(message) },
     setPasswordErrMessage: (message: string) => { console.log(message) },
@@ -23,6 +25,8 @@ export const ErrorMessageContext = createContext({
     setScoreErrMessage: (message: string) => { console.log(message) },
     setOptionsErrMessage: (message: string[]) => { console.log(message) },
     setNoAnswerErrMessage: (message: string) => { console.log(message) },
+
+    setClassCodeErrMessage: (message: string) => { console.log(message) },
 
     resetErrMessage: () => { console.log("reset") }
 })
@@ -49,6 +53,13 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
 
     // =======================
 
+
+    // === class code for student ===
+
+    const [classCodeErrMessage, setClassCodeErrMessage] = useState<string>("")
+
+    // ==============================
+
     function resetErrMessage () {
         setUserIdErrMessage("")
         setUsernameErrMessage("")
@@ -60,6 +71,8 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
         setScoreErrMessage("")
         setOptionsErrMessage(["", "", "", ""])
         setNoAnswerErrMessage("")
+
+        setClassCodeErrMessage("")
     }
 
     useEffect(() => {
@@ -79,6 +92,9 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
                 scoreErrMessage, 
                 optionsErrMessage, 
                 noAnswerErrMessage, 
+
+                classCodeErrMessage,
+
                 setUserIdErrMessage, 
                 setUsernameErrMessage, 
                 setPasswordErrMessage, 
@@ -88,6 +104,7 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
                 setScoreErrMessage,
                 setOptionsErrMessage,
                 setNoAnswerErrMessage,
+                setClassCodeErrMessage,
                 resetErrMessage
             }}>
             { children }
