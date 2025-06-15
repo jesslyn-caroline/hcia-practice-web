@@ -22,10 +22,11 @@ import ClassList from './screens/class_list.tsx'
 import ClassListProvider from './provider/class_list_context.tsx'
 import ClassViewProvider from './provider/class_view_context.tsx'
 import ClassView from './screens/class_view.tsx'
+import ClassEnter from './screens/students/class_enter.tsx'
 
 function App() {
 
-  const { role } = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   return (
     <Routes>
@@ -48,14 +49,15 @@ function App() {
 
       {/* == routes for student == */}
       {
-        role === "student"? 
+        user.role === "student"? 
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
+          <Route path="/class" element={ user.classId === null? <ClassEnter /> : null} />
         </Route> : null
       }
 
       {
-        role === "admin"? 
+        user.role === "admin"? 
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
           <Route path="/question/new" element={
