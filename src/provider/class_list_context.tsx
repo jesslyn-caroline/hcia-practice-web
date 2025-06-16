@@ -7,7 +7,8 @@ import type { ClassModel } from "../model/class_model";
 export const ClassListContext = createContext({
     classList: [{_id: "", name: "", academicYear: "", isArchived: false}],
 
-    viewClass: (classId: string) => { console.log(classId) }
+    viewClass: (classId: string) => { console.log(classId) },
+    newClass: () => { console.log("new class") }
 })
 
 
@@ -38,8 +39,12 @@ function ClassListProvider({children} : {children : React.ReactNode}) {
         navigate(`/class/${classId}`)
     }
 
+    function newClass() {
+        navigate("/class/new")
+    }
+
     return (
-        <ClassListContext.Provider value={{classList, viewClass}}>
+        <ClassListContext.Provider value={{classList, viewClass, newClass}}>
             {children}
         </ClassListContext.Provider>
     )
