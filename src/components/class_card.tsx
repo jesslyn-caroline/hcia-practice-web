@@ -7,7 +7,7 @@ interface Props {
 
 function ClassCard({name, academicYear, classId, viewClass} :Props) {
     return (
-        <div className={`w-fit px-5 py-3 rounded-lg border border-accent-2 flex flex-col space-y-2 cursor-pointer`} onClick={() => viewClass(classId)}>
+        <div className={`w-80 p-5 rounded-lg border border-accent-2 flex flex-col space-y-2 cursor-pointer`} onClick={() => viewClass(classId)}>
             <div className={`flex flex-row justify-between`}>
                 <div className={`w-10 h-10 text-2xl opacity-50 flex justify-center items-center bg-accent-2 rounded-md`}>
                     {name[3]}
