@@ -15,6 +15,8 @@ export const ErrorMessageContext = createContext({
 
     classCodeErrMessage: "",
 
+    academicYearErrMessage: "",
+
     setUserIdErrMessage: (message: string) => { console.log(message) },
     setUsernameErrMessage: (message: string) => { console.log(message) },
     setPasswordErrMessage: (message: string) => { console.log(message) },
@@ -27,6 +29,8 @@ export const ErrorMessageContext = createContext({
     setNoAnswerErrMessage: (message: string) => { console.log(message) },
 
     setClassCodeErrMessage: (message: string) => { console.log(message) },
+
+    setAcademicYearErrMessage: (message: string) => { console.log(message) },
 
     resetErrMessage: () => { console.log("reset") }
 })
@@ -59,6 +63,13 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
     const [classCodeErrMessage, setClassCodeErrMessage] = useState<string>("")
 
     // ==============================
+
+
+    // === new class ===
+
+    const [academicYearErrMessage, setAcademicYearErrMessage] = useState<string>("")
+
+    // =================
 
     function resetErrMessage () {
         setUserIdErrMessage("")
@@ -95,6 +106,8 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
 
                 classCodeErrMessage,
 
+                academicYearErrMessage,
+
                 setUserIdErrMessage, 
                 setUsernameErrMessage, 
                 setPasswordErrMessage, 
@@ -105,6 +118,7 @@ function ErrorMessageProvider({children} : {children: React.ReactNode}) {
                 setOptionsErrMessage,
                 setNoAnswerErrMessage,
                 setClassCodeErrMessage,
+                setAcademicYearErrMessage,
                 resetErrMessage
             }}>
             { children }
