@@ -23,6 +23,7 @@ import ClassListProvider from './provider/class_list_context.tsx'
 import ClassViewProvider from './provider/class_view_context.tsx'
 import ClassView from './screens/class_view.tsx'
 import ClassEnter from './screens/students/class_enter.tsx'
+import NewClass from './screens/new_class.tsx'
 
 function App() {
 
@@ -52,7 +53,11 @@ function App() {
         user.role === "student"? 
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
-          <Route path="/class" element={ user.classId === null? <ClassEnter /> : null} />
+          <Route path="/class" element={ user.classId === null? 
+          <ClassEnter /> : 
+          <ClassViewProvider>
+            <ClassView />
+          </ClassViewProvider>} />
         </Route> : null
       }
 
@@ -79,6 +84,9 @@ function App() {
               <ClassView />
             </ClassViewProvider>
           } />
+          <Route path="/class/new" element={
+            <NewClass />
+          }/>
         </Route> : null
       }
       
