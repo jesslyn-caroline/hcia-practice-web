@@ -17,7 +17,8 @@ function InputField({handleInputChange, inputType, errMessage, placeholderValue,
                 className={`w-full h-9 outline-none border-b-2 border-accent-2`} 
                 id={idValue}
                 placeholder={placeholderValue} 
-                value={value} />
+                value={value} 
+                autoComplete="off"/>
             <div className={`${errMessage === "" ? "hidden" : ""} absolute text-xs text-red-500 mt-1`}>{errMessage}</div>
         </div>
     )
