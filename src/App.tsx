@@ -24,6 +24,8 @@ import ClassViewProvider from './provider/class_view_context.tsx'
 import ClassView from './screens/class_view.tsx'
 import ClassEnter from './screens/students/class_enter.tsx'
 import NewClass from './screens/new_class.tsx'
+import QuizMenu from './screens/quiz_menu.tsx'
+import QuizNew from './screens/quiz_new.tsx'
 
 function App() {
 
@@ -51,6 +53,7 @@ function App() {
       {/* == routes for student == */}
       {
         user.role === "student"? 
+        <>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
           <Route path="/class" element={ user.classId === null? 
@@ -58,7 +61,11 @@ function App() {
           <ClassViewProvider>
             <ClassView />
           </ClassViewProvider>} />
-        </Route> : null
+          <Route path="/quiz/menu" element={<QuizMenu />} />
+          <Route path="/quiz/new" element={<QuizNew />} />
+        </Route> 
+        </>: null
+        
       }
 
       {
