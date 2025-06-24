@@ -6,6 +6,7 @@ import App from './App.tsx'
 import UserProvider from './provider/user_context.tsx'
 import ErrorMessageProvider from './provider/error_message_context.tsx'
 import QuestionListProvider from './provider/question_list_context.tsx'
+import OnQuizProvider from './provider/on_quiz_context.tsx'
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -14,7 +15,9 @@ root.render(
       <UserProvider>
         <ErrorMessageProvider>    
           <QuestionListProvider>
-            <App />
+            <OnQuizProvider>
+              <App /> 
+            </OnQuizProvider>
           </QuestionListProvider>  
         </ErrorMessageProvider>
       </UserProvider>

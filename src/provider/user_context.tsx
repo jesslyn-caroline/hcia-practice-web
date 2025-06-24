@@ -43,6 +43,7 @@ function UserProvider({children}: {children: React.ReactNode}) {
     const userRoute: RouteObject[] = [
         {link: "/", name: "Home", icon: "ri-home-2-line"},
         {link: "/class", name: "Class", icon: "ri-group-3-line"},
+        {link: "/quiz/menu", name: "Quiz", icon: "ri-shapes-line"},
     ]
 
     const [userRoutes, setUserRoutes] = useState<RouteObject[]>([])
