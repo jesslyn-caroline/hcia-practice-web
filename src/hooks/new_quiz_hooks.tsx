@@ -73,7 +73,7 @@ function NewQuizHooks() {
                         quizTypes: string,
                         isAnswerAttemptSelected: boolean[][]
                         answerAttemptValue: string[][],
-                        currentQuestion: number
+                        currentQuestion: number,
                     } = {
                         question: response.data.quiz.questions,
                         startTime: new Date(),
@@ -92,21 +92,23 @@ function NewQuizHooks() {
                     let quizData: {
                         question: QuestionModel[],
                         startTime: Date,
-                        totalTimeSkipped: number,
                         timePerQuestion: number,
+                        lowerBoundQuizTime: Date,
                         quizTypes: string,
                         isAnswerAttemptSelected: boolean[][],
                         answerAttemptValue: string[][],
-                        currentQuestion: number
+                        currentQuestion: number,
+                        score: number
                     } = {
                         question: response.data.quiz.questions,
                         startTime: new Date(),
-                        totalTimeSkipped: 0,
                         timePerQuestion: timePerQuestion,
+                        lowerBoundQuizTime: new Date(),
                         quizTypes: quizTypes[quizType],
                         isAnswerAttemptSelected: isAnswerAttemptSelected,
                         answerAttemptValue: answerAttemptValue,
                         currentQuestion: 0,
+                        score: 0
                     }
 
                     localStorage.setItem("quizData", JSON.stringify(quizData))

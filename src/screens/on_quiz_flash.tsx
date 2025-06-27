@@ -20,7 +20,7 @@ function OnQuizFlash() {
                         <div className={`w-10 h-10 flex justify-center items-center rounded-full bg-primary text-white text-xl`}>
                             {currentQuestion + 1}
                         </div>
-                        {score}
+                        <h2 className={`font-semibold`}>Current score: {score}</h2>
                         <h1>{question[currentQuestion].question}</h1>
                         <div className={`space-y-4`}>
                         {

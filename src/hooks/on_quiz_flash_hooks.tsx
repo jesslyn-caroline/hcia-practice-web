@@ -4,24 +4,32 @@ import checkAnswer from "../func/check_answer";
 
 
 function OnQuizFlashHooks() {
-
-    const quizData = JSON.parse(localStorage.getItem("quizData")!) || []
-
-    const question:QuestionModel[] = quizData.question
+    
+    const question:QuestionModel[] = JSON.parse(localStorage.getItem("quizData")!).question
 
     const [timeToNext, setTimeToNext] = useState<number>(() => {
         return getTimeToNext()
     })
 
     const [currentQuestion, setCurrentQuestion] = useState<number>(() => {
-      return quizData.currentQuestion
+        const quizData = JSON.parse(localStorage.getItem("quizData")!)
+        
+        const startTime = new Date(quizData.startTime).getTime()
+        const currentTime = new Date().getTime()
+        const diff = Math.floor((currentTime - startTime) / 1000)
+        const currentQuestion = Math.floor(diff / quizData.timePerQuestion)
+
+        return Math.max(currentQuestion, quizData.currentQuestion)
     })
 
-    function getTimeToNext():number {
-        const startTime = new Date(quizData.startTime).getTime()
-        const current = new Date().getTime()
 
-        const diff = Math.floor((current - startTime) / 1000)
+    function getTimeToNext():number {
+        const quizData = JSON.parse(localStorage.getItem("quizData")!)
+
+        const lowerBound = new Date(quizData.lowerBoundQuizTime).getTime()
+        let current = new Date().getTime()
+
+        let diff = Math.floor((current - lowerBound) / 1000)
         const secondsLeft = quizData.timePerQuestion - (diff % quizData.timePerQuestion)
         localStorage.setItem("quizData", JSON.stringify({...quizData, timeToNext: secondsLeft}))
 
@@ -29,37 +37,37 @@ function OnQuizFlashHooks() {
     }
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setTimeToNext(getTimeToNext())
+        setInterval(() => {
+            let time = getTimeToNext()
+            setTimeToNext(time)
         }, 1000)
-    
-        return () => clearInterval(interval)
     }, [])
 
     useEffect(() => {
         if (timeToNext === 0) {
-            setCurrentQuestion((prev) => {
-                if (prev === question.length - 1) {
-                    localStorage.setItem("quizData", JSON.stringify({...quizData, currentQuestion: question.length - 1}))
-                    return question.length - 1;
-                }
-                else {
-                    localStorage.setItem("quizData", JSON.stringify({...quizData, currentQuestion: prev + 1}))
-                    return prev + 1;
-                }
-            });
+            if (currentQuestion === question.length - 1) return
+
+            const quizData = JSON.parse(localStorage.getItem("quizData")!)
+
+            let nextLowerBound = new Date(new Date(quizData.lowerBoundQuizTime).getTime() + quizData.timePerQuestion * 1000)
+            localStorage.setItem("quizData", JSON.stringify({...quizData, lowerBoundQuizTime: nextLowerBound, currentQuestion: currentQuestion + 1}))
+            setCurrentQuestion(JSON.parse(localStorage.getItem("quizData")!).currentQuestion)
         }
-    }, [timeToNext]);
+    }, [timeToNext])
+ 
 
     const [isAnswerAttemptSelected, setIsAnswerAttemptSelected] = useState<boolean[][]>(() => {
+        const quizData = JSON.parse(localStorage.getItem("quizData")!)
         return quizData.isAnswerAttemptSelected
     })
 
     const [answerAttemptValue, setAnswerAttemptValue] = useState<string[][]>(() => {
+        const quizData = JSON.parse(localStorage.getItem("quizData")!)
         return quizData.answerAttemptValue
     })
 
     const handleCheckBoxAnswer = (index:number, e: React.ChangeEvent<HTMLInputElement>) => {
+        const quizData = JSON.parse(localStorage.getItem("quizData")!) 
         let newIsAnswerAttemptSelected = [...isAnswerAttemptSelected]
         newIsAnswerAttemptSelected[currentQuestion][index] = e.target.checked
         setIsAnswerAttemptSelected(newIsAnswerAttemptSelected)
@@ -68,6 +76,8 @@ function OnQuizFlashHooks() {
     }
 
     const handleRadioAnswer = (index:number, e: React.ChangeEvent<HTMLInputElement>) => {
+        const quizData = JSON.parse(localStorage.getItem("quizData")!)
+
         let newIsAnswerAttemptSelected = [...isAnswerAttemptSelected]
         newIsAnswerAttemptSelected[currentQuestion] = [false, false, false, false]
         newIsAnswerAttemptSelected[currentQuestion][index] = e.target.checked
@@ -77,6 +87,8 @@ function OnQuizFlashHooks() {
     }
 
     const handleEssayAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const quizData = JSON.parse(localStorage.getItem("quizData")!)
+
         let newAnswerAttemptValue = [...answerAttemptValue]
         newAnswerAttemptValue[currentQuestion][0] = e.target.value
         setAnswerAttemptValue(newAnswerAttemptValue)
@@ -84,10 +96,19 @@ function OnQuizFlashHooks() {
         localStorage.setItem("quizData", JSON.stringify({...quizData, answerAttemptValue: newAnswerAttemptValue}))
     }
 
-    const [score, setScore] = useState<number>(0)
+    const [score, setScore] = useState<number>(() => {
+        const quizData = JSON.parse(localStorage.getItem("quizData")!)
+        return quizData.score
+    })
 
     function submit() {
-        console.log(timeToNext)        
+
+        const quizData = JSON.parse(localStorage.getItem("quizData")!)
+
+        const current = new Date().getTime()
+        const lowerBound = new Date(current - quizData.timePerQuestion * 1000)
+
+        setTimeToNext(0)
 
 
         let isCorrect:boolean = checkAnswer(question[currentQuestion].answer, isAnswerAttemptSelected[currentQuestion], question[currentQuestion].options)
@@ -97,7 +118,9 @@ function OnQuizFlashHooks() {
             setScore((prev) => {
               return prev + question[currentQuestion].score
             })
-        }      
+        }   
+        localStorage.setItem("quizData", JSON.stringify({...quizData, lowerBoundQuizTime: lowerBound, score: quizData.score + question[currentQuestion].score}))
+
     }
 
     return {currentQuestion, question, timeToNext, isAnswerAttemptSelected, answerAttemptValue, handleCheckBoxAnswer, handleRadioAnswer, handleEssayAnswer, score, submit}  
