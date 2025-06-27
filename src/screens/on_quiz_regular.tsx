@@ -79,11 +79,11 @@ function OnQuizRegular() {
                             }
                             </div>
                             <div className={`flex flex-row space-x-4 mt-4`}>
-                                <button className={`text-primary bg-background border border-1.5 border-primary rounded-md px-2 py-1 flex flex-row items-center space-x-2`} onClick={() => handleCurrentQuestionChange(currentQuestion - 1)}>
+                                <button className={`text-primary bg-background border border-1.5 border-primary rounded-md px-2 py-1 flex flex-row items-center space-x-2 cursor-pointer`} onClick={() => handleCurrentQuestionChange(currentQuestion - 1)}>
                                     <i className="text-xl ri-arrow-left-line"/>
                                     <span>Previous</span>
                                 </button>
-                                <button className={`text-primary bg-background border border-1.5 border-primary rounded-md px-2 py-1 flex flex-row items-center space-x-2`} onClick={() => handleCurrentQuestionChange(currentQuestion + 1)}>
+                                <button className={`text-primary bg-background border border-1.5 border-primary rounded-md px-2 py-1 flex flex-row items-center space-x-2 cursor-pointer`} onClick={() => handleCurrentQuestionChange(currentQuestion + 1)}>
                                     <span>Next</span>
                                     <i className="text-xl ri-arrow-right-line"/>
                                 </button>

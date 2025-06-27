@@ -25,7 +25,7 @@ function ClassEnterHooks() {
 
         try {
             const response = await axios.put("https://huawei-practice-web-backend.vercel.app/api/user/join-class", 
-                {classCode, userId: user.userId}
+                {classId: classCode, userId: user.userId}
             )
 
             sessionStorage.setItem("user", JSON.stringify({...user, classId: classCode}))

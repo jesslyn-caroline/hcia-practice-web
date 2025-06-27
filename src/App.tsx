@@ -28,6 +28,7 @@ import QuizMenu from './screens/quiz_menu.tsx'
 import QuizNew from './screens/quiz_new.tsx'
 import OnQuizRegular from './screens/on_quiz_regular.tsx'
 import OnQuizFlash from './screens/on_quiz_flash.tsx'
+import StudentProfile from './screens/student_profile.tsx'
 
 function App() {
 
@@ -98,6 +99,7 @@ function App() {
           <Route path="/class/new" element={
             <NewClass />
           }/>
+          <Route path="/profile/:studentId" element={<StudentProfile />} />
         </Route> : null
       }
       
