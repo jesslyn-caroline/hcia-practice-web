@@ -26,7 +26,8 @@ import ClassEnter from './screens/students/class_enter.tsx'
 import NewClass from './screens/new_class.tsx'
 import QuizMenu from './screens/quiz_menu.tsx'
 import QuizNew from './screens/quiz_new.tsx'
-import OnQuiz from './screens/on_quiz.tsx'
+import OnQuizRegular from './screens/on_quiz_regular.tsx'
+import OnQuizFlash from './screens/on_quiz_flash.tsx'
 
 function App() {
 
@@ -64,8 +65,9 @@ function App() {
           </ClassViewProvider>} />
           <Route path="/quiz/menu" element={<QuizMenu />} />
           <Route path="/quiz/new" element={<QuizNew />} />
-          <Route path="/quiz/ongoing" element={<OnQuiz />} />
         </Route> 
+        <Route path="/quiz/regular/ongoing" element={<OnQuizRegular />} />
+        <Route path="/quiz/flash/ongoing" element={<OnQuizFlash />} />
         </>: null
         
       }
