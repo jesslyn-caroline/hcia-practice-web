@@ -102,6 +102,7 @@ function OnQuizRegularHooks() {
             
             if (response.status === 200) {
                 toast_success(response.data.message)
+                localStorage.removeItem("quizData")
                 navigate(`/quiz/result/${quizData.quizId}`)              
             }        
         } catch (err) {

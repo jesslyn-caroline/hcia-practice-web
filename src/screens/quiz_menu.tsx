@@ -14,6 +14,8 @@ function QuizMenu() {
                 <ActionButton action={() => {}} text="Start Quiz" icon="ri-lightbulb-flash-fill" />
             </Link>
             <h1 className={`text-md font-semibold my-6`}>Recently Taken</h1>
+            <div className={`max-w-screen mb-20 overflow-x-scroll scroll-bar-hidden`}>
+
             <table className="min-w-full divide-y divide-gray-200">
                 <thead className="text-gray-500 uppercase">
                     <tr>
@@ -47,6 +49,8 @@ function QuizMenu() {
                     
                 </tbody>
             </table>
+
+            </div>
         </div>
     )
 }

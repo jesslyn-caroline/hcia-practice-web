@@ -39,12 +39,21 @@ function NewQuizHooks() {
 
         const isOnQuiz = localStorage.getItem("quizData");
         if (isOnQuiz) {
-            let quiz = JSON.parse(isOnQuiz).quizType
-            toast_error("You have a quiz ongoing!");
-            setTimeout(() => {
-               navigate(`/quiz/${quiz}/ongoing`) 
-            }, 3000)
-            return;
+
+            const end = new Date(JSON.parse(isOnQuiz).expectedEndTime)
+            const now = new Date()
+
+            if (now < end) {
+                let quiz = JSON.parse(isOnQuiz).quizType
+                toast_error("You have a quiz ongoing!");
+                setTimeout(() => {
+                    navigate(`/quiz/${quiz}/ongoing`) 
+                }, 3000)
+
+                return
+            }
+                
+            localStorage.removeItem("quizData")
         }
 
         setIsOnLoad(true)
