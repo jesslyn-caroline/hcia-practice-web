@@ -10,7 +10,7 @@ function OnQuizRegular() {
     const { timeLeft, question, currentQuestion, answerAttemptValue, handleCurrentQuestionChange, isAnswerAttemptSelected, handleCheckBoxAnswer, handleRadioAnswer, handleEssayAnswer, submit } = OnQuizRegularHooks()
    
     
-    const [isOpenedSideBar, setIsOpenedSideBar] = useState<boolean>(true)
+    const [isOpenedSideBar, setIsOpenedSideBar] = useState<boolean>(false)
 
     function toggleSideBar(event: string) {
         if (event === "close") setIsOpenedSideBar(false)
