@@ -44,7 +44,6 @@ function OnQuizFlash() {
                         <button className={`text-white bg-primary border border-1.5 border-primary rounded-md px-2 py-1 flex flex-row items-center space-x-2`} onClick={() => submit()}>
                             <span>Submit</span>
                         </button>
-
                     </div>
                 </div>
             </div>

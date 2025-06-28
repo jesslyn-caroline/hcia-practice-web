@@ -1,10 +1,17 @@
-import { useEffect,  useState } from "react";
+import { useContext, useEffect,  useState } from "react";
 import type { QuestionModel } from "../model/question_model";
 import checkAnswer from "../func/check_answer";
+import axios from "axios";
+import { UserContext } from "../provider/user_context";
+import { useNavigate } from "react-router";
+import toast_success from "../components/toast/toast_success";
 
 
 function OnQuizFlashHooks() {
     
+    const { user } = useContext(UserContext)
+    const navigate = useNavigate()
+
     const question:QuestionModel[] = JSON.parse(localStorage.getItem("quizData")!).question
 
     const [timeToNext, setTimeToNext] = useState<number>(() => {
@@ -45,7 +52,10 @@ function OnQuizFlashHooks() {
 
     useEffect(() => {
         if (timeToNext === 0) {
-            if (currentQuestion === question.length - 1) return
+            if (currentQuestion === question.length - 1) {
+                finalize()
+                return
+            }
 
             const quizData = JSON.parse(localStorage.getItem("quizData")!)
 
@@ -110,7 +120,6 @@ function OnQuizFlashHooks() {
 
         setTimeToNext(0)
 
-
         let isCorrect:boolean = checkAnswer(question[currentQuestion].answer, isAnswerAttemptSelected[currentQuestion], question[currentQuestion].options)
         if (question[currentQuestion].type === "single-word-answer") isCorrect = answerAttemptValue[currentQuestion][0].toLowerCase() === question[currentQuestion].answer[0].toLowerCase()
 
@@ -121,6 +130,24 @@ function OnQuizFlashHooks() {
         }   
         localStorage.setItem("quizData", JSON.stringify({...quizData, lowerBoundQuizTime: lowerBound, score: quizData.score + question[currentQuestion].score}))
 
+    }
+
+    async function finalize():Promise<void> {
+        const quizData = JSON.parse(localStorage.getItem("quizData")!) 
+
+        try {
+            const response = await axios.post(`https://huawei-practice-web-backend.vercel.app/api/quiz/${quizData.quizId}`, {
+                score: quizData.score,
+                userId: user.userId
+            })
+            
+            if (response.status === 200) {
+                toast_success(response.data.message)
+                navigate(`/quiz/result/${quizData.quizId}`)              
+            }        
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return {currentQuestion, question, timeToNext, isAnswerAttemptSelected, answerAttemptValue, handleCheckBoxAnswer, handleRadioAnswer, handleEssayAnswer, score, submit}  

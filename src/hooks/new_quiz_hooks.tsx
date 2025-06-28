@@ -36,19 +36,31 @@ function NewQuizHooks() {
     const [isOnLoad, setIsOnLoad] = useState<boolean>(false)
 
     async function startQuiz():Promise<void> {
+
+        const isOnQuiz = localStorage.getItem("quizData");
+        if (isOnQuiz) {
+            let quiz = JSON.parse(isOnQuiz).quizType
+            toast_error("You have a quiz ongoing!");
+            setTimeout(() => {
+               navigate(`/quiz/${quiz}/ongoing`) 
+            }, 3000)
+            return;
+        }
+
         setIsOnLoad(true)
 
         try {
             const response = await axios.post("https://huawei-practice-web-backend.vercel.app/api/quiz", {
-                title: "Hello",
+                title: "-",
                 questionCount,
                 type: quizTypes[quizType],
-                time: timeLimit
+                time: (quizType === 1) ? timePerQuestion : timeLimit
             })
 
             if (response.status === 201) {
                 let time: number
                 const miliseconds = 1000;
+                console.log(response.data)
 
                 if (quizType === 1) time = timePerQuestion * questionCount * miliseconds
                 else time = timeLimit * 60 * miliseconds
@@ -70,18 +82,20 @@ function NewQuizHooks() {
                         question: QuestionModel[],
                         startTime: Date,
                         expectedEndTime: Date,
-                        quizTypes: string,
+                        quizType: string,
                         isAnswerAttemptSelected: boolean[][]
                         answerAttemptValue: string[][],
                         currentQuestion: number,
+                        quizId: string
                     } = {
                         question: response.data.quiz.questions,
                         startTime: new Date(),
                         expectedEndTime: new Date(new Date().getTime() + time),
-                        quizTypes: quizTypes[quizType],
+                        quizType: quizTypes[quizType],
                         isAnswerAttemptSelected: isAnswerAttemptSelected,
                         answerAttemptValue: answerAttemptValue,
                         currentQuestion: 0,
+                        quizId: response.data.quiz._id
                     }
 
                     localStorage.setItem("quizData", JSON.stringify(quizData))
@@ -94,21 +108,23 @@ function NewQuizHooks() {
                         startTime: Date,
                         timePerQuestion: number,
                         lowerBoundQuizTime: Date,
-                        quizTypes: string,
+                        quizType: string,
                         isAnswerAttemptSelected: boolean[][],
                         answerAttemptValue: string[][],
                         currentQuestion: number,
-                        score: number
+                        score: number,
+                        quizId: string
                     } = {
                         question: response.data.quiz.questions,
                         startTime: new Date(),
                         timePerQuestion: timePerQuestion,
                         lowerBoundQuizTime: new Date(),
-                        quizTypes: quizTypes[quizType],
+                        quizType: quizTypes[quizType],
                         isAnswerAttemptSelected: isAnswerAttemptSelected,
                         answerAttemptValue: answerAttemptValue,
                         currentQuestion: 0,
-                        score: 0
+                        score: 0,
+                        quizId: response.data.quiz._id
                     }
 
                     localStorage.setItem("quizData", JSON.stringify(quizData))

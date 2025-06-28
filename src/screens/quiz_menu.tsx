@@ -2,6 +2,9 @@ import { Link } from "react-router"
 import ActionButton from "../components/action_button"
 
 function QuizMenu() {
+
+    
+
     return (
         <div className={`flex flex-col`}>
             <i className={`text-4xl ri-shapes-line mb-2`}/>
@@ -9,6 +12,7 @@ function QuizMenu() {
             <Link to="/quiz/new">
                 <ActionButton action={() => {}} text="Start Quiz" icon="ri-lightbulb-flash-fill" />
             </Link>
+            <h1 className={`text-md font-semibold mt-6`}>Recently Taken</h1>
         </div>
     )
 }
