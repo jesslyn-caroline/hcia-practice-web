@@ -1,13 +1,10 @@
 import { useState } from "react"
 
-import { useNavigate } from "react-router"
 import toast_error from "../components/toast/toast_error"
 import axios from "axios"
-import type { QuestionModel } from "../model/question_model"
 import toast_success from "../components/toast/toast_success"
 
 function NewAssignmentHooks() {
-    const navigate = useNavigate()
 
     const [assignmentTitle, setAssignmentTitle] = useState<string>("")
     const handleAssignmentTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
