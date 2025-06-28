@@ -13,13 +13,13 @@ interface HistoryObj {
 }
 
 function QuizMenuHooks() {
-
     const { user } = useContext(UserContext)
 
     const [history, setHistory] = useState<HistoryObj[]>([])
 
     useEffect(() => {
         getHistory()
+        getAssignments()
     }, [])
 
     async function getHistory():Promise<void> {
@@ -56,6 +56,20 @@ function QuizMenuHooks() {
             if (response.status === 200) {
                 // console.log(response.data)
                 return response.data.quiz
+            }
+        }
+        catch (err: any) {
+            console.log(err)
+        }
+    }
+
+    async function getAssignments():Promise<void> {
+        try {
+            const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/assignment`)
+
+            if (response.status === 200) {
+                // console.log(response.data)
+                return response.data.assignments
             }
         }
         catch (err: any) {
