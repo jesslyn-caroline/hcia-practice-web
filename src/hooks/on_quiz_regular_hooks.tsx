@@ -1,9 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import type { QuestionModel } from "../model/question_model";
 import checkAnswer from "../func/check_answer";
+import toast_success from "../components/toast/toast_success";
+import { useNavigate } from "react-router";
+import { UserContext } from "../provider/user_context";
+import axios from "axios";
 
 
 function OnQuizRegularHooks() {
+
+    const { user } = useContext(UserContext)
+    const navigate = useNavigate()
 
     const quizData = JSON.parse(localStorage.getItem("quizData")!) || []
 
@@ -81,9 +88,25 @@ function OnQuizRegularHooks() {
             if (isCorrect) score += question[i].score
         }
 
-        alert(score) //dummy
+       finalize(score)
 
-        localStorage.setItem("quizData", JSON.stringify({...quizData, score}))
+        // localStorage.setItem("quizData", JSON.stringify({...quizData, score}))
+    }
+
+    async function finalize(score: number):Promise<void> {
+        try {
+            const response = await axios.post(`https://huawei-practice-web-backend.vercel.app/api/quiz/${quizData.quizId}`, {
+                score,
+                userId: user.userId
+            })
+            
+            if (response.status === 200) {
+                toast_success(response.data.message)
+                navigate(`/quiz/result/${quizData.quizId}`)              
+            }        
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     return {timeLeft, question, currentQuestion, answerAttemptValue, handleCurrentQuestionChange, isAnswerAttemptSelected, handleCheckBoxAnswer, handleRadioAnswer, handleEssayAnswer, submit}
