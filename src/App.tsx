@@ -30,6 +30,7 @@ import OnQuizRegular from './screens/on_quiz_regular.tsx'
 import OnQuizFlash from './screens/on_quiz_flash.tsx'
 import StudentProfile from './screens/student_profile.tsx'
 import QuizResult from './screens/quiz_result.tsx'
+import AssignmentNew from './screens/assignment_new.tsx'
 
 function App() {
 
@@ -101,6 +102,7 @@ function App() {
           <Route path="/class/new" element={
             <NewClass />
           }/>
+          <Route path="/assignment/new" element={<AssignmentNew />}></Route>
           <Route path="/profile/:studentId" element={<StudentProfile />} />
         </Route> : null
       }
