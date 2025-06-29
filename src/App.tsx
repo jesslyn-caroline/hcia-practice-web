@@ -34,6 +34,7 @@ import AssignmentDetail from './screens/assignment_detail.tsx'
 import AssignmentQuestions from './screens/assignment_questions.tsx'
 import AssignmentDetailInfo from './screens/assignment_detail_info.tsx'
 import AssignmentStart from './screens/assignment_start.tsx'
+import AssignmentSubmission from './screens/assignment_submission.tsx'
 
 function App() {
 
@@ -112,7 +113,7 @@ function App() {
           <Route path="/assignment/:assignmentId/" element={<AssignmentDetail />}>
             <Route index element={<AssignmentDetailInfo />} />
             <Route path="questions" element={<AssignmentQuestions />} />
-            <Route path="submissions" element={<></>} />
+            <Route path="submissions" element={<AssignmentSubmission />} />
           </Route>
           <Route path="/assignment/new" element={<AssignmentNew />} />
         </Route> : null

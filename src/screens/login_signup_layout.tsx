@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router'
 import { ToastContainer, Bounce } from 'react-toastify';
 
-import ToggleMode from '../components/toggle_mode';
 
 function LoginSignupLayout() {
     return(
@@ -11,7 +10,6 @@ function LoginSignupLayout() {
                 {/* Header */}
                 <div className={`w-full min-h-14 h-14 bg-accent border-b-1 border-accent-2 px-6 lg:px-20 flex items-center justify-between`}>
                     <h1 className={`text-xl text-primary font-semibold`}>HCIA Practice</h1>
-                    <ToggleMode />
                 </div>
 
                 <div className={`w-full h-full px-6 lg:px-20 grid grid-cols-1 lg:grid-cols-2 lg:space-x-20`}>

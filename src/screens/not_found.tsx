@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router"
 import { useContext, useState } from "react"
 
-import ToggleMode from "../components/toggle_mode"
 import { UserContext } from "../provider/user_context"
 
 function NotFound() {
@@ -25,7 +24,6 @@ function NotFound() {
             <div className={`max-w-[1620px] w-full h-screen bg-background`}>
                 <div className={`w-full min-h-14 h-14 bg-accent border-b-1 border-accent-2 px-6 lg:px-20 flex items-center justify-between`}>
                     <h1 className={`text-xl text-primary font-semibold`}>HCIA Practice</h1>
-                    <ToggleMode />
                 </div>
                 <div className={`w-full h-full place-items-center`}>
                     <img src="/images/404-error-rafiki.png" alt="" className={`w-sm`}/>
