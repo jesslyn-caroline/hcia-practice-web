@@ -71,19 +71,19 @@ function QuizMenuHooks() {
         }
     }
 
-    async function getAssignments():Promise<void> {
-        try {
-            const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/assignment`)
+    // async function getAssignments():Promise<void> {
+    //     try {
+    //         const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/assignment`)
 
-            if (response.status === 200) {
-                // console.log(response.data)
-                return response.data.assignments
-            }
-        }
-        catch (err: any) {
-            console.log(err)
-        }
-    }
+    //         if (response.status === 200) {
+    //             // console.log(response.data)
+    //             return response.data.assignments
+    //         }
+    //     }
+    //     catch (err: any) {
+    //         console.log(err)
+    //     }
+    // }
 
     return {history, getQuizInfo, isOnLoad}
 }

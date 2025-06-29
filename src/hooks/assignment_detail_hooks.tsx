@@ -35,19 +35,19 @@ function AssignmentDetailHooks() {
     const [currentActive, setCurrentActive] = useState<number>(0)
     const handleTabChange = (index: number) => setCurrentActive(index)
 
-    async function getSubmission():Promise<void> {
-        try {
-            const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/quiz?quizId=${assignmentId}`)
+    // async function getSubmission():Promise<void> {
+    //     try {
+    //         const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/quiz?quizId=${assignmentId}`)
 
-            if (response.status === 200) {
-                setAssignment(response.data.quiz)
+    //         if (response.status === 200) {
+    //             setAssignment(response.data.quiz)
 
-            }
-        }
-        catch (err: any) {
-            console.log(err)
-        }
-    }
+    //         }
+    //     }
+    //     catch (err: any) {
+    //         console.log(err)
+    //     }
+    // }
 
     return { assignmentId, assignment , currentActive, handleTabChange}
 }
