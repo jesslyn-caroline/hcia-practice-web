@@ -9,7 +9,7 @@ function checkAnswer(correctAnswer : string[], isSelectedOption : boolean[], opt
     }
 
     for (let i = 0; i < correctAnswer.length; i++) {
-        if (correctAnswer[i] !== arr[i]) isCorrect = false
+        if (correctAnswer[i] !== arr[i]) return false
     }
 
     return isCorrect

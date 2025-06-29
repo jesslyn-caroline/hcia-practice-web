@@ -124,11 +124,12 @@ function OnQuizFlashHooks() {
         if (question[currentQuestion].type === "single-word-answer") isCorrect = answerAttemptValue[currentQuestion][0].toLowerCase() === question[currentQuestion].answer[0].toLowerCase()
 
         if (isCorrect) {
-            setScore((prev) => {
-              return prev + question[currentQuestion].score
-            })
+            console.log(score)
+            setScore(quizData.score + question[currentQuestion].score)
         }   
-        localStorage.setItem("quizData", JSON.stringify({...quizData, lowerBoundQuizTime: lowerBound, score: quizData.score + question[currentQuestion].score}))
+        localStorage.setItem("quizData", JSON.stringify({...quizData, lowerBoundQuizTime: lowerBound, 
+            score: (isCorrect ? quizData.score + question[currentQuestion].score : quizData.score),
+        }))
 
     }
 

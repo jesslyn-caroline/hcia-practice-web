@@ -20,7 +20,6 @@ import EditQuestionProvider from './provider/edit_question_context.tsx'
 import CreateQuestionProvider from './provider/create_question_context.tsx'
 import ClassList from './screens/class_list.tsx'
 import ClassListProvider from './provider/class_list_context.tsx'
-import ClassViewProvider from './provider/class_view_context.tsx'
 import ClassView from './screens/class_view.tsx'
 import ClassEnter from './screens/students/class_enter.tsx'
 import NewClass from './screens/new_class.tsx'
@@ -28,9 +27,13 @@ import QuizMenu from './screens/quiz_menu.tsx'
 import QuizNew from './screens/quiz_new.tsx'
 import OnQuizRegular from './screens/on_quiz_regular.tsx'
 import OnQuizFlash from './screens/on_quiz_flash.tsx'
-import StudentProfile from './screens/student_profile.tsx'
 import QuizResult from './screens/quiz_result.tsx'
 import AssignmentNew from './screens/assignment_new.tsx'
+import AssignmentMenu from './screens/assignment_menu.tsx'
+import AssignmentDetail from './screens/assignment_detail.tsx'
+import AssignmentQuestions from './screens/assignment_questions.tsx'
+import AssignmentDetailInfo from './screens/assignment_detail_info.tsx'
+import AssignmentStart from './screens/assignment_start.tsx'
 
 function App() {
 
@@ -61,17 +64,22 @@ function App() {
         <>
         <Route path="/" element={<Layout/>}>
           <Route index element={<Home />} />
-          <Route path="/class" element={ user.classId === null? 
-          <ClassEnter /> : 
-          <ClassViewProvider>
-            <ClassView />
-          </ClassViewProvider>} />
+          {
+            user.userId === null?
+            <Route path="/class" element={<ClassEnter />} />
+            :
+            <Route path="/class" element={<ClassView />}/>
+          }
           <Route path="/quiz/menu" element={<QuizMenu />} />
           <Route path="/quiz/new" element={<QuizNew />} />
           <Route path="/quiz/result/:quizId" element={<QuizResult />} />
+          <Route path="/assignment" element={<AssignmentMenu />} />
+          <Route path="/assignment/:assignmentId/" element={<AssignmentStart />}/>
+
         </Route> 
         <Route path="/quiz/regular/ongoing" element={<OnQuizRegular />} />
         <Route path="/quiz/flash/ongoing" element={<OnQuizFlash />} />
+        
         </>: null
         
       }
@@ -95,15 +103,18 @@ function App() {
               <ClassList />
             </ClassListProvider> }/>
           <Route path="/class/:id" element={
-            <ClassViewProvider>
               <ClassView />
-            </ClassViewProvider>
           } />
           <Route path="/class/new" element={
             <NewClass />
           }/>
-          <Route path="/assignment/new" element={<AssignmentNew />}></Route>
-          <Route path="/profile/:studentId" element={<StudentProfile />} />
+          <Route path="/assignment" element={<AssignmentMenu />} />
+          <Route path="/assignment/:assignmentId/" element={<AssignmentDetail />}>
+            <Route index element={<AssignmentDetailInfo />} />
+            <Route path="questions" element={<AssignmentQuestions />} />
+            <Route path="submissions" element={<></>} />
+          </Route>
+          <Route path="/assignment/new" element={<AssignmentNew />} />
         </Route> : null
       }
       

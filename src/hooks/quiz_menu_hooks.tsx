@@ -19,16 +19,21 @@ function QuizMenuHooks() {
 
     useEffect(() => {
         getHistory()
-        getAssignments()
+        // getAssignments()
     }, [])
 
+    const [isOnLoad, setIsOnLoad] = useState<boolean>(false)
+
     async function getHistory():Promise<void> {
+        setIsOnLoad(true)
         try {
             const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/quiz?userId=${user.userId}`)
 
             if (response.status === 200) {
                 // setHistory(response.data)
                 console.log(response.data)
+
+                let hist:HistoryObj[] = []
 
                 for (let i = 0; i < response.data.length; i++) {
                     const quiz = await getQuizInfo(response.data[i].quizId)
@@ -40,13 +45,16 @@ function QuizMenuHooks() {
                         _id : response.data[i]._id,
                         quizId : response.data[i].quizId
                     }
-                    setHistory(prev => [...prev, quizObj])
+                    hist.push(quizObj)
                 }
+
+                setHistory(hist)
             }
         }
         catch (err: any) {
             console.log(err)
         }
+        setIsOnLoad(false)
     }
 
     async function getQuizInfo(quizId: string):Promise<any> {
@@ -77,7 +85,7 @@ function QuizMenuHooks() {
         }
     }
 
-    return {history, getQuizInfo}
+    return {history, getQuizInfo, isOnLoad}
 }
 
 export default QuizMenuHooks

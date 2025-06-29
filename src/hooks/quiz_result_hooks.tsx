@@ -10,8 +10,8 @@ function QuizResultHooks() {
         getHistory()
     }, [])
 
-    const [score, setScore] = useState<number>(0)
-    const [type, setType] = useState<string>("")
+    // const [score, setScore] = useState<number>(0)
+    // const [type, setType] = useState<string>("")
 
 
     async function getHistory():Promise<void> {
@@ -20,9 +20,9 @@ function QuizResultHooks() {
             const response = await axios.get(`https://huawei-practice-web-backend.vercel.app/api/quiz/${quizId}`)
 
             if (response.status === 200) {
-                // console.log(response.data.quiz)
-                setScore(response.data.quiz.score)
-                setType(response.data.quiz.type)
+                console.log(response.data.quiz)
+                // setScore(response.data.quiz.score)
+                // setType(response.data.quiz.type)
             }
         }
         catch (err: any) {
@@ -32,7 +32,7 @@ function QuizResultHooks() {
 
     console.log(quizId)
 
-    return { quizId, score, type }
+    return { quizId }
 }
 
 export default QuizResultHooks

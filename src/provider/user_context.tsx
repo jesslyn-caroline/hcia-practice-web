@@ -39,12 +39,13 @@ function UserProvider({children}: {children: React.ReactNode}) {
         {link: "/question/new", name: "Create Question", icon: "ri-menu-add-line"},
         {link: "/question", name: "Question List", icon: "ri-list-check-2"},
         {link: "/classes", name: "Classes", icon: "ri-group-3-line"},
-        {link: "/assignment/new", name: "Create Assignment", icon: "ri-pencil-ruler-line"},
+        {link: "/assignment", name: "Assignments", icon: "ri-pencil-ruler-line"},
     ]
     const userRoute: RouteObject[] = [
         {link: "/", name: "Home", icon: "ri-home-2-line"},
         {link: "/class", name: "Class", icon: "ri-group-3-line"},
         {link: "/quiz/menu", name: "Quiz", icon: "ri-shapes-line"},
+        {link: "/assignment", name: "Assignments", icon: "ri-pencil-ruler-line"},
     ]
 
     const [userRoutes, setUserRoutes] = useState<RouteObject[]>([])

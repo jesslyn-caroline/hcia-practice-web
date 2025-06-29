@@ -4,7 +4,7 @@ import QuizMenuHooks from "../hooks/quiz_menu_hooks"
 
 function QuizMenu() {
 
-    const {history} = QuizMenuHooks()
+    const {history, isOnLoad} = QuizMenuHooks()
 
     return (
         <div className={`flex flex-col`}>
@@ -15,41 +15,56 @@ function QuizMenu() {
             </Link>
             <h1 className={`text-md font-semibold my-6`}>Recently Taken</h1>
             <div className={`max-w-screen mb-20 overflow-x-scroll scroll-bar-hidden`}>
-
-            <table className="min-w-full divide-y divide-gray-200">
-                <thead className="text-gray-500 uppercase">
-                    <tr>
-                        <th scope="col" className="w-12 font-medium">No.</th>
-                        <th scope="col" className="w-60 px-6 py-3 font-medium text-start">Quiz Title</th>
-                        <th scope="col" className="px-6 py-3 font-medium">Time</th>
-                        <th scope="col" className="px-6 py-3 font-medium">Type</th>
-                        <th scope="col" className="font-medium">Score</th>
-                        <th scope="col" className="px-6 py-3"></th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                    {
-                        ...history.map((quiz, index) => { 
-                            return (
+            {
+                isOnLoad? (
+                    <div className={`flex justify-center my-8`}>
+                        <i className={`ri-loader-line animate-spin text-4xl origin-center`}/>
+                    </div>
+                ) : (
+                    history.length === 0? (
+                        <div className={`flex justify-center my-8`}>
+                            <span className={`text-gray-400`}>No quiz taken yet</span>
+                        </div>
+                    ) : null
+                )
+            }
+            {
+                history.length > 0? (
+                    <table className="min-w-full divide-y divide-gray-200">
+                        <thead className="text-gray-500 uppercase">
                             <tr>
-                                <td className="px-6 py-3">{index + 1}</td>
-                                <td className="px-6 py-3">{quiz.title}</td>
-                                <td className="px-6 py-3 text-center">{quiz.time}</td>
-                                <td className="px-6 py-3 text-center">{quiz.type}</td>
-                                <td className="px-6 py-3 text-center">{quiz.score}</td>
-                                <td className="px-6 py-3 text-center">
-                                    <Link to={`/quiz/result/${quiz.quizId}`}>
-                                        VIEW
-                                    </Link>
-                                </td>
+                                <th scope="col" className="w-12 font-medium">No.</th>
+                                <th scope="col" className="w-60 px-6 py-3 font-medium text-start">Quiz Title</th>
+                                <th scope="col" className="px-6 py-3 font-medium">Time</th>
+                                <th scope="col" className="px-6 py-3 font-medium">Type</th>
+                                <th scope="col" className="font-medium">Score</th>
+                                {/* <th scope="col" className="px-6 py-3"></th> */}
                             </tr>
-                            )
-                        })
-                    }
-                    
-                </tbody>
-            </table>
-
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                            {
+                                ...history.map((quiz, index) => { 
+                                    return (
+                                    <tr>
+                                        <td className="px-6 py-3">{index + 1}</td>
+                                        <td className="px-6 py-3">{quiz.title}</td>
+                                        <td className="px-6 py-3 text-center">{quiz.time}</td>
+                                        <td className="px-6 py-3 text-center">{quiz.type}</td>
+                                        <td className="px-6 py-3 text-center">{quiz.score}</td>
+                                        {/* <td className="px-6 py-3 text-center">
+                                            <Link to={`/quiz/result/${quiz.quizId}`}>
+                                                VIEW
+                                            </Link>
+                                        </td> */}
+                                    </tr>
+                                    )
+                                })
+                            }
+                            
+                        </tbody>
+                    </table>
+                ) : null
+            }
             </div>
         </div>
     )
