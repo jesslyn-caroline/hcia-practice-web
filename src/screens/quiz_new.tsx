@@ -35,7 +35,7 @@ function QuizNew() {
                             <InputField handleInputChange={handleTimePerQuestionChange} inputType="number" placeholderValue="" idValue="time-limit" labelValue="Time per Question" value={timePerQuestion}/>
                         }
                     </div>
-                    <span className={`mb-1`}>minutes</span>
+                    <span className={`mb-1`}>{quizType == 0 ? "minutes" : "seconds"}</span>
                 </div>
             </div>
             <div className={`mt-10 flex flex-col text-gray-400`}>
