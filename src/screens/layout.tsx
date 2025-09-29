@@ -2,10 +2,11 @@ import { useContext, useState } from "react"
 import { Link, Outlet } from "react-router"
 import { UserContext } from "../provider/user_context"
 import { Bounce, ToastContainer } from "react-toastify"
+import ActionButton from "../components/action_button"
 
 function Layout() {
 
-    const { userRoutes, currentActiveRoute} = useContext(UserContext)
+    const { userRoutes, currentActiveRoute, logout } = useContext(UserContext)
 
     const [isOpenedSideBar, setIsOpenedSideBar] = useState<boolean>(false)
 
@@ -43,8 +44,9 @@ function Layout() {
                 <div className={`w-full h-full flex flex-row`}>
                     <div className={`hidden ${isOpenedSideBar? "md:block" : "hidden"} min-w-2xs w-2xs transition-discrete`} />
                     <div className={`min-h-screen w-full h-screen border-l-1 border-accent-2 flex flex-col`}>
-                        <div className={`min-h-14 h-14 px-4 md:px-10 bg-primary flex items-center`}>
+                        <div className={`min-h-14 h-14 px-4 md:px-10 bg-primary flex items-center justify-between`}>
                             <i className={`${isOpenedSideBar? "opacity-0" : "opacity-100"} text-2xl text-white ri-menu-line cursor-pointer`} onClick={() => toggleSideBar("open")}/>
+                            <ActionButton action={logout} text="Log out" icon="" isOnLoad={false} bgColor={"bg-white"} textColor={"text-primary"}/>
                         </div>
                         <div className={`px-4 md:px-10 py-6 overflow-y-scroll scroll-bar-hidden`}>
                            <Outlet />
